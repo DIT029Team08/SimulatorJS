@@ -2,9 +2,9 @@
 
 -export([start/0, init/0, handleCall/0, stop/0]).
 
-start() -> not_implemented.
+start() -> init().
 
-init() -> not_implemented.
+init() -> fam, not_implemented.
 
 handleCall() -> not_implemented.
 
