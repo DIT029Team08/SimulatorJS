@@ -1,3 +1,8 @@
+.jumbotron {
+	color: grey;
+	padding: 60px;
+}
+
 .welcomeText {
 	text-align= center;
 	color: black;
