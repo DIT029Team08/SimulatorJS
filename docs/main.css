@@ -1,22 +1,19 @@
+* {
+	font-family: 'Source Sans Pro', sans-serif;
+}
 .jumbotron {
 	color: #808080;
 	padding: 60px;
 	text-align: center;
-	font-family: 'Source Sans Pro', sans-serif;
 }
 
 .welcomeText {
 	text-align: center;
 	color: #808080;
-	margin-right: auto;
-	margin-left: auto;
-	font-family: 'Source Sans Pro', sans-serif;
 	margin-bottom: 50px;
 }
 
 .fileInput {
-	margin-right: auto;
-	margin-left: 50px;
-	text-align: center;
-	font-family: 'Source Sans Pro', sans-serif;
+	margin: auto;
+	width: 50%;
 }
