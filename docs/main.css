@@ -1,15 +1,34 @@
 * {
 	font-family: 'Source Sans Pro', sans-serif;
 }
+
+body {
+	/* find good background pls background: url(''); */
+	background-image:linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),
+    url('wood.jpg');
+}
+
+.container {
+	color: white;
+	opacity: 1;
+}
+
 .jumbotron {
-	color: #808080;
-	padding: 60px;
+	padding: 30%;
+	width: 50%;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 1%;
 	text-align: center;
+	background-color: rgba(51, 51, 51, 0.3) !important;
 }
 
 .welcomeText {
 	text-align: center;
-	color: #808080;
+	color: white;
 	margin-bottom: 50px;
 }
 
