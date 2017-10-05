@@ -25,14 +25,15 @@ body {
 	text-align: center;
 	background-color: rgba(51, 51, 51, 0.3) !important;
 }
-
 .welcomeText {
 	text-align: center;
 	color: white;
 	margin-bottom: 50px;
 }
-
 .fileInput {
-	margin: auto;
-	width: 50%;
+	border: 2px solid #bcbcbc;
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+	display: block;
+	margin: 0 auto;
 }
