@@ -6,14 +6,15 @@
 	padding: 60px;
 	text-align: center;
 }
-
 .welcomeText {
 	text-align: center;
 	color: #808080;
 	margin-bottom: 50px;
 }
-
 .fileInput {
-	margin: auto;
-	width: 50%;
+	border: 2px solid #bcbcbc;
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+	display: block;
+	margin: 0 auto;
 }
