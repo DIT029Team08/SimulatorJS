@@ -3,17 +3,17 @@
 }
 
 body {
-	/* find good background pls background: url(''); */
+	background:url('resources/images/background.jpg');
 	background-image:linear-gradient(
       rgba(0, 0, 0, 0.5),
       rgba(0, 0, 0, 0.5)
     ),
-    url('wood.jpg');
+    url('resources/images/background.jpg');
+    background-size: cover;
 }
 
 .container {
 	color: white;
-	opacity: 1;
 }
 
 .jumbotron {
