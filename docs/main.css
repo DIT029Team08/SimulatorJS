@@ -1,10 +1,10 @@
 .jumbotron {
-	color: grey;
+	color: #808080;
 	padding: 60px;
 }
 
 .welcomeText {
 	text-align= center;
-	color: black;
+	color: #808080;
 	font-family: 'Source Sans Pro', sans-serif;
 }
