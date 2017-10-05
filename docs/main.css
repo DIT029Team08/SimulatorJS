@@ -1,12 +1,39 @@
-.jumbotron {
-	color: #808080;
-	padding: 60px;
-	text-align: center;
+* {
 	font-family: 'Source Sans Pro', sans-serif;
 }
-
+body {
+	background-image:linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),
+    url('./resources/images/background.jpg');
+    background-size: cover;
+}
+.container {
+	color: white;
+}
+.jumbotron {
+	padding: 30%;
+	width: 50%;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 1%;
+	text-align: center;
+	background-color: rgba(51, 51, 51, 0.3) !important;
+	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.55);
+}
 .welcomeText {
 	text-align: center;
-	color: #808080;
-	font-family: 'Source Sans Pro', sans-serif;
+	color: white;
+	margin-bottom: 35px;
+	text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.55);
+
+}
+.fileInput {
+	border: 2px solid #bcbcbc;
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+	display: block;
+	margin: 0 auto;
+	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.55);
 }
