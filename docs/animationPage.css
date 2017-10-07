@@ -1,7 +1,5 @@
-
-
 header {
-    position: relative;
+    position: fixed;
     width:100%;
     height: 48px;
     top: 0px;
@@ -11,7 +9,6 @@ header {
 
 ul {
     position: absolute;
-    display: inline;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -26,14 +23,13 @@ ul {
 
 #helpNav {
     top: 50%;
-    right: 0;
+    right: 0%;
     transform: translate(-50%, -50%);
 }
 
 ul li {
-    float: left;
+    display: inline-block;
 }
-
 
 li a {
     display: block;
@@ -54,5 +50,5 @@ main {
       rgba(0, 0, 0, 0.2),
       rgba(0, 0, 0, 0.5)
     );
-    height: 93.6vh;
+    height: 100vh;
 }
