@@ -6,7 +6,7 @@ body {
       rgba(0, 0, 0, 0.5),
       rgba(0, 0, 0, 0.5)
     ),
-    url('./resources/images/background.jpg');
+    url('../images/background.jpg');
     background-size: cover;
 }
 .container {
