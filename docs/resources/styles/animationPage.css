@@ -15,6 +15,12 @@ ul {
     overflow: hidden;
 }
 
+#homeNav {
+    left: 30%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
 #playNav {
     top: 50%;
     left: 50%;
@@ -23,7 +29,7 @@ ul {
 
 #helpNav {
     top: 50%;
-    right: 0%;
+    left: 70%;
     transform: translate(-50%, -50%);
 }
 
