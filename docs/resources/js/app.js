@@ -6,5 +6,5 @@ xmlhttp.onreadystatechange = function() {
         console.log(obj.processes[1].class + " " + obj.processes[1].name);
     }
 };
-xmlhttp.open("GET", "json_test.txt", true);
+xmlhttp.open("GET", "./docs/resources/js/json_test.txt", true);
 xmlhttp.send();
