@@ -49,7 +49,7 @@ body {
 	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.55);
 }
 
-.submitButton{
+.fileForm button{
 	display: block;
 	margin: auto;
 	padding: 5px 20px;
@@ -59,6 +59,6 @@ body {
 	transition: all 0.3s ease 0s;
 }
 
-.submitButton:hover{
+.fileForm button:hover{
 	background-color: #b2b2b2;
 }
