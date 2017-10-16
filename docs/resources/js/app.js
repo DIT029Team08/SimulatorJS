@@ -10,6 +10,6 @@
 // xmlhttp.send();
 
 
-$.getJSON("./resources/js/json_test.JSON", function(json) {
+$.getJSON("../js/json_test.JSON", function(json) {
     console.log(json.diagram);
 });
