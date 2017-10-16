@@ -11,5 +11,5 @@
 
 
 $.getJSON("../js/json_test.JSON", function(json) {
-    console.log(json.diagram);
+    console.log(json.diagram.content[0]);
 });
