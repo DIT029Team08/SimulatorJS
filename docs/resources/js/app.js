@@ -11,5 +11,6 @@
 
 
 $.getJSON("../js/json_test.JSON", function(json) {
-    $("#outputJSON").html(json);
+    console.log(json.meta.format);
+    $("#outputJSON").html(json.meta.formar) ;
 });
