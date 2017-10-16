@@ -35,9 +35,14 @@ body {
 }
 
 .welcomeText {
+	background-color: rgba(51, 51, 51, 0.3);
+	width: 50%;
 	text-align: center;
 	color: #f2f2f2;
+	margin-right: auto;
+	margin-left: auto;
 	margin-bottom: 35px;
+	border-radius: 25px;
 	text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.55);
 }
 
@@ -51,6 +56,7 @@ body {
 	border-bottom-right-radius: 20px;
 	display: block;
 	margin: 0 auto;
+	background-color: rgba(0, 0, 0, 0.25);
 	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.55);
 }
 
