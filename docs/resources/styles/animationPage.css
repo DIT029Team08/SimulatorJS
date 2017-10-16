@@ -58,3 +58,7 @@ main {
     );
     height: 100vh;
 }
+
+#outputJSON {
+    font-size: 30px;
+}
