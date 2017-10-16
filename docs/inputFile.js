@@ -3,9 +3,7 @@ $(document).ready(function(){
     $("#JSONFile").on('click change', function validateJsonFile(){
         var file = document.querySelector("#JSONFile");
         if(/\.JSON$/i.test(file.files[0].name) === false){
-            alert("please select on JSON");
-            $("#mixin").get(0).reset();
-           
+            $('#JSONFile').get(0).setCustomValidity('enter correct format');
         }
         $("#submitButtonId").removeAttr("disabled");
     });
