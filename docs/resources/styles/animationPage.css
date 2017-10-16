@@ -61,11 +61,8 @@ main {
 
 #outputJSON {
     position: relative;
-    top: 10%;
-    margin-left: auto;
-    margin-right: auto; 
-    background-color: white;
-    height: 300px;
-    width: 300px;
-    font-size: 30px;
+    top: 8%;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 90vh;
 }

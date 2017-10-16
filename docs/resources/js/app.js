@@ -11,7 +11,7 @@
 
 
 $.getJSON("../js/json_test.JSON", function(json) {
-    console.log(json.meta.format);
-    strJSON = JSON.stringify(json);
+    console.log(json);
+    strJSON = JSON.stringify(json, null, 4);
     $("#outputJSON").html(strJSON);
 });
