@@ -9,6 +9,8 @@
 // xmlhttp.open("GET", "json_test.txt", true);
 // xmlhttp.send();
 
-$.getJSON("json_test.txt", function(json) {
+var url = "https://github.com/DIT029Team08/SimulatorJS/blob/master/docs/resources/js/json_test.txt";
+
+$.getJSON(url, function(json) {
     console.log(json);
 });
