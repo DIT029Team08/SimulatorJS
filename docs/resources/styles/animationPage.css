@@ -64,5 +64,16 @@ main {
     top: 8%;
     margin-left: 20px;
     margin-right: 20px;
-    height: 90vh;
+    height: 65vh;
+}
+
+#log {
+    position: relative;
+    top: 8%;
+    height: 24%;
+    width: 50%;
+    margin-left: 20px;
+}
+#logList li {
+    float: left;
 }
