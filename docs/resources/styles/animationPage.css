@@ -71,9 +71,10 @@ main {
     position: relative;
     top: 8%;
     height: 24%;
-    width: 50%;
     margin-left: 20px;
+    margin-right: 20px;
 }
 #logList li {
     float: left;
+    clear: left;
 }
