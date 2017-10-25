@@ -6,7 +6,6 @@ header {
     left: 0px;
     background-color: #333;
 }
-
 ul {
     position: absolute;
     list-style-type: none;
@@ -14,13 +13,11 @@ ul {
     padding: 0;
     overflow: hidden;
 }
-
 #homeNav {
     left: 30%;
     top: 50%;
     transform: translate(-50%, -50%);
 }
-
 #playNav {
     top: 50%;
     left: 50%;
@@ -32,11 +29,9 @@ ul {
     left: 70%;
     transform: translate(-50%, -50%);
 }
-
 ul li {
     display: inline-block;
 }
-
 li a {
     display: block;
     text-align: center;
@@ -44,11 +39,9 @@ li a {
     padding: 14px 16px;
     text-decoration: none;
 }
-
 li a:hover {
     background-color: #111;
 }
-
 main { 
     background-image: 
     linear-gradient(
@@ -58,7 +51,6 @@ main {
     );
     height: 100vh;
 }
-
 #outputJSON {
     position: relative;
     top: 8%;
@@ -70,7 +62,27 @@ main {
     border-radius: 5px;
     border: 1px solid #bcbcbc;
 }
-
+.process {
+    width: 15%;
+    height: 50px;
+    text-align: center;
+    border-radius: 5px;
+    border:  1px solid black;
+    padding: 10px;
+    display: inline-block;
+    margin-right: auto;
+    margin-left: auto;
+}
+.lifeLine {
+    margin-top: 20px;
+    top: 0px;
+    left: 50%;
+    position: relative;
+    width: 0px;
+    height: 400px;
+    border: 2px dashed black;
+    border-left: 3px;
+}
 #log {
     position: relative;
     margin-top: 10px;
@@ -87,3 +99,5 @@ main {
     float: left;
     clear: left;
 }
+
+
