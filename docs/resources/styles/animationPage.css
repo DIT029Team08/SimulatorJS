@@ -62,6 +62,8 @@ main {
     border-radius: 5px;
     border: 1px solid #bcbcbc;
     text-align: center;
+    white-space: nowrap;
+    overflow-x: auto;
 }
 .processes {
     width: 15%;
