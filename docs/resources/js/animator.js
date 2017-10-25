@@ -18,7 +18,7 @@ $.getJSON("../js/json_test.JSON", function(animator){
         lifeLineDiv.className = lifelines;
         div.appendChild(lifeLineDiv);
 
-        if (i < animator.processes.length) {
+        if (i < animator.processes.length -1) {
             var emptyDiv = document.createElement("div");
             emptyDiv.className = betweenDivClassname;
 
