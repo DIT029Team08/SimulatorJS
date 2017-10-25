@@ -12,8 +12,8 @@
 
 $.getJSON("../js/json_test.JSON", function(json) {
     console.log(json);
-    strJSON = JSON.stringify(json, null, 4);
-    $("#outputJSON").html(strJSON);
+    //strJSON = JSON.stringify(json, null, 4);
+    //$("#outputJSON").html(strJSON);
 
     var ul = document.getElementById("logList");
     for(var i = 0; i < json.diagram.content[0].content.length; i++){
