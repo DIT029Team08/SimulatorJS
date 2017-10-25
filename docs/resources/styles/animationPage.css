@@ -70,7 +70,16 @@ main {
     border-radius: 5px;
     border: 1px solid #bcbcbc;
 }
-
+.process {
+    width: 15%;
+    text-align: center;
+    border-radius: 5px;
+    border:  1px solid black;
+    padding: 10px;
+    display: inline-block;
+    margin-right: auto;
+    margin-left: auto;
+}
 #log {
     position: relative;
     margin-top: 10px;
