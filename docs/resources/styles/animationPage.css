@@ -87,3 +87,24 @@ main {
     float: left;
     clear: left;
 }
+
+.object {
+  border: 3px solid black;
+  position: relative;
+  left: 30px;
+  width: 150px;
+  height: 70px;
+  margin-right: 150px;
+  float:left;
+}
+
+.lifeLine {
+    margin-top: 68px;
+    top: 0px;
+    left: 50%;
+    position: relative;
+    width: 0px;
+    height: 400px;
+    border: 2px dashed black;
+    border-left: 3px;
+}
