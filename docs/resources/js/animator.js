@@ -1,6 +1,8 @@
-$.getJSON("../js/json_test.JSON", function(animator){
-
+window.onload = function animateJSON() {
+    
+    animator = JSON.parse(localStorage.getItem('stringJSON'));
     var mainDiv = document.getElementById("outputJSON");
+
     const processDivClassName = "processes";
     const betweenDivClassname = "betweenProcesses";
     const lifelines = "lifeLine";
@@ -25,4 +27,4 @@ $.getJSON("../js/json_test.JSON", function(animator){
             mainDiv.appendChild(emptyDiv);
         }
     }
-});
+};
