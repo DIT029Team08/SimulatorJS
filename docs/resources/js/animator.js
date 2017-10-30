@@ -45,10 +45,7 @@ window.onload = function animateJSON() {
         svg.setAttribute("preserveAspectRatio", "xMaxYMid slice");
 
         svg.setAttribute("viewBox","0 0 1400 14");
-<<<<<<< HEAD
-=======
         // decides what direction the arrow will go, and makes the length of the arrows
->>>>>>> 06ba0bbd8cbb4caa7e7810cb450eb70938e358f3
         if(startPosition.x > endPosition.x){
             // arrow.setAttribute("width", (startPosition.x - endPosition.x) + "px");
             var arrowLength = startPosition.x - endPosition.x;
@@ -74,11 +71,7 @@ window.onload = function animateJSON() {
         message.innerHTML =
             animator.diagram.content[0].content[i].message.toString();
 
-<<<<<<< HEAD
-
-=======
         // making so every arrow is on their own line with 50px heigth difference
->>>>>>> 06ba0bbd8cbb4caa7e7810cb450eb70938e358f3
         arrow.style.top = startPosition.y + i*a - 20 + 'px';
         arrow.style.right =  ((startPosition.x) - (startPosition.x - endPosition.x)) + 'px';
 
@@ -96,7 +89,7 @@ window.onload = function animateJSON() {
         arrow.appendChild(message);
         svg.appendChild(polygon);
         arrow.appendChild(svg);
-        mainDiv.appendChild(arrow);
+        frameDiv.appendChild(arrow);
     }
 };
 
