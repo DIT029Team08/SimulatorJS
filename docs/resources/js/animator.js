@@ -100,11 +100,18 @@ window.onload = function animateJSON() {
         // arrow.style.top = document.getElementById(animator.diagram.content[0].content[i].from.toString()).getBoundingClientRect().top.toString() + 'px';
         // console.log(document.getElementById(animator.diagram.content[0].content[i].from.toString()).getBoundingClientRect().left.toString());
 
+console.log(frameDiv);
 
         arrow.appendChild(message);
         svg.appendChild(polygon);
         arrow.appendChild(svg);
+
+        if (frameDiv === undefined) {
+            mainDiv.appendChild(arrow);
+        }
+        else{
         frameDiv.appendChild(arrow);
+        }
     }
 };
 
