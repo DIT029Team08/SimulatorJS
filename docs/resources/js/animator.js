@@ -2,7 +2,6 @@ window.onload = function animateJSON() {
     
     var animator = JSON.parse(localStorage.getItem('stringJSON')    );
     var mainDiv = document.getElementById("outputJSON");
-    var extraDiv = document.getElementById("outputJSON");
 
     const processDivClassName = "processes";
     const lifelines = "lifeLine";
