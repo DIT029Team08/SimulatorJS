@@ -9,6 +9,7 @@ window.onload = function animateJSON() {
     const lifelines = "lifeLine";
     const activatorClassName = "activator"
     const arrowDivClassName = "arrows";
+    const messageDivClassName = "messages";
 
     //loop for adding lifelines
     for(var i = 0; i < animator.processes.length; i++) {
@@ -54,22 +55,31 @@ window.onload = function animateJSON() {
         var endPosition = getPosition(document.querySelector("#" + animator.diagram.content[0].content[i].to.toString()));
 
         var arrow = document.createElement("div");
+        arrow.className = arrowDivClassName;
         var svg = document.createElementNS('http://www.w3.org/2000/svg',"svg");
         var polygon = document.createElementNS('http://www.w3.org/2000/svg','polygon');
+        var message = document.createElement("div");
+        message.className = messageDivClassName;
         svg.setAttribute("preserveAspectRatio", "xMaxYMid slice");
 
         svg.setAttribute("viewBox","0 0 1400 14");
         // decides what direction the arrow will go, and makes the length of the arrows
         if(startPosition.x > endPosition.x){
             // arrow.setAttribute("width", (startPosition.x - endPosition.x) + "px");
-            svg.setAttribute("width", (startPosition.x - endPosition.x) + "px");
+            var arrowLength = startPosition.x - endPosition.x;
+            svg.setAttribute("width", arrowLength  + "px");
             arrow.style.transform = "rotate(180deg)";
             arrow.style.left = startPosition.x - 30 + 'px';
+            message.style.left = arrowLength/2 + 'px';
+            message.style.top = 40 + 'px';
+            message.style.transform = "rotate(180deg)";
         }
         else{
             // arrow.setAttribute("width", (endPosition.x - startPosition.x) + "px");
+            var arrowLength = startPosition.x - endPosition.x;
             svg.setAttribute("width", (endPosition.x - startPosition.x) + "px");
             arrow.style.left = startPosition.x - 30 + 'px';
+            message.style.right = arrowLength/2 + 'px';
         }
 
 
@@ -78,6 +88,8 @@ window.onload = function animateJSON() {
         polygon.setAttribute("points", "1400,7 1385,1 1390,6 0,6 0,8 1390,8 1385,13 1400,7");
         arrow.className = arrowDivClassName;
 
+        message.innerHTML =
+            animator.diagram.content[0].content[i].message.toString();
 
         // making so every arrow is on their own line with 50px heigth difference
         arrow.style.top = startPosition.y + i*a - 20 + 'px';
@@ -94,6 +106,7 @@ window.onload = function animateJSON() {
 
 
         // arrow.innerHTML = animator.diagram.content[0].content[i].message.toString();
+        arrow.appendChild(message);
         svg.appendChild(polygon);
         arrow.appendChild(svg);
         mainDiv.appendChild(arrow);
@@ -112,7 +125,6 @@ window.onload = function animateJSON() {
 //     var msg = new Arrow(from, to, message);
 //     arrows.push(msg);
 // }
-
 
 
 // Helper function to get an element's exact position
