@@ -7,6 +7,7 @@ window.onload = function animateJSON() {
     const frameDivClassName = "frameDiv";
     const frameTitleClassName = "frameTitle";
     const lifelines = "lifeLine";
+    const activatorClassName = "activator"
     const arrowDivClassName = "arrows";
 
     //loop for adding lifelines
@@ -23,7 +24,10 @@ window.onload = function animateJSON() {
         var lifeLineDiv = document.createElement("div");
         lifeLineDiv.className = lifelines;
         lifeLineDiv.id = animator.processes[i].name.toString();
+        var activatorDiv = document.createElement("div");
+        activatorDiv.className = activatorClassName;
         div.appendChild(lifeLineDiv);
+        lifeLineDiv.appendChild(activatorDiv);
     }
 
     var superArray = Object.keys(animator.diagram);

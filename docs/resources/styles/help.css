@@ -1,0 +1,33 @@
+body {
+    background-image:
+            linear-gradient(
+            rgba(0, 0, 0, 0.1),
+            rgba(0, 0, 0, 0.2),
+            rgba(0, 0, 0, 0.5)
+            );
+    height: 100vh;
+    padding: 20px;
+}
+ul {
+    width: 200px;
+    height: 400px;
+    list-style-type: none;
+    padding: 5px;
+}
+li span{
+    display: inline-block;
+    text-align: center;
+    color: white;
+    padding: 8%;
+    border: 1px;
+    border-radius: 20%;
+    background-color: #333333;
+    margin-bottom: 10px;
+    margin-right: 25px;
+    float: left;
+    clear: left;
+}
+li p {
+    display: inline-block;
+    padding: 8%;
+}

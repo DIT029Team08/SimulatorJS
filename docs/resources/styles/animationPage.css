@@ -87,7 +87,11 @@ main {
 }
 .arrows {
     position: relative;
-    width: 0px;
+    max-width: 0px;
+}
+.messages{
+    position: relative;
+
 }
 #log {
     position: relative;
