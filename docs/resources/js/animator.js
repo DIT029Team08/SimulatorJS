@@ -15,7 +15,6 @@ window.onload = function animateJSON() {
 
         var div = document.createElement("div");
         div.className = processDivClassName;
-        // div.id = animator.processes[i].name.toString();
         div.innerHTML =
             animator.processes[i].name.toString() + ": " +
             animator.processes[i].class.toString();
@@ -64,21 +63,21 @@ window.onload = function animateJSON() {
         // decides what direction the arrow will go, and makes the length of the arrows
 
         if(startPosition.x > endPosition.x){
-            // arrow.setAttribute("width", (startPosition.x - endPosition.x) + "px");
-            var arrowLength = startPosition.x - endPosition.x;
-            svg.setAttribute("width", arrowLength  + "px");
+
+            var arrowLengthLeft = startPosition.x - endPosition.x;
+            svg.setAttribute("width", arrowLengthLeft  + "px");
             arrow.style.transform = "rotate(180deg)";
             arrow.style.left = startPosition.x - 30 + 'px';
-            message.style.left = arrowLength/2 + 'px';
+            message.style.left = arrowLengthLeft/2 + 'px';
             message.style.top = 40 + 'px';
             message.style.transform = "rotate(180deg)";
         }
         else{
-            // arrow.setAttribute("width", (endPosition.x - startPosition.x) + "px");
-            var arrowLength = startPosition.x - endPosition.x;
-            svg.setAttribute("width", (endPosition.x - startPosition.x) + "px");
+
+            var arrowLengthRight = endPosition.x - startPosition.x;
+            svg.setAttribute("width", arrowLengthRight + "px");
             arrow.style.left = startPosition.x - 30 + 'px';
-            message.style.right = arrowLength/2 + 'px';
+            message.style.left = arrowLengthRight/2 + 'px';
         }
 
         svg.setAttribute("height","14");
@@ -102,7 +101,6 @@ window.onload = function animateJSON() {
         // console.log(document.getElementById(animator.diagram.content[0].content[i].from.toString()).getBoundingClientRect().left.toString());
 
 
-        // arrow.innerHTML = animator.diagram.content[0].content[i].message.toString();
         arrow.appendChild(message);
         svg.appendChild(polygon);
         arrow.appendChild(svg);
