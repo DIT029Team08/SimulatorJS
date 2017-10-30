@@ -45,13 +45,14 @@ window.onload = function animateJSON() {
     }   
 
     var a = 50;
+    var counter = 0;
 
     for(var j = 0; j < animator.diagram.content.length; j++) {
 
-        for (var i = 0; i < animator.diagram.content[0].content.length; i++) {
+        for (var i = 0; i < animator.diagram.content[j].content.length; i++) {
 
-            var startPosition = getPosition(document.querySelector("#" + animator.diagram.content[0].content[i].from.toString()));
-            var endPosition = getPosition(document.querySelector("#" + animator.diagram.content[0].content[i].to.toString()));
+            var startPosition = getPosition(document.querySelector("#" + animator.diagram.content[j].content[i].from.toString()));
+            var endPosition = getPosition(document.querySelector("#" + animator.diagram.content[j].content[i].to.toString()));
 
             var arrow = document.createElement("div");
             arrow.className = arrowDivClassName;
@@ -87,10 +88,11 @@ window.onload = function animateJSON() {
             arrow.className = arrowDivClassName;
 
             message.innerHTML =
-                animator.diagram.content[0].content[i].message.toString();
+                animator.diagram.content[j].content[i].message.toString();
 
             // making so every arrow is on their own line with 50px heigth difference
-            arrow.style.top = startPosition.y + i * a - 20 + 'px';
+            arrow.style.top = startPosition.y + counter * a - 20 + 'px';
+            counter++;
             arrow.style.right = ((startPosition.x) - (startPosition.x - endPosition.x)) + 'px';
 
             // arrow.innerHTML =
