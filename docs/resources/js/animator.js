@@ -7,6 +7,7 @@ window.onload = function animateJSON() {
     const frameDivClassName = "frameDiv";
     const frameTitleClassName = "frameTitle";
     const lifelines = "lifeLine";
+    const activatorClassName = "activator"
     const arrowDivClassName = "arrows";
 
     //loop for adding lifelines
