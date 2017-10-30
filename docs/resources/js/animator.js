@@ -4,6 +4,8 @@ window.onload = function animateJSON() {
     var mainDiv = document.getElementById("outputJSON");
 
     const processDivClassName = "processes";
+    const frameDivClassName = "frame"
+    const frameTitleClassName = "frameTitle"
     const lifelines = "lifeLine";
     const activatorClassName = "activator"
     const arrowDivClassName = "arrows";
