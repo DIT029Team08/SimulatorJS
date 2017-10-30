@@ -1,9 +1,10 @@
 window.onload = function animateJSON() {
-    
+
     var animator = JSON.parse(localStorage.getItem('stringJSON')    );
     var mainDiv = document.getElementById("outputJSON");
 
     const processDivClassName = "processes";
+    const frameDivClassName = "frameDiv";
     const lifelines = "lifeLine";
     const arrowDivClassName = "arrows";
 
@@ -14,17 +15,9 @@ window.onload = function animateJSON() {
         div.className = processDivClassName;
         // div.id = animator.processes[i].name.toString();
         div.innerHTML =
-            animator.processes[i].name.toString() + ": " +
-            animator.processes[i].class.toString();
+        animator.processes[i].name.toString() + ": " +
+        animator.processes[i].class.toString();
         mainDiv.appendChild(div);
-
-        var superArray = Object.keys(animator.diagram)
-        if (superArray[i] === 'node') {
-            var frameDiv = document.createElement("div");
-            frameDiv.classname = frameDivClassName;
-            frameDiv.id = animator.diagram.node.toString();
-            mainDiv.appendChild(frameDiv);
-        }
 
         var lifeLineDiv = document.createElement("div");
         lifeLineDiv.className = lifelines;
@@ -32,6 +25,15 @@ window.onload = function animateJSON() {
         div.appendChild(lifeLineDiv);
     }
 
+    var superArray = Object.keys(animator.diagram);
+    for (var i = 0; i < superArray.length; i++) {
+        if (superArray[i] === 'node') {
+            var frameDiv = document.createElement("div");
+            frameDiv.classname = frameDivClassName;
+            frameDiv.id = animator.diagram.node.toString();
+            mainDiv.appendChild(frameDiv);
+        }
+    }   
 
     var a = 50;
 
