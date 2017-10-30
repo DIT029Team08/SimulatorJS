@@ -91,6 +91,10 @@ main {
     border: 2px dashed black;
     border-left: 3px;
 }
+.arrows {
+    position: absolute;
+    width: 30px;
+}
 #log {
     position: relative;
     margin-top: 10px;
