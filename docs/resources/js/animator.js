@@ -50,6 +50,7 @@ window.onload = function animateJSON() {
             arrow.style.transform = "rotate(180deg)";
             arrow.style.left = startPosition.x - 30 + 'px';
             message.style.left = arrowLength/2 + 'px';
+            message.style.top = 40 + 'px';
             message.style.transform = "rotate(180deg)";
         }
         else{
