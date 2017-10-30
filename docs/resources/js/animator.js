@@ -5,6 +5,7 @@ window.onload = function animateJSON() {
 
     const processDivClassName = "processes";
     const frameDivClassName = "frameDiv";
+    const frameTitleClassName = "frameTitle";
     const lifelines = "lifeLine";
     const arrowDivClassName = "arrows";
 
@@ -31,7 +32,12 @@ window.onload = function animateJSON() {
             var frameDiv = document.createElement("div");
             frameDiv.classname = frameDivClassName;
             frameDiv.id = animator.diagram.node.toString();
+            var frameTitle = document.createElement("div");
+            frameTitle.classname = frameTitleClassName;
+            frameTitle.id = animator.diagram.node.toString() + "Title";
+            frameTitle.innerHTML = animator.diagram.node.toString();
             mainDiv.appendChild(frameDiv);
+            frameDiv.appendChild(frameTitle);
         }
     }   
 
