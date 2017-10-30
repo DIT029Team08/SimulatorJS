@@ -61,10 +61,8 @@ window.onload = function animateJSON() {
         svg.setAttribute("preserveAspectRatio", "xMaxYMid slice");
 
         svg.setAttribute("viewBox","0 0 1400 14");
-<<<<<<< HEAD
         // decides what direction the arrow will go, and makes the length of the arrows
-=======
->>>>>>> 7d8fd29815369aa9708646f7ce34ca5ffd708092
+
         if(startPosition.x > endPosition.x){
             // arrow.setAttribute("width", (startPosition.x - endPosition.x) + "px");
             var arrowLength = startPosition.x - endPosition.x;
