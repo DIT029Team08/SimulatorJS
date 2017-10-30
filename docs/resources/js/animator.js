@@ -1,11 +1,10 @@
 window.onload = function animateJSON() {
     
-    animator = JSON.parse(localStorage.getItem('stringJSON'));
+    var animator = JSON.parse(localStorage.getItem('stringJSON')    );
     var mainDiv = document.getElementById("outputJSON");
     var extraDiv = document.getElementById("outputJSON");
 
     const processDivClassName = "processes";
-    const betweenDivClassname = "betweenProcesses";
     const lifelines = "lifeLine";
     const arrowDivClassName = "arrows";
 
@@ -23,13 +22,6 @@ window.onload = function animateJSON() {
         lifeLineDiv.className = lifelines;
         lifeLineDiv.id = animator.processes[i].name.toString();
         div.appendChild(lifeLineDiv);
-
-        if (i < animator.processes.length -1) {
-            var emptyDiv = document.createElement("div");
-            emptyDiv.className = betweenDivClassname;
-
-            mainDiv.appendChild(emptyDiv);
-        }
     }
 
 
