@@ -5,6 +5,7 @@ window.onload = function animateJSON() {
 
     const processDivClassName = "processes";
     const lifelines = "lifeLine";
+    const activatorClassName = "activator"
     const arrowDivClassName = "arrows";
 
     for(var i = 0; i < animator.processes.length; i++) {
@@ -20,7 +21,10 @@ window.onload = function animateJSON() {
         var lifeLineDiv = document.createElement("div");
         lifeLineDiv.className = lifelines;
         lifeLineDiv.id = animator.processes[i].name.toString();
+        var activatorDiv = document.createElement("div");
+        activatorDiv.className = activatorClassName;
         div.appendChild(lifeLineDiv);
+        lifeLineDiv.appendChild(activatorDiv);
     }
 
 
@@ -37,6 +41,10 @@ window.onload = function animateJSON() {
         svg.setAttribute("preserveAspectRatio", "xMaxYMid slice");
 
         svg.setAttribute("viewBox","0 0 1400 14");
+<<<<<<< HEAD
+=======
+        // decides what direction the arrow will go, and makes the length of the arrows
+>>>>>>> 06ba0bbd8cbb4caa7e7810cb450eb70938e358f3
         if(startPosition.x > endPosition.x){
             // arrow.setAttribute("width", (startPosition.x - endPosition.x) + "px");
             svg.setAttribute("width", (startPosition.x - endPosition.x) + "px");
@@ -54,7 +62,11 @@ window.onload = function animateJSON() {
         arrow.className = arrowDivClassName;
 
 
+<<<<<<< HEAD
 
+=======
+        // making so every arrow is on their own line with 50px heigth difference
+>>>>>>> 06ba0bbd8cbb4caa7e7810cb450eb70938e358f3
         arrow.style.top = startPosition.y + i*a - 20 + 'px';
         arrow.style.right =  ((startPosition.x) - (startPosition.x - endPosition.x)) + 'px';
 
