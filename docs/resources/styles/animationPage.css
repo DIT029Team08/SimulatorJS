@@ -87,7 +87,7 @@ main {
 }
 .arrows {
     position: relative;
-    width: 30px;
+    width: 0px;
 }
 #log {
     position: relative;

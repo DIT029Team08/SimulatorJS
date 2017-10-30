@@ -38,13 +38,15 @@ window.onload = function animateJSON() {
 
         svg.setAttribute("viewBox","0 0 1400 14");
         if(startPosition.x > endPosition.x){
+            // arrow.setAttribute("width", (startPosition.x - endPosition.x) + "px");
             svg.setAttribute("width", (startPosition.x - endPosition.x) + "px");
             arrow.style.transform = "rotate(180deg)";
-            arrow.style.left = startPosition.x - 50 + 'px';
+            arrow.style.left = startPosition.x - 30 + 'px';
         }
         else{
+            // arrow.setAttribute("width", (endPosition.x - startPosition.x) + "px");
             svg.setAttribute("width", (endPosition.x - startPosition.x) + "px");
-            arrow.style.left = startPosition.x - 20 + 'px';
+            arrow.style.left = startPosition.x - 30 + 'px';
         }
 
         svg.setAttribute("height","14");
