@@ -63,7 +63,7 @@ main {
     border: 1px solid #bcbcbc;
     text-align: center;
     white-space: nowrap;
-    overflow-x: auto;
+    overflow: auto;
 }
 .processes {
     width: 15%;
@@ -100,10 +100,9 @@ main {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #bcbcbc;
+    overflow: auto;
 }
 #logList li {
     float: left;
     clear: left;
 }
-
-
