@@ -18,6 +18,14 @@ window.onload = function animateJSON() {
             animator.processes[i].class.toString();
         mainDiv.appendChild(div);
 
+        var superArray = Object.keys(animator.diagram)
+        if (superArray[i] === 'node') {
+            var frameDiv = document.createElement("div");
+            frameDiv.classname = frameDivClassName;
+            frameDiv.id = animator.diagram.node.toString();
+            mainDiv.appendChild(frameDiv);
+        }
+
         var lifeLineDiv = document.createElement("div");
         lifeLineDiv.className = lifelines;
         lifeLineDiv.id = animator.processes[i].name.toString();
