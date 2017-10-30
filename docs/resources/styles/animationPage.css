@@ -110,7 +110,7 @@ main {
     float: left;
     clear: left;
 }
-.frameDiv {
+.frame {
     border: 1px dotted black;
     width: 100%;
     height: auto;
