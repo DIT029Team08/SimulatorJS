@@ -111,8 +111,8 @@ main {
     clear: left;
 }
 .frame {
-    border: 1px dotted black;
+    border: 1.5px dotted black;
     width: 100%;
-    height: auto;
+    height: 100%;
     margin-top: 10px;
 }
