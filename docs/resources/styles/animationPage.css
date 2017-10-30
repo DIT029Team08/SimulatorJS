@@ -81,7 +81,7 @@ main {
     top: 0;
     left: 50%;
     width: 0;
-    height: 400px;
+    height: 100vh;
     border: 2px dashed black;
     border-left: 3px;
 }
