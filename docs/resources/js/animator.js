@@ -30,10 +30,10 @@ window.onload = function animateJSON() {
     for (var i = 0; i < superArray.length; i++) {
         if (superArray[i] === 'node') {
             var frameDiv = document.createElement("div");
-            frameDiv.classname = frameDivClassName;
+            frameDiv.className = frameDivClassName;
             frameDiv.id = animator.diagram.node.toString();
             var frameTitle = document.createElement("div");
-            frameTitle.classname = frameTitleClassName;
+            frameTitle.className = frameTitleClassName;
             frameTitle.id = animator.diagram.node.toString() + "Title";
             frameTitle.innerHTML = animator.diagram.node.toString();
             mainDiv.appendChild(frameDiv);
