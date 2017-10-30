@@ -1,25 +1,22 @@
 window.onload = function animateJSON() {
-
+    
     var animator = JSON.parse(localStorage.getItem('stringJSON')    );
     var mainDiv = document.getElementById("outputJSON");
 
     const processDivClassName = "processes";
-    const frameDivClassName = "frameDiv";
-    const frameTitleClassName = "frameTitle";
     const lifelines = "lifeLine";
     const activatorClassName = "activator"
     const arrowDivClassName = "arrows";
     const messageDivClassName = "messages";
 
-    //loop for adding lifelines
     for(var i = 0; i < animator.processes.length; i++) {
 
         var div = document.createElement("div");
         div.className = processDivClassName;
         // div.id = animator.processes[i].name.toString();
         div.innerHTML =
-        animator.processes[i].name.toString() + ": " +
-        animator.processes[i].class.toString();
+            animator.processes[i].name.toString() + ": " +
+            animator.processes[i].class.toString();
         mainDiv.appendChild(div);
 
         var lifeLineDiv = document.createElement("div");
@@ -48,7 +45,6 @@ window.onload = function animateJSON() {
 
     var a = 50;
 
-    // loop for adding the arrows of the SSD
     for(var i = 0; i < animator.diagram.content[0].content.length; i++){
 
         var startPosition = getPosition(document.querySelector("#" + animator.diagram.content[0].content[i].from.toString()));
@@ -63,7 +59,6 @@ window.onload = function animateJSON() {
         svg.setAttribute("preserveAspectRatio", "xMaxYMid slice");
 
         svg.setAttribute("viewBox","0 0 1400 14");
-        // decides what direction the arrow will go, and makes the length of the arrows
         if(startPosition.x > endPosition.x){
             // arrow.setAttribute("width", (startPosition.x - endPosition.x) + "px");
             var arrowLength = startPosition.x - endPosition.x;
@@ -82,16 +77,18 @@ window.onload = function animateJSON() {
             message.style.right = arrowLength/2 + 'px';
         }
 
-
         svg.setAttribute("height","14");
-        // the look of the arrow 
         polygon.setAttribute("points", "1400,7 1385,1 1390,6 0,6 0,8 1390,8 1385,13 1400,7");
         arrow.className = arrowDivClassName;
 
         message.innerHTML =
             animator.diagram.content[0].content[i].message.toString();
 
+<<<<<<< HEAD
+
+=======
         // making so every arrow is on their own line with 50px heigth difference
+>>>>>>> 06ba0bbd8cbb4caa7e7810cb450eb70938e358f3
         arrow.style.top = startPosition.y + i*a - 20 + 'px';
         arrow.style.right =  ((startPosition.x) - (startPosition.x - endPosition.x)) + 'px';
 
