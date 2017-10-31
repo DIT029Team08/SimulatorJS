@@ -30,6 +30,7 @@ window.onload = function animateJSON() {
     }
 
     var superArray = Object.keys(animator.diagram);
+     //if (superArray.hasOwnProperty('node'))
     for (var i = 0; i < superArray.length; i++) {
         if (superArray[i] === 'node') {
             var frameDiv = document.createElement("div");
