@@ -112,14 +112,15 @@ main {
 }
 .frame {
 
-    border: 1px dotted black;
+    border: 1px solid black;
     width: 90%;
     top: 50px;
     position: relative;
     height: 90vh;
-    margin-top: 10px 20px 10px 20px;
+    resize: vertical;
+    margin: 10px 20px 10px 20px;
 }
 .frameTitle{
     border: 1px solid;
-    margin-right: 1020px;
+    margin-right: 90%;
 }
