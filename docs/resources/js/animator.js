@@ -1,6 +1,6 @@
 window.onload = function animateJSON() {
     
-    var animator = JSON.parse(localStorage.getItem('stringJSON')    );
+    var animator = JSON.parse(localStorage.getItem('stringJSON'));
     var mainDiv = document.getElementById("outputJSON");
 
     const processDivClassName = "processes";
