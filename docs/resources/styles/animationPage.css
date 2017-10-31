@@ -111,12 +111,12 @@ main {
     clear: left;
 }
 .frame {
-
-    border: 1px solid black;
+    border: 1.5px solid black;
     width: 90%;
-    top: 50px;
+    top: 40px;
     position: relative;
-    resize: vertical;
+    height: 120px;
+    margin-bottom: 50px;
 }
 .frameTitle{
     border: 1px solid;
