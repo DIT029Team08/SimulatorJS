@@ -109,17 +109,22 @@ window.onload = function animateJSON() {
             arrow.appendChild(message);
             svg.appendChild(polygon);
             arrow.appendChild(svg);
-           if (frameDiv === undefined) {
-            mainDiv.appendChild(arrow);
+            if (frameDiv === undefined) {
+                mainDiv.appendChild(arrow);
             }
-         else{
-            frameDiv.appendChild(arrow);
-            }
+            else {
+                frameDiv.appendChild(arrow);        
+                var element = document.getElementById('par');
+                style = window.getComputedStyle(element);
+                heightVal = parseInt(style.getPropertyValue('height').split("p")[0]);   
+                newVal = heightVal + 50;
+                element.style.height = newVal + 'px';
+             }
         }
 
     }
 };
-
+ 
 // var arrows = [];
 //
 // function Arrow(from, to, message) {
