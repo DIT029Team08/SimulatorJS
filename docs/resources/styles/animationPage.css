@@ -117,7 +117,6 @@ main {
     top: 50px;
     position: relative;
     resize: vertical;
-    margin: 10px 20px 10px 20px;
 }
 .frameTitle{
     border: 1px solid;
