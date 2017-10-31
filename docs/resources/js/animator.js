@@ -46,66 +46,71 @@ window.onload = function animateJSON() {
     }   
 
     var a = 50;
+    var counter = 0;
 
-    for(var i = 0; i < animator.diagram.content[0].content.length; i++){
+    for(var j = 0; j < animator.diagram.content.length; j++) {
 
-        var startPosition = getPosition(document.querySelector("#" + animator.diagram.content[0].content[i].from.toString()));
-        var endPosition = getPosition(document.querySelector("#" + animator.diagram.content[0].content[i].to.toString()));
+        for (var i = 0; i < animator.diagram.content[j].content.length; i++) {
 
-        var arrow = document.createElement("div");
-        arrow.className = arrowDivClassName;
-        var svg = document.createElementNS('http://www.w3.org/2000/svg',"svg");
-        var polygon = document.createElementNS('http://www.w3.org/2000/svg','polygon');
-        var message = document.createElement("div");
-        message.className = messageDivClassName;
-        svg.setAttribute("preserveAspectRatio", "xMaxYMid slice");
+            var startPosition = getPosition(document.querySelector("#" + animator.diagram.content[j].content[i].from.toString()));
+            var endPosition = getPosition(document.querySelector("#" + animator.diagram.content[j].content[i].to.toString()));
 
-        svg.setAttribute("viewBox","0 0 1400 14");
-        // decides what direction the arrow will go, and makes the length of the arrows
+            var arrow = document.createElement("div");
+            arrow.className = arrowDivClassName;
+            var svg = document.createElementNS('http://www.w3.org/2000/svg', "svg");
+            var polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+            var message = document.createElement("div");
+            message.className = messageDivClassName;
+            svg.setAttribute("preserveAspectRatio", "xMaxYMid slice");
 
-        if(startPosition.x > endPosition.x){
+            svg.setAttribute("viewBox", "0 0 1400 14");
+            // decides what direction the arrow will go, and makes the length of the arrows
 
-            var arrowLengthLeft = startPosition.x - endPosition.x;
-            svg.setAttribute("width", arrowLengthLeft  + "px");
-            arrow.style.transform = "rotate(180deg)";
-            arrow.style.left = startPosition.x - 30 + 'px';
-            message.style.left = arrowLengthLeft/2 + 'px';
-            message.style.top = 40 + 'px';
-            message.style.transform = "rotate(180deg)";
+            if (startPosition.x > endPosition.x) {
+
+                var arrowLengthLeft = startPosition.x - endPosition.x;
+                svg.setAttribute("width", arrowLengthLeft + "px");
+                arrow.style.transform = "rotate(180deg)";
+                arrow.style.left = startPosition.x - 30 + 'px';
+                message.style.left = arrowLengthLeft / 2 + 'px';
+                message.style.top = 40 + 'px';
+                message.style.transform = "rotate(180deg)";
+            }
+            else {
+
+                var arrowLengthRight = endPosition.x - startPosition.x;
+                svg.setAttribute("width", arrowLengthRight + "px");
+                arrow.style.left = startPosition.x - 30 + 'px';
+                message.style.left = arrowLengthRight / 2 + 'px';
+            }
+
+            svg.setAttribute("height", "14");
+            polygon.setAttribute("points", "1400,7 1385,1 1390,6 0,6 0,8 1390,8 1385,13 1400,7");
+            arrow.className = arrowDivClassName;
+
+            message.innerHTML =
+                animator.diagram.content[j].content[i].message.toString();
+
+            // making so every arrow is on their own line with 50px heigth difference
+            arrow.style.top = startPosition.y + counter * a - 20 + 'px';
+            counter++;
+            arrow.style.right = ((startPosition.x) - (startPosition.x - endPosition.x)) + 'px';
+
+            // arrow.innerHTML =
+            //     animator.diagram.content[0].content[i].message.toString();
+
+            // arrow.style.position = "absolute";
+            // arrow.style.left = document.getElementById(animator.diagram.content[0].content[i].from.toString()).getBoundingClientRect().left.toString() + 'px';
+            // arrow.style.right = document.getElementById(animator.diagram.content[0].content[i].from.toString()).getBoundingClientRect().right.toString() + 'px';
+            // arrow.style.top = document.getElementById(animator.diagram.content[0].content[i].from.toString()).getBoundingClientRect().top.toString() + 'px';
+            // console.log(document.getElementById(animator.diagram.content[0].content[i].from.toString()).getBoundingClientRect().left.toString());
+
+
+            arrow.appendChild(message);
+            svg.appendChild(polygon);
+            arrow.appendChild(svg);
+            frameDiv.appendChild(arrow);
         }
-        else{
-
-            var arrowLengthRight = endPosition.x - startPosition.x;
-            svg.setAttribute("width", arrowLengthRight + "px");
-            arrow.style.left = startPosition.x - 30 + 'px';
-            message.style.left = arrowLengthRight/2 + 'px';
-        }
-
-        svg.setAttribute("height","14");
-        polygon.setAttribute("points", "1400,7 1385,1 1390,6 0,6 0,8 1390,8 1385,13 1400,7");
-        arrow.className = arrowDivClassName;
-
-        message.innerHTML =
-            animator.diagram.content[0].content[i].message.toString();
-
-        // making so every arrow is on their own line with 50px heigth difference
-        arrow.style.top = startPosition.y + i*a - 20 + 'px';
-        arrow.style.right =  ((startPosition.x) - (startPosition.x - endPosition.x)) + 'px';
-
-        // arrow.innerHTML =
-        //     animator.diagram.content[0].content[i].message.toString();
-
-        // arrow.style.position = "absolute";
-        // arrow.style.left = document.getElementById(animator.diagram.content[0].content[i].from.toString()).getBoundingClientRect().left.toString() + 'px';
-        // arrow.style.right = document.getElementById(animator.diagram.content[0].content[i].from.toString()).getBoundingClientRect().right.toString() + 'px';
-        // arrow.style.top = document.getElementById(animator.diagram.content[0].content[i].from.toString()).getBoundingClientRect().top.toString() + 'px';
-        // console.log(document.getElementById(animator.diagram.content[0].content[i].from.toString()).getBoundingClientRect().left.toString());
-
-
-        arrow.appendChild(message);
-        svg.appendChild(polygon);
-        arrow.appendChild(svg);
-        frameDiv.appendChild(arrow);
     }
 };
 
