@@ -123,6 +123,26 @@ window.onload = function animateJSON() {
         }
 
     }
+
+    var ul = document.getElementById("logList");
+    var tot = 0;
+    for(var e = 0; e < animator.diagram.content.length; e++){
+        
+        for(var i = 0; i < animator.diagram.content[e].content.length; i++){
+            var li = document.createElement("li");
+            li.setAttribute('id',((tot+1)+": Sending message From: " +
+            animator.diagram.content[e].content[i].from.toString() +" To: "+
+            animator.diagram.content[e].content[i].to.toString() +" || Message: "+
+            animator.diagram.content[e].content[i].message.toString()));
+            li.appendChild(document.createTextNode((tot+1)+": Sending message From: " +
+            animator.diagram.content[e].content[i].from.toString() +" To: "+
+            animator.diagram.content[e].content[i].to.toString() +" || Message: "+
+            animator.diagram.content[e].content[i].message.toString()));
+            ul.appendChild(li);
+            tot++;
+        }
+    }
+
 };
  
 // var arrows = [];
