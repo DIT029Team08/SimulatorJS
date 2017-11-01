@@ -118,26 +118,48 @@ window.onload = function animateJSON() {
         }
     }
 
-    var ul = document.getElementById("logList");
-    var tot = 0;
-    for(var e = 0; e < animator.diagram.content.length; e++){
-        
-        for(var i = 0; i < animator.diagram.content[e].content.length; i++){
+createLog(animator, 0, 0, 0);    
+
+}
+
+var n = 10;
+function createLog(animator, i, e, total){
+var ul = document.getElementById("logList");
+    if(animator.diagram.content[e].content.length === i){
+    i = 0;
+    e++;
+}
+
             var li = document.createElement("li");
-            li.setAttribute('id',((tot+1)+": Sending message From: " +
+            li.setAttribute('id',((total+1)+": Sending message From: " +
             animator.diagram.content[e].content[i].from.toString() +" To: "+
             animator.diagram.content[e].content[i].to.toString() +" || Message: "+
             animator.diagram.content[e].content[i].message.toString()));
-            li.appendChild(document.createTextNode((tot+1)+": Sending message From: " +
+            li.appendChild(document.createTextNode((total+1)+": Sending message From: " +
             animator.diagram.content[e].content[i].from.toString() +" To: "+
             animator.diagram.content[e].content[i].to.toString() +" || Message: "+
             animator.diagram.content[e].content[i].message.toString()));
             ul.appendChild(li);
-            tot++;
-        }
-    }
+            
+    if(animator.diagram.content.length > e){
 
-};
+    if(animator.diagram.content[e].content[i+1] === undefined && e+1 === animator.diagram.content.length){}
+
+    else{ 
+
+    setTimeout(function () {
+        // Do Something Here
+        // Then recall the parent function to
+        // create a recursive loop.
+        i++;
+        total++;
+        createLog(animator, i, e, total);
+        }, 1000);
+    }
+     //setTimeout(createLog(animator), 1000);
+   }
+    
+}
  
 // var arrows = [];
 //
