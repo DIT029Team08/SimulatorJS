@@ -7,10 +7,6 @@
     "type": "sequence_diagram",
     "processes": [
         {
-            "class": "Gateway",
-            "name": "g"
-        },
-        {
             "class": "User",
             "name": "u1"
         },
@@ -21,6 +17,10 @@
         {
             "class": "User",
             "name": "u3"
+        },
+        {
+            "class": "Gateway",
+            "name": "g"
         }
     ],
     "diagram": {
