@@ -4,12 +4,12 @@ window.onload = function animateJSON() {
     var mainDiv = document.getElementById("outputJSON");
 
     const processDivClassName = "processes";
-    const frameDivClassName = "frame"
-    const frameTitleClassName = "frameTitle"
+    const frameDivClassName = "frame";
+    const frameTitleClassName = "frameTitle";
     const lifelines = "lifeLine";
-    const activatorClassName = "activator"
+    const activatorClassName = "activator";
     const arrowDivClassName = "arrowLtoR";
-    const arrowDivClassName2 = "arrowRtoL"
+    const arrowDivClassName2 = "arrowRtoL";
     const messageDivClassName = "messages";
 
     for(var i = 0; i < animator.processes.length; i++) {
@@ -51,9 +51,9 @@ window.onload = function animateJSON() {
 
     for(var j = 0; j < animator.diagram.content.length; j++) {
         
-        if(j != 0) {
+        if(j !== 0) {
             var lineBreak = document.createElement('hr');
-          if (frameDiv != undefined) {  
+          if (frameDiv !== undefined) {
             //frameDiv.appendChild(lineBreak);
             }
         }
@@ -67,7 +67,7 @@ window.onload = function animateJSON() {
 createArrow(animator, 0, 0, 0, frameDiv, mainDiv);
 createLog(animator, 0, 0, 0);    
 
-}
+};
 
 function createArrow(animator, j, i, counter, frameDiv,mainDiv){
 
@@ -83,12 +83,12 @@ function createArrow(animator, j, i, counter, frameDiv,mainDiv){
              }
 
 const processDivClassName = "processes";
-    const frameDivClassName = "frame"
-    const frameTitleClassName = "frameTitle"
+    const frameDivClassName = "frame";
+    const frameTitleClassName = "frameTitle";
     const lifelines = "lifeLine";
-    const activatorClassName = "activator"
+    const activatorClassName = "activator";
     const arrowDivClassName = "arrowLtoR";
-    const arrowDivClassName2 = "arrowRtoL"
+    const arrowDivClassName2 = "arrowRtoL";
     const messageDivClassName = "messages";
 
 

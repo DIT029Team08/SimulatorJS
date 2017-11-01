@@ -1,0 +1,115 @@
+{
+    "meta": {
+        "format": "DIT029 format",
+        "version": "1.0",
+        "extensions": []
+    },
+    "type": "sequence_diagram",
+    "processes": [
+        {
+            "class": "Client",
+            "name": "c"
+        },
+        {
+            "class": "ShoppingApp",
+            "name": "sa"
+        },
+        {
+            "class": "StaffClient",
+            "name": "sc"
+        },
+        {
+            "class": "Bank",
+            "name": "b"
+        }
+    ],
+    "diagram": {
+        "content": [
+            {
+                "node": "seq",
+                "content": [
+                    {
+                        "node": "send",
+                        "from": "c",
+                        "to": "sa",
+                        "message": [
+                            "Add item"
+                        ]
+                    },
+                    {
+                        "node": "send",
+                        "from": "c",
+                        "to": "sa",
+                        "message": [
+                            "Remove item"
+                        ]
+                    },
+                    {
+                        "node": "send",
+                        "from": "c",
+                        "to": "sa",
+                        "message": [
+                            "Display Cart"
+                        ]
+                    },
+                    {
+                        "node": "send",
+                        "from": "c",
+                        "to": "sa",
+                        "message": [
+                            "Click Purchase"
+                        ]
+                    },
+                    {
+                        "node": "send",
+                        "from": "sa",
+                        "to": "sc",
+                        "message": [
+                            "Receive order"
+                        ]
+                    },
+                    {
+                        "node": "send",
+                        "from": "sc",
+                        "to": "sa",
+                        "message": [
+                            "Check payment method"
+                        ]
+                    },
+                    {
+                        "node": "send",
+                        "from": "sa",
+                        "to": "sc",
+                        "message": [
+                            "Payment method"
+                        ]
+                    },
+                    {
+                        "node": "send",
+                        "from": "sc",
+                        "to": "b",
+                        "message": [
+                            "Verify payment"
+                        ]
+                    },
+                    {
+                        "node": "send",
+                        "from": "b",
+                        "to": "sc",
+                        "message": [
+                            "Payment verified"
+                        ]
+                    },
+                    {
+                        "node": "send",
+                        "from": "sc",
+                        "to": "sa",
+                        "message": [
+                            "Update order status"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
