@@ -109,17 +109,42 @@ window.onload = function animateJSON() {
             arrow.appendChild(message);
             svg.appendChild(polygon);
             arrow.appendChild(svg);
-           if (frameDiv === undefined) {
-            mainDiv.appendChild(arrow);
+            if (frameDiv === undefined) {
+                mainDiv.appendChild(arrow);
             }
-         else{
-            frameDiv.appendChild(arrow);
-            }
+            else {
+                frameDiv.appendChild(arrow);        
+                var element = document.getElementById('par');
+                style = window.getComputedStyle(element);
+                heightVal = parseInt(style.getPropertyValue('height').split("p")[0]);   
+                newVal = heightVal + 50;
+                element.style.height = newVal + 'px';
+             }
         }
 
     }
-};
 
+    var ul = document.getElementById("logList");
+    var tot = 0;
+    for(var e = 0; e < animator.diagram.content.length; e++){
+        
+        for(var i = 0; i < animator.diagram.content[e].content.length; i++){
+            var li = document.createElement("li");
+            li.setAttribute('id',((tot+1)+": Sending message From: " +
+            animator.diagram.content[e].content[i].from.toString() +" To: "+
+            animator.diagram.content[e].content[i].to.toString() +" || Message: "+
+            animator.diagram.content[e].content[i].message.toString()));
+            li.appendChild(document.createTextNode((tot+1)+": Sending message From: " +
+            animator.diagram.content[e].content[i].from.toString() +" To: "+
+            animator.diagram.content[e].content[i].to.toString() +" || Message: "+
+            animator.diagram.content[e].content[i].message.toString()));
+            ul.appendChild(li);
+            tot++;
+        }
+    }
+
+};
+ 
 // var arrows = [];
 //
 // function Arrow(from, to, message) {
