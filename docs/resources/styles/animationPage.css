@@ -121,3 +121,8 @@ main {
     border: 1px solid;
     margin-right: 90%;
 }
+hr {
+    border-top: 1.5px dashed black !important;
+    margin-top: 20px !important;
+    margin-bottom: 50px !important;
+}
