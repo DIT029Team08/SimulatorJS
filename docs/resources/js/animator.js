@@ -127,7 +127,6 @@ createLog(animator, 0, 0, 0);
 
 }
 
-var n = 10;
 function createLog(animator, i, e, total){
 var ul = document.getElementById("logList");
     if(animator.diagram.content[e].content.length === i){
