@@ -85,13 +85,20 @@ main {
     border: 2px dashed black;
     border-left: 3px;
 }
-.arrows {
+.arrowLtoR {
     position: relative;
     max-width: 0px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+.arrowRtoL {
+    position: relative;
+    max-width: 0px;
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 .messages{
     position: relative;
-
 }
 #log {
     position: relative;
@@ -115,10 +122,15 @@ main {
     width: 90%;
     top: 40px;
     position: relative;
-    height: 120px;
-    margin-bottom: 50px;
 }
 .frameTitle{
     border: 1px solid;
+    border-bottom-right-radius: 15px;
     margin-right: 90%;
+
+}
+hr {
+    border-top: 1.5px dashed black !important;
+    margin-top: 50px !important;
+    margin-bottom: 50px !important;
 }

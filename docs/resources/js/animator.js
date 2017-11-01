@@ -8,7 +8,8 @@ window.onload = function animateJSON() {
     const frameTitleClassName = "frameTitle"
     const lifelines = "lifeLine";
     const activatorClassName = "activator"
-    const arrowDivClassName = "arrows";
+    const arrowDivClassName = "arrowLtoR";
+    const arrowDivClassName2 = "arrowRtoL"
     const messageDivClassName = "messages";
 
     for(var i = 0; i < animator.processes.length; i++) {
@@ -49,14 +50,52 @@ window.onload = function animateJSON() {
     var counter = 0;
 
     for(var j = 0; j < animator.diagram.content.length; j++) {
+        
+        if(j != 0) {
+            var lineBreak = document.createElement('hr');
+          if (frameDiv != undefined) {  
+            //frameDiv.appendChild(lineBreak);
+            }
+        }
 
         for (var i = 0; i < animator.diagram.content[j].content.length; i++) {
+
+            
+        }
+    }
+
+createArrow(animator, 0, 0, 0, frameDiv, mainDiv);
+createLog(animator, 0, 0, 0);    
+
+}
+
+function createArrow(animator, j, i, counter, frameDiv,mainDiv){
+
+
+     if(animator.diagram.content[j].content.length === i){
+                i = 0;
+                j++;
+
+                var lineBreak = document.createElement('hr');
+                if (frameDiv != undefined) {  
+                 frameDiv.appendChild(lineBreak);
+                }
+             }
+
+const processDivClassName = "processes";
+    const frameDivClassName = "frame"
+    const frameTitleClassName = "frameTitle"
+    const lifelines = "lifeLine";
+    const activatorClassName = "activator"
+    const arrowDivClassName = "arrowLtoR";
+    const arrowDivClassName2 = "arrowRtoL"
+    const messageDivClassName = "messages";
+
 
             var startPosition = getPosition(document.querySelector("#" + animator.diagram.content[j].content[i].from.toString()));
             var endPosition = getPosition(document.querySelector("#" + animator.diagram.content[j].content[i].to.toString()));
 
             var arrow = document.createElement("div");
-            arrow.className = arrowDivClassName;
             var svg = document.createElementNS('http://www.w3.org/2000/svg', "svg");
             var polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
             var message = document.createElement("div");
@@ -67,7 +106,7 @@ window.onload = function animateJSON() {
             // decides what direction the arrow will go, and makes the length of the arrows
 
             if (startPosition.x > endPosition.x) {
-
+                arrow.className = arrowDivClassName2;
                 var arrowLengthLeft = startPosition.x - endPosition.x;
                 svg.setAttribute("width", arrowLengthLeft + "px");
                 arrow.style.transform = "rotate(180deg)";
@@ -77,7 +116,7 @@ window.onload = function animateJSON() {
                 message.style.transform = "rotate(180deg)";
             }
             else {
-
+                arrow.className = arrowDivClassName;
                 var arrowLengthRight = endPosition.x - startPosition.x;
                 svg.setAttribute("width", arrowLengthRight + "px");
                 arrow.style.left = startPosition.x - 30 + 'px';
@@ -86,13 +125,12 @@ window.onload = function animateJSON() {
 
             svg.setAttribute("height", "14");
             polygon.setAttribute("points", "1400,7 1385,1 1390,6 0,6 0,8 1390,8 1385,13 1400,7");
-            arrow.className = arrowDivClassName;
 
             message.innerHTML =
                 animator.diagram.content[j].content[i].message.toString();
 
             // making so every arrow is on their own line with 50px heigth difference
-            arrow.style.top = startPosition.y + counter * a - 20 + 'px';
+           // arrow.style.top = startPosition.y + counter * a - 20 + 'px';
             counter++;
             arrow.style.right = ((startPosition.x) - (startPosition.x - endPosition.x)) + 'px';
 
@@ -113,17 +151,63 @@ window.onload = function animateJSON() {
                 mainDiv.appendChild(arrow);
             }
             else {
-                frameDiv.appendChild(arrow);        
-                var element = document.getElementById('par');
-                style = window.getComputedStyle(element);
-                heightVal = parseInt(style.getPropertyValue('height').split("p")[0]);   
-                newVal = heightVal + 50;
-                element.style.height = newVal + 'px';
+                frameDiv.appendChild(arrow);
              }
-        }
 
+
+            if(animator.diagram.content[j].content[i+1] === undefined && j+1 === animator.diagram.content.length){}
+
+                else{
+
+             setTimeout(function () {
+            // Do Something Here
+            // Then recall the parent function to
+            // create a recursive loop.
+            i++;
+        
+            createArrow(animator, j, i, counter, frameDiv, mainDiv);
+            }, 1000);
+         }
+}
+
+
+function createLog(animator, i, e, total){
+var ul = document.getElementById("logList");
+    if(animator.diagram.content[e].content.length === i){
+    i = 0;
+    e++;
+}
+
+            var li = document.createElement("li");
+            li.setAttribute('id',((total+1)+": Sending message From: " +
+            animator.diagram.content[e].content[i].from.toString() +" To: "+
+            animator.diagram.content[e].content[i].to.toString() +" || Message: "+
+            animator.diagram.content[e].content[i].message.toString()));
+            li.appendChild(document.createTextNode((total+1)+": Sending message From: " +
+            animator.diagram.content[e].content[i].from.toString() +" To: "+
+            animator.diagram.content[e].content[i].to.toString() +" || Message: "+
+            animator.diagram.content[e].content[i].message.toString()));
+            ul.appendChild(li);
+            
+    if(animator.diagram.content.length > e){
+
+    if(animator.diagram.content[e].content[i+1] === undefined && e+1 === animator.diagram.content.length){}
+
+    else{ 
+
+    setTimeout(function () {
+        // Do Something Here
+        // Then recall the parent function to
+        // create a recursive loop.
+        i++;
+        total++;
+        createLog(animator, i, e, total);
+        }, 1000);
     }
-};
+     //setTimeout(createLog(animator), 1000);
+   }
+    
+}
  
 // var arrows = [];
 //
@@ -140,6 +224,9 @@ window.onload = function animateJSON() {
 
 
 // Helper function to get an element's exact position
+
+
+
 function getPosition(el) {
     var xPos = 0;
     var yPos = 0;
