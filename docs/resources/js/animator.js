@@ -54,11 +54,43 @@ window.onload = function animateJSON() {
         if(j != 0) {
             var lineBreak = document.createElement('hr');
           if (frameDiv != undefined) {  
-            frameDiv.appendChild(lineBreak);
+            //frameDiv.appendChild(lineBreak);
             }
         }
 
         for (var i = 0; i < animator.diagram.content[j].content.length; i++) {
+
+            
+        }
+    }
+
+createArrow(animator, 0, 0, 0, frameDiv, mainDiv);
+createLog(animator, 0, 0, 0);    
+
+}
+
+function createArrow(animator, j, i, counter, frameDiv,mainDiv){
+
+
+     if(animator.diagram.content[j].content.length === i){
+                i = 0;
+                j++;
+
+                var lineBreak = document.createElement('hr');
+                if (frameDiv != undefined) {  
+                 frameDiv.appendChild(lineBreak);
+                }
+             }
+
+const processDivClassName = "processes";
+    const frameDivClassName = "frame"
+    const frameTitleClassName = "frameTitle"
+    const lifelines = "lifeLine";
+    const activatorClassName = "activator"
+    const arrowDivClassName = "arrowLtoR";
+    const arrowDivClassName2 = "arrowRtoL"
+    const messageDivClassName = "messages";
+
 
             var startPosition = getPosition(document.querySelector("#" + animator.diagram.content[j].content[i].from.toString()));
             var endPosition = getPosition(document.querySelector("#" + animator.diagram.content[j].content[i].to.toString()));
@@ -121,12 +153,23 @@ window.onload = function animateJSON() {
             else {
                 frameDiv.appendChild(arrow);
              }
-        }
-    }
 
-createLog(animator, 0, 0, 0);    
 
+            if(animator.diagram.content[j].content[i+1] === undefined && j+1 === animator.diagram.content.length){}
+
+                else{
+
+             setTimeout(function () {
+            // Do Something Here
+            // Then recall the parent function to
+            // create a recursive loop.
+            i++;
+        
+            createArrow(animator, j, i, counter, frameDiv, mainDiv);
+            }, 1000);
+         }
 }
+
 
 function createLog(animator, i, e, total){
 var ul = document.getElementById("logList");
@@ -181,6 +224,9 @@ var ul = document.getElementById("logList");
 
 
 // Helper function to get an element's exact position
+
+
+
 function getPosition(el) {
     var xPos = 0;
     var yPos = 0;
