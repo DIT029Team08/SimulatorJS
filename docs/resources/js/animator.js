@@ -52,7 +52,9 @@ window.onload = function animateJSON() {
         
         if(j != 0) {
             var lineBreak = document.createElement('hr');
+          if (frameDiv != undefined) {  
             frameDiv.appendChild(lineBreak);
+            }
         }
 
         for (var i = 0; i < animator.diagram.content[j].content.length; i++) {
