@@ -92,7 +92,7 @@ window.onload = function animateJSON() {
                 animator.diagram.content[j].content[i].message.toString();
 
             // making so every arrow is on their own line with 50px heigth difference
-            arrow.style.top = startPosition.y + counter * a - 20 + 'px';
+           // arrow.style.top = startPosition.y + counter * a - 20 + 'px';
             counter++;
             arrow.style.right = ((startPosition.x) - (startPosition.x - endPosition.x)) + 'px';
 
@@ -113,15 +113,9 @@ window.onload = function animateJSON() {
                 mainDiv.appendChild(arrow);
             }
             else {
-                frameDiv.appendChild(arrow);        
-                var element = document.getElementById('par');
-                style = window.getComputedStyle(element);
-                heightVal = parseInt(style.getPropertyValue('height').split("p")[0]);   
-                newVal = heightVal + 50;
-                element.style.height = newVal + 'px';
+                frameDiv.appendChild(arrow);
              }
         }
-
     }
 
     var ul = document.getElementById("logList");

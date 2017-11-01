@@ -88,10 +88,11 @@ main {
 .arrows {
     position: relative;
     max-width: 0px;
+    margin-top: 10px;
+    margin-bottom: 40px;
 }
 .messages{
     position: relative;
-
 }
 #log {
     position: relative;
@@ -115,8 +116,6 @@ main {
     width: 90%;
     top: 40px;
     position: relative;
-    height: 120px;
-    margin-bottom: 50px;
 }
 .frameTitle{
     border: 1px solid;
