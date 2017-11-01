@@ -107,14 +107,6 @@
                         "message": [
                             "Update order status"
                         ]
-                    },
-                    {
-                        "node": "send",
-                        "from": "c",
-                        "to": "sa",
-                        "message": [
-                            "Get order status"
-                        ]
                     }
                 ]
             }
