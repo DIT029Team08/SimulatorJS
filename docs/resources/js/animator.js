@@ -8,7 +8,8 @@ window.onload = function animateJSON() {
     const frameTitleClassName = "frameTitle"
     const lifelines = "lifeLine";
     const activatorClassName = "activator"
-    const arrowDivClassName = "arrows";
+    const arrowDivClassName = "arrowLtoR";
+    const arrowDivClassName2 = "arrowRtoL"
     const messageDivClassName = "messages";
 
     for(var i = 0; i < animator.processes.length; i++) {
@@ -63,7 +64,6 @@ window.onload = function animateJSON() {
             var endPosition = getPosition(document.querySelector("#" + animator.diagram.content[j].content[i].to.toString()));
 
             var arrow = document.createElement("div");
-            arrow.className = arrowDivClassName;
             var svg = document.createElementNS('http://www.w3.org/2000/svg', "svg");
             var polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
             var message = document.createElement("div");
@@ -74,7 +74,7 @@ window.onload = function animateJSON() {
             // decides what direction the arrow will go, and makes the length of the arrows
 
             if (startPosition.x > endPosition.x) {
-
+                arrow.className = arrowDivClassName2;
                 var arrowLengthLeft = startPosition.x - endPosition.x;
                 svg.setAttribute("width", arrowLengthLeft + "px");
                 arrow.style.transform = "rotate(180deg)";
@@ -84,7 +84,7 @@ window.onload = function animateJSON() {
                 message.style.transform = "rotate(180deg)";
             }
             else {
-
+                arrow.className = arrowDivClassName;
                 var arrowLengthRight = endPosition.x - startPosition.x;
                 svg.setAttribute("width", arrowLengthRight + "px");
                 arrow.style.left = startPosition.x - 30 + 'px';
@@ -93,7 +93,6 @@ window.onload = function animateJSON() {
 
             svg.setAttribute("height", "14");
             polygon.setAttribute("points", "1400,7 1385,1 1390,6 0,6 0,8 1390,8 1385,13 1400,7");
-            arrow.className = arrowDivClassName;
 
             message.innerHTML =
                 animator.diagram.content[j].content[i].message.toString();

@@ -85,7 +85,13 @@ main {
     border: 2px dashed black;
     border-left: 3px;
 }
-.arrows {
+.arrowLtoR {
+    position: relative;
+    max-width: 0px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+.arrowRtoL {
     position: relative;
     max-width: 0px;
     margin-top: 25px;
