@@ -30,10 +30,10 @@ window.onload = function animateJSON() {
         lifeLineDiv.appendChild(activatorDiv);
     }
 
-    var superArray = Object.keys(animator.diagram);
-     //if (superArray.hasOwnProperty('node'))
-    for (var i = 0; i < superArray.length; i++) {
-        if (superArray[i] === 'node') {
+    var animatorDiagramArray = Object.keys(animator.diagram);
+     //if (animatorDiagramArray.hasOwnProperty('node'))
+    for (var i = 0; i < animatorDiagramArray.length; i++) {
+        if (animatorDiagramArray[i] === 'node') {
             var frameDiv = document.createElement("div");
             frameDiv.className = frameDivClassName;
             frameDiv.id = animator.diagram.node.toString();
