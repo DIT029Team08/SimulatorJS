@@ -5,15 +5,15 @@ window.onload = function animateJSON() {
 
 //Block of constants used to name classes of HTML elements created, if change needed change the constant's value
     const processDivClassName = "processes";
-    const frameDivClassName = "frame";
+    const frameDivClassName   = "frame";
     const frameTitleClassName = "frameTitle";
-    const lifelines = "lifeLine";
-    const activatorClassName = "activator";
-    const arrowDivClassName = "arrowLtoR";
-    const arrowDivClassName2 = "arrowRtoL";
+    const lifelines           = "lifeLine";
+    const activatorClassName  = "activator";
+    const arrowDivClassName   = "arrowLtoR";
+    const arrowDivClassName2  = "arrowRtoL";
     const messageDivClassName = "messages";
 
-//Selects the processes array in JSON File and iterates for every element
+    //Selects the processes array in JSON File and iterates for every element
     for(var i = 0; i < animator.processes.length; i++) {
 
         var div = document.createElement("div");            //Creates an HTML <div> element
@@ -23,8 +23,8 @@ window.onload = function animateJSON() {
             animator.processes[i].class.toString();         //here it is the class and name of the SSD object
         mainDiv.appendChild(div);                           //Places the new <div> element under the mainDiv, as specified in the variable declaration in l.4
 
-    //Similar behavior as in the previous block, but this time the lifelines are given a unique ID, are appended to the <div> created in the previous block
-    //and the activators are appended to the lifeline divs.
+        //Similar behavior as in the previous block, but this time the lifelines are given a unique ID, are appended to the <div> created in the previous block
+        //and the activators are appended to the lifeline divs.
         var lifeLineDiv = document.createElement("div");
         lifeLineDiv.className = lifelines;
         lifeLineDiv.id = animator.processes[i].name.toString();
@@ -43,11 +43,12 @@ window.onload = function animateJSON() {
             var frameDiv = document.createElement("div");
             frameDiv.className = frameDivClassName;
             frameDiv.id = animator.diagram.node.toString();
+            mainDiv.appendChild(frameDiv);
+
             var frameTitle = document.createElement("div");
             frameTitle.className = frameTitleClassName;
             frameTitle.id = animator.diagram.node.toString() + "Title";
             frameTitle.innerHTML = animator.diagram.node.toString();
-            mainDiv.appendChild(frameDiv);
             frameDiv.appendChild(frameTitle);
         }
     }   
