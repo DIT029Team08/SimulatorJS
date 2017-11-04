@@ -1,38 +1,36 @@
-window.onload = function animateJSON() {
-    
-    var animator = JSON.parse(localStorage.getItem('stringJSON'));
-    var mainDiv = document.getElementById("outputJSON");
 
 //Block of constants used to name classes of HTML elements created, if change needed change the constant's value
-    const processDivClassName = "processes";
-    const frameDivClassName   = "frame";
-    const frameTitleClassName = "frameTitle";
-    const lifelines           = "lifeLine";
-    const activatorClassName  = "activator";
-    const arrowDivClassName   = "arrowLtoR";
-    const arrowDivClassName2  = "arrowRtoL";
-    const messageDivClassName = "messages";
+
+const processDivClassName = "processes";
+const frameDivClassName   = "frame";
+const frameTitleClassName = "frameTitle";
+const lifelines           = "lifeLine";
+const activatorClassName  = "activator";
+const arrowDivClassName   = "arrowLtoR";
+const arrowDivClassName2  = "arrowRtoL";
+const messageDivClassName = "messages";
+
+var animator = JSON.parse(localStorage.getItem('stringJSON'));
+var mainDiv = document.getElementById("outputJSON");
+
+
+window.onload = function animateJSON() {
+
 
     //Selects the processes array in JSON File and iterates for every element
+
     for(var i = 0; i < animator.processes.length; i++) {
 
-        var div = document.createElement("div");            //Creates an HTML <div> element
-        div.className = processDivClassName;                //assigns it a class
-        div.innerHTML =                          
-            animator.processes[i].name.toString() + ": " +  //Gives it a text output as specified in the JSON file, here the class and name of the object
-            animator.processes[i].class.toString();         //here it is the class and name of the SSD object
-        mainDiv.appendChild(div);                           //Places the new <div> element under the mainDiv, as specified in the variable declaration in l.4
+        createObject(animator, i);
 
         //Similar behavior as in the previous block, but this time the lifelines are given a unique ID, are appended to the <div> created in the previous block
         //and the activators are appended to the lifeline divs.
-        var lifeLineDiv = document.createElement("div");
-        lifeLineDiv.className = lifelines;
-        lifeLineDiv.id = animator.processes[i].name.toString();
-        div.appendChild(lifeLineDiv);
 
-        var activatorDiv = document.createElement("div");
-        activatorDiv.className = activatorClassName;
-        lifeLineDiv.appendChild(activatorDiv);
+        createLifeline(animator, i);
+
+        // var activatorDiv = document.createElement("div");
+        // activatorDiv.className = activatorClassName;
+        // lifeLineDiv.appendChild(activatorDiv);
     }
 
 
@@ -257,4 +255,26 @@ function getPosition(el) {
         x: xPos,
         y: yPos
     };
+}
+
+function createObject(animator, i) {
+
+    div = document.createElement("div");            //Creates an HTML <div> element
+    div.className = processDivClassName;                //assigns it a class
+    div.innerHTML =
+        animator.processes[i].name.toString() + ": " +  //Gives it a text output as specified in the JSON file, here the class and name of the object
+        animator.processes[i].class.toString();         //here it is the class and name of the SSD object
+    mainDiv.appendChild(div);                           //Places the new <div> element under the mainDiv, as specified in the variable declaration in l.4
+
+
+
+}
+
+function createLifeline(animator, i) {
+
+    var lifeLineDiv = document.createElement("div");
+    lifeLineDiv.className = lifelines;
+    lifeLineDiv.id = animator.processes[i].name.toString();
+    div.appendChild(lifeLineDiv);
+
 }
