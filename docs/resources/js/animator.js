@@ -57,6 +57,12 @@ window.onload = function animateJSON() {
 
 };
 
+/*
+* This function creates arrows based on the direction of the arrow by using the functions arrowL2R and arrowR2L.
+* It checks the start and end position of each arrow in the content of the diagram section provided in the JSON file.
+* The function is set to a timeout in order to generate the arrows one by one with a timeout of one second.
+ */
+
 function createArrow(animator, j, i, mainDiv) {
 
 
@@ -139,6 +145,10 @@ function createLog(animator, i, e, total) {
 
 }
 
+/*
+ * This function generates an arrow with the specific direction of left to right. It also generates the div related to
+ * the message that each arrow carries. As stated in the function, arrows are children of frameDiv.
+ */
 
 function arrowL2R(from, to, j, i) {
 
@@ -176,6 +186,11 @@ function arrowL2R(from, to, j, i) {
 
 }
 
+/*
+ * This function generates an arrow with the specific direction of right to left. It also generates the div related to
+ * the message that each arrow carries. As stated in the function, arrows are children of frameDiv.
+ */
+
 function arrowR2L(from, to, j, i) {
 
     var arrow = document.createElement("div");
@@ -210,15 +225,10 @@ function arrowR2L(from, to, j, i) {
     }
 }
 
-//
-// function addArrow(from, to, message) {
-//     var msg = new Arrow(from, to, message);
-//     arrows.push(msg);
-// }
 
-
-// Helper function to get an element's exact position
-
+/*
+ * Helper function that gets an arrow's exact position by using its dedicated id
+ */
 
 function getPosition(el) {
     var xPos = 0;
@@ -245,6 +255,10 @@ function getPosition(el) {
     };
 }
 
+/*
+ * This function creates an object (process) in the SSD diagram from the list of processes in the JSON file provided.
+ */
+
 function createObject(animator, i) {
 
     div = document.createElement("div");            //Creates an HTML <div> element
@@ -256,6 +270,12 @@ function createObject(animator, i) {
 
 
 }
+
+/*
+ * This function creates the lifeline related to each object (process) in the SSD diagram. It also assigns an id to
+ * each lifeline including the name of its object's name. This id is used later in locating the start and end position
+ * of the arrows.
+ */
 
 function createLifeline(animator, i) {
 
