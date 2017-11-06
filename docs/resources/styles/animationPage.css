@@ -85,56 +85,55 @@ main {
     border: 2px dashed black;
     border-left: 3px;
 }
-@-webkit-keyframes LtoR {
-    0% {opacity: 0;
-        /*transform: scale(0,1);*/}
-    100% {opacity: 1;
-        /*transform: scale(1);*/}
-}
+/*@-webkit-keyframes LtoR {*/
+    /*0% {opacity: 0;*/
+        /*transform: scale(0,1);}*/
+    /*100% {opacity: 1;*/
+        /*transform: scale(1);}*/
+/*}*/
 @keyframes LtoR {
     0% {
         opacity: 0;
-        /'transform: scale(0,1);
+        transform: scale(0,1);
     }
     100% {
         opacity: 1;
-        /'transform: scale(1);
+        transform: scale(1);
     }
 }
-@-webkit-keyframes RtoL {
-    0% {
-        opacity: 0;
-        /'transform: scale(0,1);
-    }
-    100% {
-        opacity: 1;
-        /'transform: scale(1);
-    }
-}
+/*@-webkit-keyframes RtoL {*/
+    /*0% {*/
+        /*opacity: 0;*/
+        /*transform: scale(0,1);*/
+    /*}*/
+    /*100% {*/
+        /*opacity: 1;*/
+        /*transform: scale(1);*/
+    /*}*/
+/*}*/
 @keyframes RtoL {
     0% {
         opacity: 0;
-        /'transform: scale(0,1);
+        transform: scale(0,1);
     }
     100% {
         opacity: 1;
-        /'transform: scale(1);
+        transform: scale(1);
     }
 }
 .arrowLtoR {
     position: relative;
     margin-top: 25px;
     margin-bottom: 25px;
-    -webkit-animation: LtoR 1s ease-in 1;
-    animation: LtoR 1s ease-in 1;
+    transform-origin: left center;
+    animation: LtoR 1s ease-out;
 }
 .arrowRtoL {
     position: relative;
     margin-top: 25px;
     margin-bottom: 25px;
-    /*transform-origin: right center;*/
-    -webkit-animation: RtoL 1s ease-in 1;
-    animation: RtoL 1s ease-in 1;
+    transform-origin: right center;
+    animation: RtoL 1s ease-out;
 }
 .messages{
     position: relative;

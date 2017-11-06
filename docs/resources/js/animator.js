@@ -57,7 +57,7 @@ window.onload = function animateJSON() {
 
 };
 
-function createArrow(animator, j, i, frameDiv, mainDiv) {
+function createArrow(animator, j, i, mainDiv) {
 
 
     if (animator.diagram.content[j].content.length === i) {
@@ -94,7 +94,7 @@ function createArrow(animator, j, i, frameDiv, mainDiv) {
     else {
         setTimeout(function () {
             i++;
-            createArrow(animator, j, i, frameDiv, mainDiv);
+            createArrow(animator, j, i, mainDiv);
         }, 1000);
     }
 }
