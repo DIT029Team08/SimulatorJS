@@ -87,9 +87,9 @@ main {
 }
 @-webkit-keyframes LtoR {
     0% {opacity: 0;
-        transform: scale(0,1);}
+        /*transform: scale(0,1);*/}
     100% {opacity: 1;
-        transform: scale(1);}
+        /*transform: scale(1);*/}
 }
 @keyframes LtoR {
     0% {
@@ -123,19 +123,16 @@ main {
 }
 .arrowLtoR {
     position: relative;
-    max-width: 0px;
     margin-top: 25px;
     margin-bottom: 25px;
-    /'transform-origin: left center;
     -webkit-animation: LtoR 1s ease-in 1;
     animation: LtoR 1s ease-in 1;
 }
 .arrowRtoL {
     position: relative;
-    max-width: 0px;
     margin-top: 25px;
     margin-bottom: 25px;
-    transform-origin: right center;
+    /*transform-origin: right center;*/
     -webkit-animation: RtoL 1s ease-in 1;
     animation: RtoL 1s ease-in 1;
 }

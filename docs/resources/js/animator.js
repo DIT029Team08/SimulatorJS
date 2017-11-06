@@ -147,24 +147,21 @@ function arrowL2R(from, to, j, i) {
     var polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
     var message = document.createElement("div");
 
+    arrow.className = arrowDivClassNameL2R;
+    var arrowLengthL2R = to.x - from.x;
+    arrow.style.maxWidth = arrowLengthL2R + 'px';
 
 
     svg.setAttribute("preserveAspectRatio", "xMaxYMid slice");
     svg.setAttribute("viewBox", "0 0 1400 14");
+    svg.setAttribute("width", "100%");
     svg.setAttribute("height", "14");
     polygon.setAttribute("points", "1400,7 1385,1 1390,6 0,6 0,8 1390,8 1385,13 1400,7");
 
-
-        arrow.className = arrowDivClassNameL2R;
-        var arrowLengthRight = to.x - from.x;
-        svg.setAttribute("width", arrowLengthRight + "px");
-        arrow.style.left = from.x - 30 + 'px';
-        message.style.left = arrowLengthRight / 2 + 'px';
+    arrow.style.left = from.x - 30 + 'px';
 
     message.className = messageDivClassName;
     message.innerHTML = animator.diagram.content[j].content[i].message.toString();
-
-    arrow.style.right = ((from.x) - (from.x - to.x)) + 'px';
 
     arrow.appendChild(message);
     svg.appendChild(polygon);
@@ -186,30 +183,20 @@ function arrowR2L(from, to, j, i) {
     var polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
     var message = document.createElement("div");
 
-    svg.setAttribute("preserveAspectRatio", "xMaxYMid slice");
-    svg.setAttribute("viewBox", "0 0 1400 14");
-    svg.setAttribute("height", "14");
-    polygon.setAttribute("points", "1400,7 1385,1 1390,6 0,6 0,8 1390,8 1385,13 1400,7");
-
-    // arrow.className = arrowDivClassNameR2L;
-    // var arrowLengthLeft = from.x - to.x;
-    // svg.setAttribute("width", arrowLengthLeft + "px");
-    // arrow.style.left = from.x - 30 + 'px';
-    // message.style.left = arrowLengthLeft / 2 + 'px';
-
     arrow.className = arrowDivClassNameR2L;
-    var arrowLengthLeft = from.x - to.x;
-    svg.setAttribute("width", arrowLengthLeft + "px");
-    arrow.style.transform = "rotate(180deg)";
-    arrow.style.left = from.x - 30 + 'px';
-    message.style.left = arrowLengthLeft / 2 + 'px';
-    message.style.top = 40 + 'px';
-    message.style.transform = "rotate(180deg)";
+    var arrowLengthR2L = from.x - to.x;
+    arrow.style.maxWidth = arrowLengthR2L + 'px';
+
+    svg.setAttribute("preserveAspectRatio", "xMinYMid slice");
+    svg.setAttribute("viewBox", "0 0 1400 14");
+    svg.setAttribute("width", "100%");
+    svg.setAttribute("height", "14");
+    polygon.setAttribute("points", "0,7 15,1 10,6 1400,6 1400,8 10,8 15,13 0,7");
+
+    arrow.style.left =  to.x - 30 + 'px';
 
     message.className = messageDivClassName;
     message.innerHTML = animator.diagram.content[j].content[i].message.toString();
-
-    arrow.style.right = ((from.x) - (from.x - to.x)) + 'px';
 
     arrow.appendChild(message);
     svg.appendChild(polygon);
