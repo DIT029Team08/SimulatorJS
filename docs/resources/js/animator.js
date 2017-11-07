@@ -65,7 +65,7 @@ window.onload = function animateJSON() {
 
 function createArrow(animator, j, i, mainDiv) {
 
-
+    // resets the i and increment j as for loop inside a for loop  to get all messages.
     if (animator.diagram.content[j].content.length === i) {
 
         i = 0;
@@ -94,8 +94,11 @@ function createArrow(animator, j, i, mainDiv) {
         arrowL2R(startPosition, endPosition, j, i);
     }
 
+    // base case of the recursive loop
 
     if (animator.diagram.content[j].content[i + 1] === undefined && j + 1 === animator.diagram.content.length) {}
+
+    // the recursive call of the loop and the incrementing of var i
 
     else {
         setTimeout(function () {
@@ -108,6 +111,9 @@ function createArrow(animator, j, i, mainDiv) {
 
 function createLog(animator, i, e, total) {
     var ul = document.getElementById("logList");
+
+    // resets the i and increment e as for loop inside a for loop to get all messages.
+    
     if (animator.diagram.content[e].content.length === i) {
         i = 0;
         e++;
@@ -126,21 +132,21 @@ function createLog(animator, i, e, total) {
 
     if (animator.diagram.content.length > e) {
 
+        // base case of the recursive loop
+
         if (animator.diagram.content[e].content[i + 1] === undefined && e + 1 === animator.diagram.content.length) {
         }
 
-        else {
+        // the recursive call of the loop and the incrementing of var i
 
+        else {
             setTimeout(function () {
-                // Do Something Here
-                // Then recall the parent function to
-                // create a recursive loop.
                 i++;
                 total++;
                 createLog(animator, i, e, total);
             }, 1000);
         }
-        //setTimeout(createLog(animator), 1000);
+        
     }
 
 }
