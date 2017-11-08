@@ -12,6 +12,8 @@ const messageDivClassName = "messages";
 
 var animator = JSON.parse(localStorage.getItem('stringJSON'));
 var mainDiv = document.getElementById("outputJSON");
+
+window.onload = function animateJSON() {
 // Get a reference to the div you want to auto-scroll.
 var mainDivElement = document.querySelector("outputJSON");
 // Create an observer and pass it a callback.
@@ -19,9 +21,6 @@ var observer = new MutationObserver(scrollToBottom);
 // Tell it to look for new children that will change the height.
 var config = {childList: true};
 observer.observe(mainDivElement, config);
-
-window.onload = function animateJSON() {
-
 
     //Selects the processes array in JSON File and iterates for every element
 
@@ -313,7 +312,7 @@ function animateScroll(duration) {
       currentTime -= 1;
       return -change / 2 * (currentTime * (currentTime - 2) - 1) + start;
     }
- 
+
     function animate(elapsedTime) {
       elapsedTime += increment;
       var position = easeInOut(elapsedTime, start, change, duration);
