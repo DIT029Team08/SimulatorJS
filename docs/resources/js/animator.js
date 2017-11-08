@@ -290,12 +290,14 @@ function createLifeline(animator, i) {
 }
 
     // Get a reference to the div you want to auto-scroll.
-    var mainDivElement = document.querySelector("outputJSON");
+    var mainDivElement = document.querySelector("#outputJSON");
     // Create an observer and pass it a callback.
     var observer = new MutationObserver(scrollToBottom);
     // Tell it to look for new children that will change the height.
-    var config = {attributes:true,characterData:true,childList: true};
+    var config = {attributes:true,characterData:true,childList: true,attributeFilter: ["id"]};
     observer.observe(mainDivElement, config);
+    // later, you can stop observing
+    //observer.disconnect();
 
 
 
@@ -304,7 +306,7 @@ function animateScroll(duration) {
     var start = mainDivElement.scrollTop;
     var end = mainDivElement.scrollHeight;
     var change = end - start;
-    var increment = 20;
+    var increment = 15;
     function easeInOut(currentTime, start, change, duration) {
       // by Robert Penner  Easing Functions
       currentTime /= duration / 2;
@@ -330,6 +332,6 @@ function animateScroll(duration) {
   
   // Here's our main callback function we passed to the observer
   function scrollToBottom() {
-    var duration = 1000 // Or however many milliseconds you want to scroll to last
+    var duration = 11600 // Or however many milliseconds you want to scroll to last
     animateScroll(duration);
   }
