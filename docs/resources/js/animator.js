@@ -14,7 +14,8 @@ var animator = JSON.parse(localStorage.getItem('stringJSON'));
 var mainDiv = document.getElementById("outputJSON");
 
 window.onload = function animateJSON() {
-// Get a reference to the div you want to auto-scroll.
+
+    // Get a reference to the div you want to auto-scroll.
 var mainDivElement = document.querySelector("outputJSON");
 // Create an observer and pass it a callback.
 var observer = new MutationObserver(scrollToBottom);
@@ -55,7 +56,6 @@ observer.observe(mainDivElement, config);
             frameDiv.appendChild(frameTitle);
         }
     }
-
 
     createArrow(animator, 0, 0, frameDiv, mainDiv);
     createLog(animator, 0, 0, 0);
