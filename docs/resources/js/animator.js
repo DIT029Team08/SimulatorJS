@@ -15,14 +15,6 @@ var mainDiv = document.getElementById("outputJSON");
 
 window.onload = function animateJSON() {
 
-    // Get a reference to the div you want to auto-scroll.
-var mainDivElement = document.querySelector("outputJSON");
-// Create an observer and pass it a callback.
-var observer = new MutationObserver(scrollToBottom);
-// Tell it to look for new children that will change the height.
-var config = {childList: true};
-observer.observe(mainDivElement, config);
-
     //Selects the processes array in JSON File and iterates for every element
 
     for (var i = 0; i < animator.processes.length; i++) {
@@ -296,6 +288,16 @@ function createLifeline(animator, i) {
     div.appendChild(lifeLineDiv);
 
 }
+
+    // Get a reference to the div you want to auto-scroll.
+    var mainDivElement = document.querySelector("outputJSON");
+    // Create an observer and pass it a callback.
+    var observer = new MutationObserver(scrollToBottom);
+    // Tell it to look for new children that will change the height.
+    var config = {attributes:true,characterData:true,childList: true};
+    observer.observe(mainDivElement, config);
+
+
 
 // First, define a helper function.
 function animateScroll(duration) {

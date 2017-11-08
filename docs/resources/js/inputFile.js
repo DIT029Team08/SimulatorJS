@@ -8,17 +8,12 @@ window.onload = function() {
             var regTypesAllowed =  /(.*?)\.(json|JSON)$/;
 
             
-            if (fileValue.match(regTypesAllowed) && 'localStorage' in $window && $window.localStorage !== null) {
+            if (fileValue.match(regTypesAllowed)) {
                 var reader = new FileReader();
-                try{
                 reader.onload = function(e) {
-                    $window.localStorage.setItem('stringJSON', reader.result);
-                    $window.localStorage.removeItem('stringJSON');
+                    localStorage.setItem('stringJSON', reader.result);
                 };
                 reader.readAsText(fullFile);
-            }catch(e){
-                reader = false;
-            }  
             }
         });
     }
@@ -26,4 +21,17 @@ window.onload = function() {
 
 
     /**JavaScript
-    var scroll = setInterval(function(){ window.scrollBy(0,1000); }, 2000); */
+    var scroll = setInterval(function(){ window.scrollBy(0,1000); }, 2000);
+         
+            if (fileValue.match(regTypesAllowed) && && $window.localStorage !== null) {
+                var reader = new FileReader();
+                try{
+                reader.onload = function(e) {
+                    localStorage.setItem('stringJSON', reader.result);
+                    //localStorage.removeItem('stringJSON');
+                };
+                reader.readAsText(fullFile);
+            }catch(e){
+                reader = false;
+            }  
+            } */
