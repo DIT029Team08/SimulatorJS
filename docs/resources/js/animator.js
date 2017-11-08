@@ -313,7 +313,7 @@ function animateScroll(duration) {
       currentTime -= 1;
       return -change / 2 * (currentTime * (currentTime - 2) - 1) + start;
     }
-
+ 
     function animate(elapsedTime) {
       elapsedTime += increment;
       var position = easeInOut(elapsedTime, start, change, duration);
