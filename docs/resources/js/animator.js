@@ -50,6 +50,7 @@ window.onload = function animateJSON() {
     }
 
     createArrow(animator, 0, 0, frameDiv, mainDiv);
+    pageScroll(0);
     createLog(animator, 0, 0, 0);
 
 };
@@ -61,6 +62,8 @@ window.onload = function animateJSON() {
  */
 
 function createArrow(animator, j, i, mainDiv) {
+
+
 
     // resets the i and increment j as for loop inside a for loop  to get all messages.
     if (animator.diagram.content[j].content.length === i) {
@@ -332,6 +335,28 @@ function animateScroll(duration) {
   
   // Here's our main callback function we passed to the observer
   function scrollToBottom() {
+    // TODO change so the duration isn't hardcoded
     var duration = 11600 // Or however many milliseconds you want to scroll to last
-    animateScroll(duration);
+    //animateScroll(duration);
   }
+
+  var counterScroll = 200;
+ // var tmpclientHeight = 0;
+  function pageScroll() {
+    
+
+
+    var clientHeight = document.getElementById('outputJSON').scrollHeight;
+    console.log(clientHeight);
+    console.log("d" + counterScroll);
+    
+        if (clientHeight  > counterScroll ) {
+        //window.scrollTo(0,document.body.scrollHeight);
+        mainDiv.scrollBy(0,document.getElementByClass('outputJSON').scrollHeight); // horizontal and vertical scroll increments
+        counterScroll = counterScroll + 65;
+        setTimeout(function() {
+        pageScroll();
+        },1000); // scrolls every 100 milliseconds
+    }
+   
+}
