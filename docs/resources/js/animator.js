@@ -106,14 +106,7 @@ function createArrow(animator, j, i, mainDiv) {
 
         arrowL2R(startPosition, endPosition, j, i);
     }
-
-    // HÄR
-    //var els = document.querySelectorAll('.lifeLine');
-    //var height = document.querySelector('.lifeLine').getAttribute("height");
-    //for (var i=0; i < els.length; i++) {
-    //    els[i].setAttribute("height", height+50);
-    //}
-
+    
     // base case of the recursive loop
 
     if (animator.diagram.content[j].content[i + 1] === undefined && j + 1 === animator.diagram.content.length) {}
