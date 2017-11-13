@@ -49,6 +49,7 @@ window.onload = function animateJSON() {
     }
 
     createArrow(animator, 0, 0, frameDiv, mainDiv);
+    pageScroll();
     createLog(animator, 0, 0, 0);
 
 };
@@ -61,12 +62,14 @@ window.onload = function animateJSON() {
 
 function createArrow(animator, j, i, mainDiv) {
 
+
     // Lifeline height
     var LifeLinesArray = document.querySelectorAll('.lifeLine');
     llHeight = llHeight + 65;
     for (var k=0; k < LifeLinesArray.length; k++) {
         LifeLinesArray[k].style.height = (llHeight + "px");
     }
+
 
     // resets the i and increment j as for loop inside a for loop  to get all messages.
     if (animator.diagram.content[j].content.length === i) {
@@ -103,14 +106,7 @@ function createArrow(animator, j, i, mainDiv) {
 
         arrowL2R(startPosition, endPosition, j, i);
     }
-
-    // HÄR
-    //var els = document.querySelectorAll('.lifeLine');
-    //var height = document.querySelector('.lifeLine').getAttribute("height");
-    //for (var i=0; i < els.length; i++) {
-    //    els[i].setAttribute("height", height+50);
-    //}
-
+    
     // base case of the recursive loop
 
     if (animator.diagram.content[j].content[i + 1] === undefined && j + 1 === animator.diagram.content.length) {}
@@ -353,7 +349,34 @@ function animateScroll(duration) {
   // Here's our main callback function we passed to the observer
   
   function scrollToBottom() {
+
     
     var duration = 11600; // Or however many milliseconds you want to scroll to last
     //animateScroll(duration);
   }
+    // TODO change so the duration isn't hardcoded
+    var duration = 11600 // Or however many milliseconds you want to scroll to last
+    //animateScroll(duration);
+  
+
+  var counterScroll = 200;
+ // var tmpclientHeight = 0;
+  function pageScroll() {
+    
+
+
+    var clientHeight = document.getElementById('outputJSON').scrollHeight;
+    console.log(clientHeight);
+    console.log("d" + counterScroll);
+    
+        if (clientHeight  > counterScroll ) {
+        //window.scrollTo(0,document.body.scrollHeight);
+        mainDiv.scrollBy(0,document.getElementById('outputJSON').scrollHeight); // horizontal and vertical scroll increments
+        counterScroll = counterScroll + 65;
+        setTimeout(function() {
+        pageScroll();
+        },1000); // scrolls every 100 milliseconds
+    }
+   
+}
+
