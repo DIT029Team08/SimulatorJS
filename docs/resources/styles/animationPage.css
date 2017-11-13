@@ -68,7 +68,8 @@ main {
 .processes {
     width: 15%;
     height: 50px;
-    margin-right: 108px;
+    margin-left: 54px;
+    margin-right: 54px;
     text-align: center;
     border-radius: 5px;
     border:  1px solid black;
@@ -84,33 +85,7 @@ main {
     border: 2px dashed black;
     border-left: 3px;
 }
-/*@-webkit-keyframes LtoR {*/
-    /*0% {opacity: 0;*/
-        /*transform: scale(0,1);}*/
-    /*100% {opacity: 1;*/
-        /*transform: scale(1);}*/
-/*}*/
-@keyframes LtoR {
-    0% {
-        opacity: 0;
-        transform: scale(0,1);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-/*@-webkit-keyframes RtoL {*/
-    /*0% {*/
-        /*opacity: 0;*/
-        /*transform: scale(0,1);*/
-    /*}*/
-    /*100% {*/
-        /*opacity: 1;*/
-        /*transform: scale(1);*/
-    /*}*/
-/*}*/
-@keyframes RtoL {
+@keyframes arrowAnim {
     0% {
         opacity: 0;
         transform: scale(0,1);
@@ -125,14 +100,14 @@ main {
     margin-top: 25px;
     margin-bottom: 25px;
     transform-origin: left center;
-    animation: LtoR 1s ease-out;
+    animation: arrownAnim 1s ease-out;
 }
 .arrowRtoL {
     position: relative;
     margin-top: 25px;
     margin-bottom: 25px;
     transform-origin: right center;
-    animation: RtoL 1s ease-out;
+    animation: arrowAnim 1s ease-out;
 }
 .messages{
     position: relative;
@@ -156,7 +131,6 @@ main {
 }
 .frame {
     border: 1.5px solid black;
-    width: 90%;
     top: 40px;
     position: relative;
     transition: all 1s ease-in;
