@@ -358,7 +358,7 @@ function animateScroll(duration) {
     
     var clientHeight = document.getElementById('outputJSON').scrollHeight;
     
-        ¨//checks if it should continue scrolling or not
+        //checks if it should continue scrolling or not
         if (clientHeight  > counterScroll ) {
         
             //Scrolls to the bottom of the outputJSON page
