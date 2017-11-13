@@ -12,6 +12,7 @@ const messageDivClassName = "messages";
 
 var animator = JSON.parse(localStorage.getItem('stringJSON'));
 var mainDiv = document.getElementById("outputJSON");
+var llHeight = 100;
 
 window.onload = function animateJSON() {
 
@@ -30,8 +31,6 @@ window.onload = function animateJSON() {
         // activatorDiv.className = activatorClassName;
         // lifeLineDiv.appendChild(activatorDiv);
     }
-
-
     var animatorDiagramArray = Object.keys(animator.diagram); //In order to check whether or not the JSON element is a node, we must select the diagram object's keys.
     //if (animatorDiagramArray.hasOwnProperty('node'))
     for (var i = 0; i < animatorDiagramArray.length; i++) {   //loop through the array of Keys created above
@@ -62,6 +61,13 @@ window.onload = function animateJSON() {
 
 function createArrow(animator, j, i, mainDiv) {
 
+    // Lifeline height
+    var LifeLinesArray = document.querySelectorAll('.lifeLine');
+    llHeight = llHeight + 65;
+    for (var k=0; k < LifeLinesArray.length; k++) {
+        LifeLinesArray[k].style.height = (llHeight + "px");
+    }
+
     // resets the i and increment j as for loop inside a for loop  to get all messages.
     if (animator.diagram.content[j].content.length === i) {
 
@@ -72,6 +78,13 @@ function createArrow(animator, j, i, mainDiv) {
 
         if (frameDiv != undefined) {
             frameDiv.appendChild(lineBreak);
+
+            // Lifeline height
+            var LifeLinesArray = document.querySelectorAll('.lifeLine');
+            llHeight = llHeight + 65;
+            for (var k=0; k < LifeLinesArray.length; k++) {
+                LifeLinesArray[k].style.height = (llHeight + "px");
+            }
         }
     }
 
@@ -90,6 +103,13 @@ function createArrow(animator, j, i, mainDiv) {
 
         arrowL2R(startPosition, endPosition, j, i);
     }
+
+    // HÄR
+    //var els = document.querySelectorAll('.lifeLine');
+    //var height = document.querySelector('.lifeLine').getAttribute("height");
+    //for (var i=0; i < els.length; i++) {
+    //    els[i].setAttribute("height", height+50);
+    //}
 
     // base case of the recursive loop
 
