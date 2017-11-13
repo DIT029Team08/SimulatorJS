@@ -6,7 +6,7 @@ const frameTitleClassName = "frameTitle";
 const lifelines = "lifeLine";
 const arrowDivClassNameL2R = "arrowLtoR";
 const arrowDivClassNameR2L = "arrowRtoL";
-const messageDivClassName = "messages";
+const messageDivClassName = "messages"; 
 //const activatorClassName = "activator";
 
 
