@@ -351,7 +351,9 @@ function animateScroll(duration) {
   }
   
   // Here's our main callback function we passed to the observer
+  
   function scrollToBottom() {
-    var duration = 11600 // Or however many milliseconds you want to scroll to last
-    animateScroll(duration);
+    
+    var duration = 11600; // Or however many milliseconds you want to scroll to last
+    //animateScroll(duration);
   }
