@@ -100,7 +100,7 @@ main {
     margin-top: 25px;
     margin-bottom: 25px;
     transform-origin: left center;
-    animation: arrownAnim 1s ease-out;
+    animation: arrowAnim 1s ease-out;
 }
 .arrowRtoL {
     position: relative;
