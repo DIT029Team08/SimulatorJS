@@ -360,23 +360,19 @@ function animateScroll(duration) {
   
 
   var counterScroll = 200;
- // var tmpclientHeight = 0;
   function pageScroll() {
     
-
-
     var clientHeight = document.getElementById('outputJSON').scrollHeight;
-    console.log(clientHeight);
-    console.log("d" + counterScroll);
     
+        //checks if it should continue scrolling or not
         if (clientHeight  > counterScroll ) {
-        //window.scrollTo(0,document.body.scrollHeight);
-        mainDiv.scrollBy(0,document.getElementById('outputJSON').scrollHeight); // horizontal and vertical scroll increments
-        counterScroll = counterScroll + 65;
-        setTimeout(function() {
-        pageScroll();
-        },1000); // scrolls every 100 milliseconds
+        
+            //Scrolls to the bottom of the outputJSON page
+            mainDiv.scrollBy(0,document.getElementById('outputJSON').scrollHeight); // horizontal and vertical scroll increments
+            //incrementing the counter 
+            counterScroll = counterScroll + 65;
+            setTimeout(function() {
+            pageScroll();
+        },1000); // scrolls every 1000 milliseconds
     }
-   
 }
-
