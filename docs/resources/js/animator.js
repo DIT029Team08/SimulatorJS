@@ -34,7 +34,8 @@ window.onload = function animateJSON() {
         // lifeLineDiv.appendChild(activatorDiv);
     }
     var animatorDiagramArray = Object.keys(animator.diagram); //In order to check whether or not the JSON element is a node, we must select the diagram object's keys.
-    //if (animatorDiagramArray.hasOwnProperty('node'))
+    /
+    //if the JSON has no frame element, it will not go through the for loop as the length will be 0
     for (var i = 0; i < animatorDiagramArray.length; i++) {   //loop through the array of Keys created above
         if (animatorDiagramArray[i] === 'node') {             //we check wether the JSON element is a node here
             frameDiv = document.createElement("div");
@@ -47,8 +48,6 @@ window.onload = function animateJSON() {
             frameTitle.id = animator.diagram.node.toString() + "Title";
             frameTitle.innerHTML = animator.diagram.node.toString();
             frameDiv.appendChild(frameTitle);
-
-            console.log("This is dumb");
         }
     }
 
@@ -56,7 +55,6 @@ window.onload = function animateJSON() {
     
     createLog(animator, 0, 0, 0);
     pageScroll();
-    //logScroll();
 
 };
 
@@ -316,7 +314,6 @@ function createLifeline(animator, i) {
   function pageScroll() {
     
         //checks if it should continue scrolling or not
-            console.log(scrollBoolean);
         if(scrollBoolean || lastScroll == 0){
             // some logic to do one more iteration of this function. Overwise it will skip the last scroll of the SSD.
             if(!scrollBoolean){
