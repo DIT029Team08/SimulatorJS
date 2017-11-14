@@ -309,89 +309,20 @@ function createLifeline(animator, i) {
 
 }
 
-    // Get a reference to the div you want to auto-scroll.
-    var mainDivElement = document.querySelector("#outputJSON");
-    // Create an observer and pass it a callback.
-    var observer = new MutationObserver(scrollToBottom);
-    // Tell it to look for new children that will change the height.
-    var config = {attributes:true,characterData:true,childList: true,attributeFilter: ["id"]};
-    observer.observe(mainDivElement, config);
-    // later, you can stop observing
-    //observer.disconnect();
-
-
-
-// First, define a helper function.
-function animateScroll(duration) {
-    var start = mainDivElement.scrollTop;
-    var end = mainDivElement.scrollHeight;
-    var change = end - start;
-    var increment = 15;
-    function easeInOut(currentTime, start, change, duration) {
-      // by Robert Penner  Easing Functions
-      currentTime /= duration / 2;
-      if (currentTime < 1) {
-        return change / 2 * currentTime * currentTime + start;
-      }
-      currentTime -= 1;
-      return -change / 2 * (currentTime * (currentTime - 2) - 1) + start;
-    }
-
-    function animate(elapsedTime) {
-      elapsedTime += increment;
-      var position = easeInOut(elapsedTime, start, change, duration);
-      mainDivElement.scrollTop = position;
-      if (elapsedTime < duration) {
-        setTimeout(function() {
-          animate(elapsedTime);
-        }, increment)
-      }
-    }
-    animate(0);
-  }
-  
-  // Here's our main callback function we passed to the observer
-  function scrollToBottom() {
-    // TODO change so the duration isn't hardcoded
-    var duration = 11600 // Or however many milliseconds you want to scroll to last
-    //animateScroll(duration);
-  }
-
-  var counterScroll = 200;
   var lastScroll = 0;
   function pageScroll() {
     
-    var clientHeight = document.getElementById('outputJSON').scrollHeight;
-    
         //checks if it should continue scrolling or not
-        //if (clientHeight  > counterScroll ) {
             console.log(scrollBoolean);
         if(scrollBoolean || lastScroll == 0){
+            // some logic to do one more iteration of this function. Overwise it will skip the last scroll of the SSD.
             if(!scrollBoolean){
                 lastScroll++;
             }
             //Scrolls to the bottom of the outputJSON page
             mainDiv.scrollBy(0,document.getElementById('outputJSON').scrollHeight); // horizontal and vertical scroll increments
+            //scrolls to the bottom of the log
             log.scrollBy(0,document.getElementById('log').scrollHeight);
-            //incrementing the counter 
-            counterScroll = counterScroll + 65;
-            setTimeout(function() {
-            pageScroll();
-        },1000); // scrolls every 1000 milliseconds
-    }
-}
-
-function logScroll() {
-    
-    var clientHeight = document.getElementById('log').scrollHeight;
-    
-        //checks if it should continue scrolling or not
-        if (clientHeight  > counterScroll ) {
-        
-            //Scrolls to the bottom of the outputJSON page
-            mainDiv.scrollBy(0,document.getElementById('log').scrollHeight); // horizontal and vertical scroll increments
-            //incrementing the counter 
-            counterScroll = counterScroll + 65;
             setTimeout(function() {
             pageScroll();
         },1000); // scrolls every 1000 milliseconds
