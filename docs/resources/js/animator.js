@@ -13,6 +13,7 @@ var scrollBoolean = true;
 
 var animator = JSON.parse(localStorage.getItem('stringJSON'));
 var mainDiv = document.getElementById("outputJSON");
+var frameDiv;
 var llHeight = 100;
 
 window.onload = function animateJSON() {
@@ -36,7 +37,7 @@ window.onload = function animateJSON() {
     //if (animatorDiagramArray.hasOwnProperty('node'))
     for (var i = 0; i < animatorDiagramArray.length; i++) {   //loop through the array of Keys created above
         if (animatorDiagramArray[i] === 'node') {             //we check wether the JSON element is a node here
-             frameDiv = document.createElement("div");
+            frameDiv = document.createElement("div");
             frameDiv.className = frameDivClassName;
             frameDiv.id = animator.diagram.node.toString();
             mainDiv.appendChild(frameDiv);
@@ -46,10 +47,12 @@ window.onload = function animateJSON() {
             frameTitle.id = animator.diagram.node.toString() + "Title";
             frameTitle.innerHTML = animator.diagram.node.toString();
             frameDiv.appendChild(frameTitle);
+
+            console.log("This is dumb");
         }
     }
 
-    createArrow(animator, 0, 0, frameDiv, mainDiv);
+    createArrow(animator, 0, 0);
     
     createLog(animator, 0, 0, 0);
     pageScroll();
@@ -63,7 +66,7 @@ window.onload = function animateJSON() {
 * The function is set to a timeout in order to generate the arrows one by one with a timeout of one second.
  */
 
-function createArrow(animator, j, i, mainDiv) {
+function createArrow(animator, j, i) {
 
 
     // Lifeline height
