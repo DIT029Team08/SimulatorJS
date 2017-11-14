@@ -34,7 +34,6 @@ window.onload = function animateJSON() {
         // lifeLineDiv.appendChild(activatorDiv);
     }
     var animatorDiagramArray = Object.keys(animator.diagram); //In order to check whether or not the JSON element is a node, we must select the diagram object's keys.
-    /
     //if the JSON has no frame element, it will not go through the for loop as the length will be 0
     for (var i = 0; i < animatorDiagramArray.length; i++) {   //loop through the array of Keys created above
         if (animatorDiagramArray[i] === 'node') {             //we check wether the JSON element is a node here
