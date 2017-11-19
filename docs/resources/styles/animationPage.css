@@ -65,6 +65,9 @@ main {
     white-space: nowrap;
     overflow: scroll;
 }
+.processDiv{
+    
+}
 .processes {
     width: 15%;
     height: 50px;

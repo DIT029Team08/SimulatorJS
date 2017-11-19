@@ -20,6 +20,9 @@ window.onload = function animateJSON() {
 
     //Selects the processes array in JSON File and iterates for every element
 
+    processDiv = document.createElement("div");
+    processDiv.className = "processdiv";
+    mainDiv.append(processDiv);   
     for (var i = 0; i < animator.processes.length; i++) {
 
         createObject(animator, i);
@@ -289,7 +292,7 @@ function createObject(animator, i) {
     div.innerHTML =
         animator.processes[i].name.toString() + ": " +  //Gives it a text output as specified in the JSON file, here the class and name of the object
         animator.processes[i].class.toString();         //here it is the class and name of the SSD object
-    mainDiv.appendChild(div);                           //Places the new <div> element under the mainDiv, as specified in the variable declaration in l.4
+    processDiv.appendChild(div);                           //Places the new <div> element under the mainDiv, as specified in the variable declaration in l.4
 
 
 }
