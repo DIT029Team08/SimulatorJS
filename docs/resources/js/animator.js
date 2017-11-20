@@ -1,6 +1,8 @@
 //Block of constants used to name classes of HTML elements created, if change needed change the constant's value
 
 const processDivClassName = "processes";
+const classesDivClassName = "classes";
+const fieldsDivClassName = "fields";
 const frameDivClassName = "frame";
 const frameTitleClassName = "frameTitle";
 const lifelines = "lifeLine";
@@ -16,46 +18,59 @@ var mainDiv = document.getElementById("outputJSON");
 var frameDiv;
 var llHeight = 100;
 
-window.onload = function animateJSON() {
+// Checks if it's a sequence diagram
+if(animator.type === 'sequence_diagram') {
 
-    //Selects the processes array in JSON File and iterates for every element
+    window.onload = function animateJSON() {
 
-    for (var i = 0; i < animator.processes.length; i++) {
+        //Selects the processes array in JSON File and iterates for every element
 
-        createObject(animator, i);
+        for (var i = 0; i < animator.processes.length; i++) {
 
-        //Similar behavior as in the previous block, but this time the lifelines are given a unique ID, are appended to the <div> created in the previous block
-        //and the activators are appended to the lifeline divs.
+            createProcess(animator, i);
 
-        createLifeline(animator, i);
+            //Similar behavior as in the previous block, but this time the lifelines are given a unique ID, are appended to the <div> created in the previous block
+            //and the activators are appended to the lifeline divs.
 
-        // var activatorDiv = document.createElement("div");
-        // activatorDiv.className = activatorClassName;
-        // lifeLineDiv.appendChild(activatorDiv);
-    }
-    var animatorDiagramArray = Object.keys(animator.diagram); //In order to check whether or not the JSON element is a node, we must select the diagram object's keys.
-    //if the JSON has no frame element, it will not go through the for loop as the length will be 0
-    for (var i = 0; i < animatorDiagramArray.length; i++) {   //loop through the array of Keys created above
-        if (animatorDiagramArray[i] === 'node') {             //we check wether the JSON element is a node here
-            frameDiv = document.createElement("div");
-            frameDiv.className = frameDivClassName;
-            frameDiv.id = animator.diagram.node.toString();
-            mainDiv.appendChild(frameDiv);
+            createLifeline(animator, i);
 
-            var frameTitle = document.createElement("div");
-            frameTitle.className = frameTitleClassName;
-            frameTitle.id = animator.diagram.node.toString() + "Title";
-            frameTitle.innerHTML = animator.diagram.node.toString();
-            frameDiv.appendChild(frameTitle);
+            // var activatorDiv = document.createElement("div");
+            // activatorDiv.className = activatorClassName;
+            // lifeLineDiv.appendChild(activatorDiv);
         }
+        var animatorDiagramArray = Object.keys(animator.diagram); //In order to check whether or not the JSON element is a node, we must select the diagram object's keys.
+        //if the JSON has no frame element, it will not go through the for loop as the length will be 0
+        for (var i = 0; i < animatorDiagramArray.length; i++) {   //loop through the array of Keys created above
+            if (animatorDiagramArray[i] === 'node') {             //we check wether the JSON element is a node here
+                frameDiv = document.createElement("div");
+                frameDiv.className = frameDivClassName;
+                frameDiv.id = animator.diagram.node.toString();
+                mainDiv.appendChild(frameDiv);
+
+                var frameTitle = document.createElement("div");
+                frameTitle.className = frameTitleClassName;
+                frameTitle.id = animator.diagram.node.toString() + "Title";
+                frameTitle.innerHTML = animator.diagram.node.toString();
+                frameDiv.appendChild(frameTitle);
+            }
+        }
+
+        createArrow(animator, 0, 0);
+
+        createLog(animator, 0, 0, 0);
+        pageScroll();
+
+    };
+}
+
+// Checks if it's a class diagram
+if(animator.type === 'class_diagram'){
+    for (var i = 0; i < animator.classes.length; i++) {
+        createClass(animator, i);
     }
-
-    createArrow(animator, 0, 0);
-    
-    createLog(animator, 0, 0, 0);
-    pageScroll();
-
-};
+    classLog(animator);
+    makeRelations(animator);
+}
 
 /*
 * This function creates arrows based on the direction of the arrow by using the functions arrowL2R and arrowR2L.
@@ -282,7 +297,7 @@ function getPosition(el) {
  * This function creates an object (process) in the SSD diagram from the list of processes in the JSON file provided.
  */
 
-function createObject(animator, i) {
+function createProcess(animator, i) {
 
     div = document.createElement("div");            //Creates an HTML <div> element
     div.className = processDivClassName;                //assigns it a class
@@ -325,5 +340,65 @@ function createLifeline(animator, i) {
             setTimeout(function() {
             pageScroll();
         },1000); // scrolls every 1000 milliseconds
+    }
+}
+function createClass(animator, i) {
+    var div = document.createElement("div");
+    div.className = classesDivClassName;
+    div.innerHTML = animator.classes[i].name.toString();
+    div.id = animator.classes[i].name.toString();
+    mainDiv.appendChild(div);
+
+    var div2 = document.createElement("div");
+    div2.className = "hr2";
+    div.appendChild(div2);
+
+    var div3 = document.createElement("div");
+    div3.className = fieldsDivClassName;
+    div.appendChild(div3);
+
+    fillFields(animator, div3, i)
+}
+function fillFields(animator, div, i){
+    for (var x = 0; x < animator.classes[i].fields.length; x++) {
+        var text = document.createElement("div");
+        text.innerHTML = animator.classes[i].fields[x].name.toString() + ": " +
+                         animator.classes[i].fields[x].type.toString();
+        div.appendChild(text);
+    }
+}
+function classLog(animator){
+    var ul = document.getElementById("logList");
+    var relation = "";
+    for(var i = 0; i < animator.relationships.length; i++){
+        var li = document.createElement("li");
+        if(animator.relationships[i].type === 'inheritance'){
+            relation = " inherits "
+        }
+        else{
+            relation = " poops on "
+        }
+        li.setAttribute('id',((i+1)+": " +
+            animator.relationships[i].subclass.toString() +
+            relation +
+            animator.relationships[i].superclass.toString()));
+        li.appendChild(document.createTextNode((i+1)+": " +
+            animator.relationships[i].subclass.toString() +
+            relation +
+            animator.relationships[i].superclass.toString()));
+        ul.appendChild(li);
+    }
+}
+function makeRelations(animator){
+    for(var i = 0; i < animator.relationships.length; i++){
+        var superClassPos = getPosition(document.querySelector("#" + animator.relationships[i].superclass.toString()));
+        var subClassPos = getPosition(document.querySelector("#" + animator.relationships[i].subclass.toString()));
+
+        console.log((i+1) +" - superClassPos X: "+superClassPos.x.toString());
+        console.log((i+1) +" - superClassPos Y: "+superClassPos.y.toString());
+
+        console.log((i+1) +" - subClassPos X: "+subClassPos.x.toString());
+        console.log((i+1) +" - subClassPos Y: "+subClassPos.y.toString());
+
     }
 }

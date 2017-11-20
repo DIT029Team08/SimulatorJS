@@ -76,6 +76,33 @@ main {
     padding: 10px;
     display: inline-block;
 }
+.classes {
+    font-size: 15px;
+    border: 1.5px solid black;
+    width: 20%;
+    text-align: left;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    left: 5px;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+.fields {
+    width: 20%;
+    text-align: left;
+    padding-bottom: 5px;
+    margin-left: 10px;
+    min-height: 100px;
+}
+.hr2 {
+    height: 0;
+    position: relative;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-top: 1.5px solid black;
+}
 .lifeLine {
     position: relative;
     margin-top: 20px;
