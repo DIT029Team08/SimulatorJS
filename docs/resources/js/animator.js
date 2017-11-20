@@ -60,29 +60,13 @@ if(animator.type === 'sequence_diagram') {
                 // lifeLineDiv.appendChild(activatorDiv);
             }
 
-            var animatorDiagramArray = Object.keys(animator.diagram); //In order to check whether or not the JSON element is a node, we must select the diagram object's keys.
-            //if the JSON has no frame element, it will not go through the for loop as the length will be 0
-            for (var i = 0; i < animatorDiagramArray.length; i++) {   //loop through the array of Keys created above
-                if (animatorDiagramArray[i] === 'node') {             //we check wether the JSON element is a node here
-                    frameDiv = document.createElement("div");
-                    frameDiv.className = frameDivClassName;
-                    frameDiv.id = animator.diagram.node.toString();
-                    mainDiv.appendChild(frameDiv);
-
-                    var frameTitle = document.createElement("div");
-                    frameTitle.className = frameTitleClassName;
-                    frameTitle.id = animator.diagram.node.toString() + "Title";
-                    frameTitle.innerHTML = animator.diagram.node.toString();
-                    frameDiv.appendChild(frameTitle);
-                }
-
                 createArrow(animator, 0, 0);
 
                 createLog(animator, 0, 0, 0);
                 pageScroll();
 
             }
-        }
+
 }
 // Checks if it's a class diagram
 if(animator.type === 'class_diagram'){
