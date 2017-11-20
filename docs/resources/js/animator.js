@@ -21,8 +21,8 @@ window.onload = function animateJSON() {
     //Selects the processes array in JSON File and iterates for every element
 
     processDiv = document.createElement("div");
-    processDiv.className = "processdiv";
-    mainDiv.append(processDiv);   
+    processDiv.className = "processDiv";
+    mainDiv.appendChild(processDiv);   
     for (var i = 0; i < animator.processes.length; i++) {
 
         createObject(animator, i);
@@ -36,6 +36,7 @@ window.onload = function animateJSON() {
         // activatorDiv.className = activatorClassName;
         // lifeLineDiv.appendChild(activatorDiv);
     }
+
     var animatorDiagramArray = Object.keys(animator.diagram); //In order to check whether or not the JSON element is a node, we must select the diagram object's keys.
     //if the JSON has no frame element, it will not go through the for loop as the length will be 0
     for (var i = 0; i < animatorDiagramArray.length; i++) {   //loop through the array of Keys created above
@@ -71,7 +72,10 @@ function createArrow(animator, j, i) {
 
     // Lifeline height
     var LifeLinesArray = document.querySelectorAll('.lifeLine');
+    if (llHeight > 500) {}
+        else{
     llHeight = llHeight + 65;
+}
     for (var k=0; k < LifeLinesArray.length; k++) {
         LifeLinesArray[k].style.height = (llHeight + "px");
     }
@@ -90,7 +94,8 @@ function createArrow(animator, j, i) {
 
             // Lifeline height
             var LifeLinesArray = document.querySelectorAll('.lifeLine');
-            llHeight = llHeight + 65;
+                llHeight = llHeight + 65;
+            
             for (var k=0; k < LifeLinesArray.length; k++) {
                 LifeLinesArray[k].style.height = (llHeight + "px");
             }
@@ -293,6 +298,7 @@ function createObject(animator, i) {
         animator.processes[i].name.toString() + ": " +  //Gives it a text output as specified in the JSON file, here the class and name of the object
         animator.processes[i].class.toString();         //here it is the class and name of the SSD object
     processDiv.appendChild(div);                           //Places the new <div> element under the mainDiv, as specified in the variable declaration in l.4
+
 
 
 }
