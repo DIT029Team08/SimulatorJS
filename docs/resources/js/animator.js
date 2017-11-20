@@ -55,17 +55,11 @@ if(animator.type === 'sequence_diagram') {
                     frameTitle.innerHTML = animator.diagram.node.toString();
                     frameDiv.appendChild(frameTitle);
                 }
-                // var activatorDiv = document.createElement("div");
-                // activatorDiv.className = activatorClassName;
-                // lifeLineDiv.appendChild(activatorDiv);
             }
-
-                createArrow(animator, 0, 0);
-
-                createLog(animator, 0, 0, 0);
-                pageScroll();
-
-            }
+        createArrow(animator, 0, 0);
+        createLog(animator, 0, 0, 0);
+        pageScroll();
+    }
 
 }
 // Checks if it's a class diagram
