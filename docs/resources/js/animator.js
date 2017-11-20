@@ -64,8 +64,10 @@ if(animator.type === 'sequence_diagram') {
 }
 // Checks if it's a class diagram
 if(animator.type === 'class_diagram'){
+    var left = 0;
     for (var i = 0; i < animator.classes.length; i++) {
-        createClass(animator, i);
+        createClass(animator, i, left);
+        left = left + 300;
     }
     classLog(animator);
     makeRelations(animator);
@@ -346,12 +348,14 @@ function createLifeline(animator, i) {
         },1000); // scrolls every 1000 milliseconds
     }
 }
-function createClass(animator, i) {
+function createClass(animator,i, left) {
     var div = document.createElement("div");
     div.className = classesDivClassName;
     div.innerHTML = animator.classes[i].name.toString();
     div.id = animator.classes[i].name.toString();
     mainDiv.appendChild(div);
+    div.style.left = left + "px";
+
 
     var div2 = document.createElement("div");
     div2.className = "hr2";
