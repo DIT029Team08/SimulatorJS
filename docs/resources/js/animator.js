@@ -64,7 +64,7 @@ if(animator.type === 'sequence_diagram') {
 }
 // Checks if it's a class diagram
 if(animator.type === 'class_diagram'){
-    var left = 0;
+    var left = 25;
     for (var i = 0; i < animator.classes.length; i++) {
         createClass(animator, i, left);
         left = left + 300;
