@@ -24,45 +24,66 @@ if(animator.type === 'sequence_diagram') {
     window.onload = function animateJSON() {
 
         //Selects the processes array in JSON File and iterates for every element
-
+        processDiv = document.createElement("div");
+        processDiv.className = "processDiv";
+        mainDiv.appendChild(processDiv);
         for (var i = 0; i < animator.processes.length; i++) {
 
-            createProcess(animator, i);
+                createProcess(animator, i);
 
-            //Similar behavior as in the previous block, but this time the lifelines are given a unique ID, are appended to the <div> created in the previous block
-            //and the activators are appended to the lifeline divs.
+                //Similar behavior as in the previous block, but this time the lifelines are given a unique ID, are appended to the <div> created in the previous block
+                //and the activators are appended to the lifeline divs.
 
-            createLifeline(animator, i);
+                createLifeline(animator, i);
 
-            // var activatorDiv = document.createElement("div");
-            // activatorDiv.className = activatorClassName;
-            // lifeLineDiv.appendChild(activatorDiv);
-        }
-        var animatorDiagramArray = Object.keys(animator.diagram); //In order to check whether or not the JSON element is a node, we must select the diagram object's keys.
-        //if the JSON has no frame element, it will not go through the for loop as the length will be 0
-        for (var i = 0; i < animatorDiagramArray.length; i++) {   //loop through the array of Keys created above
-            if (animatorDiagramArray[i] === 'node') {             //we check wether the JSON element is a node here
-                frameDiv = document.createElement("div");
-                frameDiv.className = frameDivClassName;
-                frameDiv.id = animator.diagram.node.toString();
-                mainDiv.appendChild(frameDiv);
+                // var activatorDiv = document.createElement("div");
+                // activatorDiv.className = activatorClassName;
+                // lifeLineDiv.appendChild(activatorDiv);
+            }
+            var animatorDiagramArray = Object.keys(animator.diagram); //In order to check whether or not the JSON element is a node, we must select the diagram object's keys.
+            //if the JSON has no frame element, it will not go through the for loop as the length will be 0
+            for (var i = 0; i < animatorDiagramArray.length; i++) {   //loop through the array of Keys created above
+                if (animatorDiagramArray[i] === 'node') {             //we check wether the JSON element is a node here
+                    frameDiv = document.createElement("div");
+                    frameDiv.className = frameDivClassName;
+                    frameDiv.id = animator.diagram.node.toString();
+                    mainDiv.appendChild(frameDiv);
 
-                var frameTitle = document.createElement("div");
-                frameTitle.className = frameTitleClassName;
-                frameTitle.id = animator.diagram.node.toString() + "Title";
-                frameTitle.innerHTML = animator.diagram.node.toString();
-                frameDiv.appendChild(frameTitle);
+                    var frameTitle = document.createElement("div");
+                    frameTitle.className = frameTitleClassName;
+                    frameTitle.id = animator.diagram.node.toString() + "Title";
+                    frameTitle.innerHTML = animator.diagram.node.toString();
+                    frameDiv.appendChild(frameTitle);
+                }
+                // var activatorDiv = document.createElement("div");
+                // activatorDiv.className = activatorClassName;
+                // lifeLineDiv.appendChild(activatorDiv);
+            }
+
+            var animatorDiagramArray = Object.keys(animator.diagram); //In order to check whether or not the JSON element is a node, we must select the diagram object's keys.
+            //if the JSON has no frame element, it will not go through the for loop as the length will be 0
+            for (var i = 0; i < animatorDiagramArray.length; i++) {   //loop through the array of Keys created above
+                if (animatorDiagramArray[i] === 'node') {             //we check wether the JSON element is a node here
+                    frameDiv = document.createElement("div");
+                    frameDiv.className = frameDivClassName;
+                    frameDiv.id = animator.diagram.node.toString();
+                    mainDiv.appendChild(frameDiv);
+
+                    var frameTitle = document.createElement("div");
+                    frameTitle.className = frameTitleClassName;
+                    frameTitle.id = animator.diagram.node.toString() + "Title";
+                    frameTitle.innerHTML = animator.diagram.node.toString();
+                    frameDiv.appendChild(frameTitle);
+                }
+
+                createArrow(animator, 0, 0);
+
+                createLog(animator, 0, 0, 0);
+                pageScroll();
+
             }
         }
-
-        createArrow(animator, 0, 0);
-
-        createLog(animator, 0, 0, 0);
-        pageScroll();
-
-    };
 }
-
 // Checks if it's a class diagram
 if(animator.type === 'class_diagram'){
     for (var i = 0; i < animator.classes.length; i++) {
@@ -83,7 +104,10 @@ function createArrow(animator, j, i) {
 
     // Lifeline height
     var LifeLinesArray = document.querySelectorAll('.lifeLine');
+    if (llHeight > 500) {}
+        else{
     llHeight = llHeight + 65;
+}
     for (var k=0; k < LifeLinesArray.length; k++) {
         LifeLinesArray[k].style.height = (llHeight + "px");
     }
@@ -102,7 +126,8 @@ function createArrow(animator, j, i) {
 
             // Lifeline height
             var LifeLinesArray = document.querySelectorAll('.lifeLine');
-            llHeight = llHeight + 65;
+                llHeight = llHeight + 65;
+            
             for (var k=0; k < LifeLinesArray.length; k++) {
                 LifeLinesArray[k].style.height = (llHeight + "px");
             }
@@ -304,7 +329,8 @@ function createProcess(animator, i) {
     div.innerHTML =
         animator.processes[i].name.toString() + ": " +  //Gives it a text output as specified in the JSON file, here the class and name of the object
         animator.processes[i].class.toString();         //here it is the class and name of the SSD object
-    mainDiv.appendChild(div);                           //Places the new <div> element under the mainDiv, as specified in the variable declaration in l.4
+    processDiv.appendChild(div);                           //Places the new <div> element under the mainDiv, as specified in the variable declaration in l.4
+
 
 
 }
