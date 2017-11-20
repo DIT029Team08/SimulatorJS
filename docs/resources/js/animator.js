@@ -358,6 +358,7 @@ function createClass(animator, i) {
     div.appendChild(div3);
 
     fillFields(animator, div3, i)
+    dragElement(div);
 }
 function fillFields(animator, div, i){
     for (var x = 0; x < animator.classes[i].fields.length; x++) {
@@ -400,5 +401,35 @@ function makeRelations(animator){
         console.log((i+1) +" - subClassPos X: "+subClassPos.x.toString());
         console.log((i+1) +" - subClassPos Y: "+subClassPos.y.toString());
 
+    }
+}
+function dragElement(element) {
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    element.onmousedown = dragMouseDown;
+
+    function dragMouseDown(e) {
+        e = e || window.event;
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+    }
+    function elementDrag(e) {
+        e = e || window.event;
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        element.style.top = (element.offsetTop - pos2) + "px";
+        element.style.left = (element.offsetLeft - pos1) + "px";
+    }
+    function closeDragElement() {
+        // stop moving when mouse button is released:
+        document.onmouseup = null;
+        document.onmousemove = null;
     }
 }
