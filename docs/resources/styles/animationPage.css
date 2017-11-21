@@ -110,6 +110,9 @@ top: 8.1%;
     margin-bottom: 5px;
     border-top: 1.5px solid black;
 }
+.david {
+    position: absolute;
+}
 .lifeLine {
     position: relative;
     margin-top: 20px;

@@ -356,7 +356,6 @@ function createClass(animator,i, left) {
     mainDiv.appendChild(div);
     div.style.left = left + "px";
 
-
     var div2 = document.createElement("div");
     div2.className = "hr2";
     div.appendChild(div2);
@@ -365,7 +364,7 @@ function createClass(animator,i, left) {
     div3.className = fieldsDivClassName;
     div.appendChild(div3);
 
-    fillFields(animator, div3, i)
+    fillFields(animator, div3, i);
     dragElement(div);
 }
 function fillFields(animator, div, i){
@@ -403,12 +402,40 @@ function makeRelations(animator){
         var superClassPos = getPosition(document.querySelector("#" + animator.relationships[i].superclass.toString()));
         var subClassPos = getPosition(document.querySelector("#" + animator.relationships[i].subclass.toString()));
 
-        console.log((i+1) +" - superClassPos X: "+superClassPos.x.toString());
-        console.log((i+1) +" - superClassPos Y: "+superClassPos.y.toString());
+        var cont = document.createElement("div");
+        var cont2 = document.createElement("div");
 
-        console.log((i+1) +" - subClassPos X: "+subClassPos.x.toString());
-        console.log((i+1) +" - subClassPos Y: "+subClassPos.y.toString());
+        cont.className = "david";
+        cont2.className = "david";
 
+        var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        var svg2 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+
+        var polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+        var polygon2 = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+
+        svg.setAttribute("height", "25px");
+        svg.setAttribute("width", "25px");
+        polygon.setAttribute("points","12.5,0 25,12.5 12.5,25 0,12.5");
+        polygon.setAttribute("style","fill:green;stroke:black;stroke-width:1");
+        svg.appendChild(polygon);
+        cont.appendChild(svg);
+
+        svg2.setAttribute("height", "25px");
+        svg2.setAttribute("width", "25px");
+        polygon2.setAttribute("points","12.5,0 25,12.5 12.5,25 0,12.5");
+        polygon2.setAttribute("style","fill:red;stroke:black;stroke-width:1");
+        svg2.appendChild(polygon2);
+        cont2.appendChild(svg2);
+
+        mainDiv.appendChild(cont);
+        mainDiv.appendChild(cont2);
+
+        cont.style.left = superClassPos.x+"px";
+        cont.style.top = superClassPos.y+"px";
+
+        cont2.style.left = subClassPos.x+"px";
+        cont2.style.top = subClassPos.y+"px";
     }
 }
 function dragElement(element) {
