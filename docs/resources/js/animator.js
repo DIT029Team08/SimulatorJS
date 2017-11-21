@@ -14,7 +14,7 @@ var scrollBoolean = true;
 var animator = JSON.parse(localStorage.getItem('stringJSON'));
 var mainDiv = document.getElementById("outputJSON");
 var frameDiv;
-var llHeight = 100;
+var llHeight = 150;
 
 window.onload = function animateJSON() {
 
@@ -36,6 +36,7 @@ window.onload = function animateJSON() {
         // activatorDiv.className = activatorClassName;
         // lifeLineDiv.appendChild(activatorDiv);
     }
+
 
     var animatorDiagramArray = Object.keys(animator.diagram); //In order to check whether or not the JSON element is a node, we must select the diagram object's keys.
     //if the JSON has no frame element, it will not go through the for loop as the length will be 0
@@ -72,10 +73,9 @@ function createArrow(animator, j, i) {
 
     // Lifeline height
     var LifeLinesArray = document.querySelectorAll('.lifeLine');
-    if (llHeight > 500) {}
-        else{
-    llHeight = llHeight + 65;
-}
+    
+    llHeight = llHeight + 75;
+    
     for (var k=0; k < LifeLinesArray.length; k++) {
         LifeLinesArray[k].style.height = (llHeight + "px");
     }
@@ -297,7 +297,25 @@ function createObject(animator, i) {
     div.innerHTML =
         animator.processes[i].name.toString() + ": " +  //Gives it a text output as specified in the JSON file, here the class and name of the object
         animator.processes[i].class.toString();         //here it is the class and name of the SSD object
-    processDiv.appendChild(div);                           //Places the new <div> element under the mainDiv, as specified in the variable declaration in l.4
+    mainDiv.appendChild(div);                           //Places the new <div> element under the mainDiv, as specified in the variable declaration in l.4
+
+    /** stickyProcessContainerDiv is a container div for stickyDiv. It is inside a container so we can you z-index
+     *  to hide everything behind it.
+     * stickyDiv is just the process that is made again but got position sticky so it will
+     * stick to the top of the page. No lifelines are attached to this div.
+     */
+    stickyProcessContainerDiv = document.createElement("div");            //Creates an HTML <div> element
+    stickyProcessContainerDiv.className = "stickyProcessContainerDiv";                //assigns it a class
+
+    processDiv.appendChild(stickyProcessContainerDiv);
+
+    stickyDiv = document.createElement("div");            //Creates an HTML <div> element
+
+    stickyDiv.className = "stickyDiv";                //assigns it a class
+    stickyDiv.innerHTML =
+        animator.processes[i].name.toString() + ": " +  //Gives it a text output as specified in the JSON file, here the class and name of the object
+        animator.processes[i].class.toString();         //here it is the class and name of the SSD object
+    stickyProcessContainerDiv.appendChild(stickyDiv);
 
 
 

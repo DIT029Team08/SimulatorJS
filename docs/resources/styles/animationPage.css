@@ -64,30 +64,49 @@ main {
     text-align: center;
     white-space: nowrap;
     overflow: scroll;
-
 }
 .processDiv{
+    overflow-x: visible;
 z-index: 11;
-position: fixed;
+position: sticky;
 background-color: #f5f5f5;
-top: 8.1%;
+top: -10px;
 
 }
 .processes {
+    color: #f5f5f5;
     width: 15%;
     height: 50px;
     margin-left: 54px;
     margin-right: 54px;
+    border-radius: 5px;
+    border:  1px;
+    display: inline-block;
+}
+.stickyProcessContainerDiv{
+    background-color: #f5f5f5;
+    z-index: 10;
+    width: calc(15% + 108px);
+    height: 50px;
+    border-radius: 5px;
+    display: inline-block;
+}
+.stickyDiv {
+    background-color: #f5f5f5;
+    z-index: 10;
+    width: 200px;
+    height: 50px;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
     text-align: center;
     border-radius: 5px;
     border:  1px solid black;
     padding: 10px;
     display: inline-block;
-
 }
 .lifeLine {
     position: relative;
-    margin-top: 20px;
+    margin-top: -20px;
     top: 0;
     left: 50%;
     width: 0;
