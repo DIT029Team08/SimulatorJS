@@ -67,7 +67,7 @@ if(animator.type === 'class_diagram'){
     var left = 25;
     for (var i = 0; i < animator.classes.length; i++) {
         createClass(animator, i, left);
-        left = left + 300;
+        left = left + 400;
     }
     classLog(animator);
     makeRelations(animator);
@@ -399,14 +399,17 @@ function classLog(animator){
 }
 function makeRelations(animator){
     for(var i = 0; i < animator.relationships.length; i++){
-        var superClassPos = getPosition(document.querySelector("#" + animator.relationships[i].superclass.toString()));
-        var subClassPos = getPosition(document.querySelector("#" + animator.relationships[i].subclass.toString()));
+        var superClass = document.querySelector("#" + animator.relationships[i].superclass.toString());
+        var subClass = document.querySelector("#" + animator.relationships[i].subclass.toString());
 
         var cont = document.createElement("div");
         var cont2 = document.createElement("div");
 
-        cont.className = "david";
-        cont2.className = "david";
+        cont.className = "svgCont";
+        cont2.className = "svgCont";
+
+        cont.id = "SUPER" + animator.relationships[i].superclass.toString();
+        cont2.id = "SUB" + animator.relationships[i].subclass.toString();
 
         var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         var svg2 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -431,11 +434,11 @@ function makeRelations(animator){
         mainDiv.appendChild(cont);
         mainDiv.appendChild(cont2);
 
-        cont.style.left = superClassPos.x+"px";
-        cont.style.top = superClassPos.y+"px";
+        cont.style.left = superClass.offsetLeft + "px";
+        cont.style.top = superClass.offsetTop + "px";
 
-        cont2.style.left = subClassPos.x+"px";
-        cont2.style.top = subClassPos.y+"px";
+        cont2.style.left = subClass.offsetLeft + "px";
+        cont2.style.top = subClass.offsetTop + "px";
     }
 }
 function dragElement(element) {
@@ -461,6 +464,35 @@ function dragElement(element) {
         // set the element's new position:
         element.style.top = (element.offsetTop - pos2) + "px";
         element.style.left = (element.offsetLeft - pos1) + "px";
+
+        moveRelation(element, pos2, pos1);
+    }
+    function moveRelation(element, pos2, pos1) {
+        if(document.getElementById("SUPER"+element.id.toString()) &&document.getElementById("SUB"+element.id.toString())){
+            var SUPER = document.getElementById("SUPER"+element.id.toString());
+            var SUB = document.getElementById("SUB"+element.id.toString());
+            SUPER.style.top = (SUPER.offsetTop - pos2) + "px";
+            SUPER.style.left = (SUPER.offsetLeft - pos1) + "px";
+            SUB.style.top = (SUB.offsetTop - pos2) + "px";
+            SUB.style.left = (SUB.offsetLeft - pos1) + "px";
+            console.log("1");
+        }
+        else if(document.getElementById("SUPER"+element.id.toString())){
+            var SUPER = document.getElementById("SUPER"+element.id.toString());
+            SUPER.style.top = (SUPER.offsetTop - pos2) + "px";
+            SUPER.style.left = (SUPER.offsetLeft - pos1) + "px";
+            console.log("2");
+        }
+        else if(document.getElementById("SUB"+element.id.toString())){
+            var SUB = document.getElementById("SUB"+element.id.toString());
+            SUB.style.top = (SUB.offsetTop - pos2) + "px";
+            SUB.style.left = (SUB.offsetLeft - pos1) + "px";
+            console.log("3");
+        }
+        else{
+            // DO NOTHING
+            console.log("4");
+        }
     }
     function closeDragElement() {
         // stop moving when mouse button is released:
