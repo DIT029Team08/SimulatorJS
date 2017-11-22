@@ -399,47 +399,59 @@ function classLog(animator){
 }
 function makeRelations(animator){
     for(var i = 0; i < animator.relationships.length; i++){
-        var superClass = document.querySelector("#" + animator.relationships[i].superclass.toString());
-        var subClass = document.querySelector("#" + animator.relationships[i].subclass.toString());
-
-        var cont = document.createElement("div");
-        var cont2 = document.createElement("div");
-
-        cont.className = "svgCont";
-        cont2.className = "svgCont";
-
-        cont.id = "SUPER" + animator.relationships[i].superclass.toString();
-        cont2.id = "SUB" + animator.relationships[i].subclass.toString();
-
-        var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        var svg2 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-
-        var polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-        var polygon2 = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-
-        svg.setAttribute("height", "25px");
-        svg.setAttribute("width", "25px");
-        polygon.setAttribute("points","12.5,0 25,12.5 12.5,25 0,12.5");
-        polygon.setAttribute("style","fill:green;stroke:black;stroke-width:1");
-        svg.appendChild(polygon);
-        cont.appendChild(svg);
-
-        svg2.setAttribute("height", "25px");
-        svg2.setAttribute("width", "25px");
-        polygon2.setAttribute("points","12.5,0 25,12.5 12.5,25 0,12.5");
-        polygon2.setAttribute("style","fill:red;stroke:black;stroke-width:1");
-        svg2.appendChild(polygon2);
-        cont2.appendChild(svg2);
-
-        mainDiv.appendChild(cont);
-        mainDiv.appendChild(cont2);
-
-        cont.style.left = superClass.offsetLeft + "px";
-        cont.style.top = superClass.offsetTop + "px";
-
-        cont2.style.left = subClass.offsetLeft + "px";
-        cont2.style.top = subClass.offsetTop + "px";
+        // If both are defined - Do nothing
+        if (document.getElementById("SUPER" + animator.relationships[i].superclass.toString() &&
+                document.getElementById("SUB" + animator.relationships[i].subclass.toString()))) {
+            // Nothing
+        }
+        // If super is defined - Make sub
+        else if(document.getElementById("SUPER" + animator.relationships[i].superclass.toString())){
+            makeSub(animator, i);
+        }
+        // If sub is defined - Make super
+        else if(document.getElementById("SUB" + animator.relationships[i].subclass.toString())){
+            makeSuper(animator, i);
+        }
+        // If none are defined - Make both
+        else{
+        makeSuper(animator, i);
+        makeSub(animator, i);
+        }
     }
+}
+function makeSuper(animator, i) {
+    var superClass = document.querySelector("#" + animator.relationships[i].superclass.toString());
+    var superCont = document.createElement("div");
+    superCont.className = "svgCont";
+    superCont.id = "SUPER" + animator.relationships[i].superclass.toString();
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    var polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    svg.setAttribute("height", "25px");
+    svg.setAttribute("width", "25px");
+    polygon.setAttribute("points","12.5,0 25,12.5 12.5,25 0,12.5");
+    polygon.setAttribute("style","fill:green;stroke:black;stroke-width:1");
+    svg.appendChild(polygon);
+    superCont.appendChild(svg);
+    mainDiv.appendChild(superCont);
+    superCont.style.left = superClass.offsetLeft - 25 + "px";
+    superCont.style.top = superClass.offsetTop + 60 + "px";
+}
+function makeSub(animator, i) {
+    var subClass = document.querySelector("#" + animator.relationships[i].subclass.toString());
+    var subCont = document.createElement("div");
+    subCont.className = "svgCont";
+    subCont.id = "SUB" + animator.relationships[i].subclass.toString();
+    var polygon2 = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    var svg2 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg2.setAttribute("height", "25px");
+    svg2.setAttribute("width", "25px");
+    polygon2.setAttribute("points","12.5,0 25,12.5 12.5,25 0,12.5");
+    polygon2.setAttribute("style","fill:red;stroke:black;stroke-width:1");
+    svg2.appendChild(polygon2);
+    subCont.appendChild(svg2);
+    mainDiv.appendChild(subCont);
+    subCont.style.left = subClass.offsetLeft - 25 + "px";
+    subCont.style.top = subClass.offsetTop + 60 + "px";
 }
 function dragElement(element) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -468,30 +480,26 @@ function dragElement(element) {
         moveRelation(element, pos2, pos1);
     }
     function moveRelation(element, pos2, pos1) {
-        if(document.getElementById("SUPER"+element.id.toString()) &&document.getElementById("SUB"+element.id.toString())){
+        if(document.getElementById("SUPER"+element.id.toString()) && document.getElementById("SUB"+element.id.toString())){
             var SUPER = document.getElementById("SUPER"+element.id.toString());
             var SUB = document.getElementById("SUB"+element.id.toString());
             SUPER.style.top = (SUPER.offsetTop - pos2) + "px";
             SUPER.style.left = (SUPER.offsetLeft - pos1) + "px";
             SUB.style.top = (SUB.offsetTop - pos2) + "px";
             SUB.style.left = (SUB.offsetLeft - pos1) + "px";
-            console.log("1");
         }
         else if(document.getElementById("SUPER"+element.id.toString())){
             var SUPER = document.getElementById("SUPER"+element.id.toString());
             SUPER.style.top = (SUPER.offsetTop - pos2) + "px";
             SUPER.style.left = (SUPER.offsetLeft - pos1) + "px";
-            console.log("2");
         }
         else if(document.getElementById("SUB"+element.id.toString())){
             var SUB = document.getElementById("SUB"+element.id.toString());
             SUB.style.top = (SUB.offsetTop - pos2) + "px";
             SUB.style.left = (SUB.offsetLeft - pos1) + "px";
-            console.log("3");
         }
         else{
             // DO NOTHING
-            console.log("4");
         }
     }
     function closeDragElement() {
