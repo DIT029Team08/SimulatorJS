@@ -65,9 +65,11 @@ if(animator.type === 'sequence_diagram') {
 // Checks if it's a class diagram
 if(animator.type === 'class_diagram'){
     var left = 25;
+    var top = 25;
     for (var i = 0; i < animator.classes.length; i++) {
-        createClass(animator, i, left);
+        createClass(animator, i, left, top);
         left = left + 400;
+        top = top + 150;
     }
     classLog(animator);
     makeRelations(animator);
@@ -210,7 +212,7 @@ function arrowL2R(from, to, j, i) {
     svg.setAttribute("height", "14");
     polygon.setAttribute("points", "1400,7 1385,1 1390,6 0,6 0,8 1390,8 1385,13 1400,7");
 
-    arrow.style.left = from.x - 30 + 'px';
+    arrow.style.left = from.x - 20 + 'px';
 
     message.className = messageDivClassName;
     message.innerHTML = animator.diagram.content[j].content[i].message.toString();
@@ -250,7 +252,7 @@ function arrowR2L(from, to, j, i) {
     svg.setAttribute("height", "14");
     polygon.setAttribute("points", "0,7 15,1 10,6 1400,6 1400,8 10,8 15,13 0,7");
 
-    arrow.style.left =  to.x - 30 + 'px';
+    arrow.style.left =  to.x - 20 + 'px';
 
     message.className = messageDivClassName;
     message.innerHTML = animator.diagram.content[j].content[i].message.toString();
@@ -365,13 +367,14 @@ function createLifeline(animator, i) {
         },1000); // scrolls every 1000 milliseconds
     }
 }
-function createClass(animator,i, left) {
+function createClass(animator, i, left, top) {
     var div = document.createElement("div");
     div.className = classesDivClassName;
     div.innerHTML = animator.classes[i].name.toString();
     div.id = animator.classes[i].name.toString();
     mainDiv.appendChild(div);
     div.style.left = left + "px";
+    div.style.top = top + "px";
 
     var div2 = document.createElement("div");
     div2.className = "hr2";
@@ -424,15 +427,18 @@ function makeRelations(animator){
         // If super is defined - Make sub
         else if(document.getElementById("SUPER" + animator.relationships[i].superclass.toString())){
             makeSub(animator, i);
+            makeLine(animator, i);
         }
         // If sub is defined - Make super
         else if(document.getElementById("SUB" + animator.relationships[i].subclass.toString())){
             makeSuper(animator, i);
+            makeLine(animator, i);
         }
         // If none are defined - Make both
         else{
         makeSuper(animator, i);
         makeSub(animator, i);
+        makeLine(animator, i);
         }
     }
 }
@@ -442,15 +448,16 @@ function makeSuper(animator, i) {
     superCont.className = "svgCont";
     superCont.id = "SUPER" + animator.relationships[i].superclass.toString();
     var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    var polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    //var polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
     svg.setAttribute("height", "25px");
     svg.setAttribute("width", "25px");
-    polygon.setAttribute("points","12.5,0 25,12.5 12.5,25 0,12.5");
-    polygon.setAttribute("style","fill:green;stroke:black;stroke-width:1");
-    svg.appendChild(polygon);
+    //polygon.setAttribute("points","12.5,0 25,12.5 12.5,25 0,12.5");
+    //polygon.setAttribute("style","fill:green;stroke:black;stroke-width:1");
+    //svg.appendChild(polygon);
     superCont.appendChild(svg);
     mainDiv.appendChild(superCont);
-    superCont.style.left = superClass.offsetLeft - 25 + "px";
+    // HERE IS                                     250
+    superCont.style.left = superClass.offsetLeft + 237 + "px";
     superCont.style.top = superClass.offsetTop + 60 + "px";
 }
 function makeSub(animator, i) {
@@ -462,13 +469,35 @@ function makeSub(animator, i) {
     var svg2 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg2.setAttribute("height", "25px");
     svg2.setAttribute("width", "25px");
-    polygon2.setAttribute("points","12.5,0 25,12.5 12.5,25 0,12.5");
-    polygon2.setAttribute("style","fill:red;stroke:black;stroke-width:1");
+    //                              0 0,0% 100%, 100% 50%
+    polygon2.setAttribute("points","1,1 1,25 25,12.5");
+    polygon2.setAttribute("style","fill:white;stroke:black;stroke-width:3");
     svg2.appendChild(polygon2);
     subCont.appendChild(svg2);
     mainDiv.appendChild(subCont);
     subCont.style.left = subClass.offsetLeft - 25 + "px";
     subCont.style.top = subClass.offsetTop + 60 + "px";
+}
+function makeLine(animator, i) {
+    var main = $("#outputJSON");
+    var lineCont = document.createElement("div");
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+
+    line.id = animator.relationships[i].superclass.toString() + animator.relationships[i].subclass.toString();
+    lineCont.className = "lineCont";
+
+    svg.appendChild(line);
+    lineCont.appendChild(svg);
+    mainDiv.appendChild(lineCont);
+
+    svg.setAttribute("height", main.innerHeight());
+    svg.setAttribute("width", main.innerWidth());
+    line.setAttribute("x1" , (document.getElementById("SUPER" + animator.relationships[i].superclass.toString()).offsetLeft + 13 + "px"));
+    line.setAttribute("y1" , (document.getElementById("SUPER" + animator.relationships[i].superclass.toString()).offsetTop + 13 + "px"));
+    line.setAttribute("x2" , (document.getElementById("SUB" + animator.relationships[i].subclass.toString()).offsetLeft + 13 + "px"));
+    line.setAttribute("y2" , (document.getElementById("SUB" + animator.relationships[i].subclass.toString()).offsetTop + 13 + "px"));
+    line.setAttribute("style","stroke:black;stroke-width:2");
 }
 function dragElement(element) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -485,18 +514,19 @@ function dragElement(element) {
     }
     function elementDrag(e) {
         e = e || window.event;
-        // calculate the new cursor position:
+        // Calculate the new cursor position
         pos1 = pos3 - e.clientX;
         pos2 = pos4 - e.clientY;
         pos3 = e.clientX;
         pos4 = e.clientY;
-        // set the element's new position:
+        // Set the element's new position
         element.style.top = (element.offsetTop - pos2) + "px";
         element.style.left = (element.offsetLeft - pos1) + "px";
 
         moveRelation(element, pos2, pos1);
     }
     function moveRelation(element, pos2, pos1) {
+        // If both are defined - move both
         if(document.getElementById("SUPER"+element.id.toString()) && document.getElementById("SUB"+element.id.toString())){
             var SUPER = document.getElementById("SUPER"+element.id.toString());
             var SUB = document.getElementById("SUB"+element.id.toString());
@@ -504,23 +534,60 @@ function dragElement(element) {
             SUPER.style.left = (SUPER.offsetLeft - pos1) + "px";
             SUB.style.top = (SUB.offsetTop - pos2) + "px";
             SUB.style.left = (SUB.offsetLeft - pos1) + "px";
+            // Get all lines that has a connection to this SUPER
+            var elements = $("line[id^='"+element.id.toString()+"']");
+            // Loop through them and change their points
+            for(var i = 0; i < elements.length; i++) {
+                var e = elements[i];
+                e.setAttribute("x1" , ((SUPER.offsetLeft -pos2) + 13) + "px");
+                e.setAttribute("y1" , ((SUPER.offsetTop -pos1) + 13) + "px");
+            }
+            // Get all lines that has a connection to this SUB
+            var elements = $("line[id$='"+element.id.toString()+"']");
+            // Loop through them and change their points
+            for(var i = 0; i < elements.length; i++) {
+                var e = elements[i];
+                e.setAttribute("x2" , ((SUB.offsetLeft -pos2) + 13) + "px");
+                e.setAttribute("y2" , ((SUB.offsetTop -pos1) + 13) + "px");
+            }
         }
+        // If only super is defined - move super
         else if(document.getElementById("SUPER"+element.id.toString())){
+            // Move the SUPERcont
             var SUPER = document.getElementById("SUPER"+element.id.toString());
             SUPER.style.top = (SUPER.offsetTop - pos2) + "px";
             SUPER.style.left = (SUPER.offsetLeft - pos1) + "px";
+            // Get all lines that has a connection to this SUPER
+            var elements = $("line[id^='"+element.id.toString()+"']");
+            // Loop through them and change their points
+            for(var i = 0; i < elements.length; i++) {
+                var e = elements[i];
+                e.setAttribute("x1" , ((SUPER.offsetLeft -pos2 + 13)) + "px");
+                e.setAttribute("y1" , ((SUPER.offsetTop -pos1) + 13) + "px");
+            }
         }
+        // If only sub is defined - move sub
         else if(document.getElementById("SUB"+element.id.toString())){
+            // Move the SUBcont
             var SUB = document.getElementById("SUB"+element.id.toString());
             SUB.style.top = (SUB.offsetTop - pos2) + "px";
             SUB.style.left = (SUB.offsetLeft - pos1) + "px";
+            // Get all lines that has a connection to this SUB
+            var elements = $("line[id$='"+element.id.toString()+"']");
+            // Loop through them and change their points
+            for(var i = 0; i < elements.length; i++) {
+                var e = elements[i];
+                e.setAttribute("x2" , ((SUB.offsetLeft -pos2) + 13) + "px");
+                e.setAttribute("y2" , ((SUB.offsetTop -pos1) + 13) + "px");
+            }
         }
+        // If nothing is defined - do nothing
         else{
-            // DO NOTHING
+            // Nothing
         }
     }
     function closeDragElement() {
-        // stop moving when mouse button is released:
+        // Stop moving when mouse button is released:
         document.onmouseup = null;
         document.onmousemove = null;
     }

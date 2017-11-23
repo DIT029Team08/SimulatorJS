@@ -58,7 +58,6 @@ main {
     margin-right: 20px;
     height: 65vh;
     background-color: #f5f5f5;
-    padding: 10px;
     border-radius: 5px;
     border: 1px solid #bcbcbc;
     text-align: center;
@@ -71,7 +70,7 @@ z-index: 11;
 position: sticky;
 position: -webkit-sticky;
 background-color: #f5f5f5;
-top: -10px;
+top: 0px;
 
 }
 .processes {
@@ -104,7 +103,6 @@ top: -10px;
     border:  1px solid black;
     padding: 10px;
     display: inline-block;
-
 }
 .classes {
     position: absolute;
@@ -115,14 +113,17 @@ top: -10px;
     padding-top: 5px;
     padding-bottom: 5px;
     background-color: white;
+    z-index: 1;
 }
 .fields {
+    position: relative;
     width: 190px;
     text-align: left;
     padding-bottom: 5px;
     margin-left: 10px;
     min-height: 100px;
-    background-color: white ;
+    background-color: white;
+    z-index: 1;
 }
 .hr2 {
     height: 0;
@@ -133,6 +134,11 @@ top: -10px;
 }
 .svgCont {
     position: absolute;
+    z-index: 1;
+}
+.lineCont {
+    position: absolute;
+    z-index: 0;
 }
 .lifeLine {
     position: relative;
