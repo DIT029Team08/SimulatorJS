@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>DIT029 Simulator</title>
-	<link rel="stylesheet" type="text/css" href="./resources/styles/main.css">
+	<link rel="stylesheet" type="text/css" href="/public/styles/main.css">
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300" rel="stylesheet"> 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 </head>
@@ -16,7 +16,7 @@
 				<h2>Please select a JSON File</h2>
 				<h6>Ensure that the contents follow the DIT029 Template<br> for a Sequence Diagram</h6>
 			</div>
-			<form class="fileForm" name="fileForm" action="./resources/pages/animationPage.html" method="get">
+			<form class="fileForm" name="fileForm" action="/public/routes/animationPage.html" method="get">
 				<input class="fileInput" name="file" type="file" id="JSONFile" accept=".json" required>
 				<button type="submit">Submit</button>
 			</form>
@@ -24,7 +24,7 @@
 	</main>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="./resources/js/inputFile.js"></script>
+	<script src="/public/js/inputFile.js"></script>
 
 	<!-- <script type="text/javascript" src="./resources/js/app.js"></script> -->
 	

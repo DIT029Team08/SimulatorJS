@@ -7,3 +7,18 @@ var path = require('path');
 users = [];
 connections = [];
 
+server.listen(process.env.PORT || 3000);
+console.log('Server running ...');
+
+app.use('/', express.static(__dirname));
+
+app.get('/', function(req, res){
+    res.sendFile(__dirname + '/index.html');
+});
+// app.use('/docs/resources/styles', express.static(path.join(__dirname, '/docs/resources/styles')));
+// app.use("/docs/resources/styles", express.static( __dirname + '/docs/resources/styles'));
+
+io.sockets.on('connection', function(socket) {
+    connections.push(socket);
+    console.log('Connected: %s sockets connected', connections.length);
+});
