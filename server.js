@@ -20,6 +20,13 @@ app.get('/', function(req, res){
 
 io.sockets.on('connection', function(socket) {
     connections.push(socket);
+
+    socket.id = Math.floor(Math.random() * 1000);
+    socket.on('data', function(data) {
+        socket.write('ID: ' + socket.id);
+    });
+    console.log('Socket %s', socket.id);
+
     console.log('One Connected: %s sockets connected', connections.length);
 
     //Disconnect
