@@ -20,5 +20,11 @@ app.get('/', function(req, res){
 
 io.sockets.on('connection', function(socket) {
     connections.push(socket);
-    console.log('Connected: %s sockets connected', connections.length);
+    console.log('One Connected: %s sockets connected', connections.length);
+
+    //Disconnect
+    socket.on('disconnect', function(socket) {
+        connections.splice(connections.indexOf(socket), 1);
+        console.log('One Disconnected: %s sockets connected', connections.length);
+    });
 });
