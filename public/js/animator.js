@@ -14,6 +14,7 @@ const messageDivClassName = "messages";
 var scrollBoolean = true;
 
 var animator = JSON.parse(localStorage.getItem('stringJSON'));
+// localStorage.removeItem("stringJSON");
 var mainDiv = document.getElementById("outputJSON");
 var frameDiv;
 var llHeight = 150;

@@ -16,8 +16,9 @@
   "author": "Group 08",
   "license": "ISC",
   "dependencies": {
-    "socket.io": "*",
-    "express": "*"
+    "express": "*",
+    "node-localstorage": "^1.3.0",
+    "socket.io": "*"
   },
   "bugs": {
     "url": "https://github.com/DIT029Team08/SimulatorJS/issues"
