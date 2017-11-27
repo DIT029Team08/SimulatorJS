@@ -449,16 +449,15 @@ function makeSuper(animator, i) {
     superCont.className = "svgCont";
     superCont.id = "SUPER" + animator.relationships[i].superclass.toString();
     var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    //var polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    var polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
     svg.setAttribute("height", "25px");
     svg.setAttribute("width", "25px");
-    //polygon.setAttribute("points","12.5,0 25,12.5 12.5,25 0,12.5");
-    //polygon.setAttribute("style","fill:green;stroke:black;stroke-width:1");
-    //svg.appendChild(polygon);
+    polygon.setAttribute("points","1,12.5 24,1 24,24");
+    polygon.setAttribute("style","fill:white;stroke:black;stroke-width:3");
+    svg.appendChild(polygon);
     superCont.appendChild(svg);
     mainDiv.appendChild(superCont);
-    // HERE IS                                     250
-    superCont.style.left = superClass.offsetLeft + 237 + "px";
+    superCont.style.left = superClass.offsetLeft + 250 + "px";
     superCont.style.top = superClass.offsetTop + 60 + "px";
 }
 function makeSub(animator, i) {
@@ -466,17 +465,17 @@ function makeSub(animator, i) {
     var subCont = document.createElement("div");
     subCont.className = "svgCont";
     subCont.id = "SUB" + animator.relationships[i].subclass.toString();
-    var polygon2 = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    //var polygon2 = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
     var svg2 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg2.setAttribute("height", "25px");
     svg2.setAttribute("width", "25px");
     //                              0 0,0% 100%, 100% 50%
-    polygon2.setAttribute("points","1,1 1,25 25,12.5");
-    polygon2.setAttribute("style","fill:white;stroke:black;stroke-width:3");
-    svg2.appendChild(polygon2);
+    //polygon2.setAttribute("points","1,1 1,25 25,12.5");
+    //polygon2.setAttribute("style","fill:white;stroke:black;stroke-width:3");
+    //svg2.appendChild(polygon2);
     subCont.appendChild(svg2);
     mainDiv.appendChild(subCont);
-    subCont.style.left = subClass.offsetLeft - 25 + "px";
+    subCont.style.left = subClass.offsetLeft + "px";
     subCont.style.top = subClass.offsetTop + 60 + "px";
 }
 function makeLine(animator, i) {
