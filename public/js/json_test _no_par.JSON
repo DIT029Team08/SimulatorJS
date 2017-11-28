@@ -1,0 +1,73 @@
+{
+	"meta": {
+		"format": "DIT029 format",
+		"version": "1.0",
+		"extensions": []
+	},
+	"type": "sequence_diagram",
+	"processes": [{
+			"class": "Gateway",
+			"name": "g"
+		},
+		{
+			"class": "User",
+			"name": "u1"
+		},
+		{
+			"class": "User",
+			"name": "u2"
+		},
+		{
+			"class": "User",
+			"name": "u3"
+		}
+	],
+	"diagram": {
+		
+		"content": [{
+				"node": "seq",
+				"content": [{
+						"node": "send",
+						"from": "u1",
+						"to": "g",
+						"message": ["fwd", "u2", "msg1"]
+					},
+					{
+						"node": "send",
+						"from": "u3",
+						"to": "g",
+						"message": ["fwd", "u1", "msg2"]
+					},
+					{
+						"node": "send",
+						"from": "g",
+						"to": "u2",
+						"message": ["fwd", "u2", "msg1"]
+					},
+					{
+						"node": "send",
+						"from": "g",
+						"to": "u1",
+						"message": ["fwd", "u1", "msg2"]
+					}
+				]
+			},
+			{
+				"node": "seq",
+				"content": [{
+						"node": "send",
+						"from": "u3",
+						"to": "g",
+						"message": ["status"]
+					},
+					{
+						"node": "send",
+						"from": "g",
+						"to": "u3",
+						"message": ["ok"]
+					}
+				]
+			}
+		]
+	}
+}

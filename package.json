@@ -1,0 +1,27 @@
+{
+  "name": "simulatorjs",
+  "version": "1.0.0",
+  "description": "SimulatorJS is a program that simulates and visualizes System\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D Sequence \u001b[C\u001b[C\u001b[C\u001b[C\u001b[Cm Diagrams, Class Digrams and Deployment Diagrams based on specific json files.",
+  "main": "server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DIT029Team08/SimulatorJS.git"
+  },
+  "author": "Group 08",
+  "license": "ISC",
+  "dependencies": {
+    "express": "*",
+    "node-localstorage": "^1.3.0",
+    "socket.io": "*"
+  },
+  "bugs": {
+    "url": "https://github.com/DIT029Team08/SimulatorJS/issues"
+  },
+  "homepage": "https://github.com/DIT029Team08/SimulatorJS#readme"
+}
