@@ -61,13 +61,20 @@ body {
 	background-color: rgba(0, 0, 0, 0.45);
 	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.55);
 }
-
+#error {
+	font-size: 16px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	display: block;
+	text-align: center;
+	font-weight: bold;
+	color: red;
+}
 .fileForm button{
 	display: block;
 	margin: auto;
 	padding: 5px 20px;
 	border-radius: 4px;
-	margin-top: 30px;
 	cursor: pointer;
 	transition: all 0.3s ease 0s;
 }
