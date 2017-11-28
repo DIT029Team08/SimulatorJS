@@ -594,7 +594,7 @@ function dragElement(element) {
     }
 }
 
-createFrames(object, frameToAppend) {
+function createFrames(object, frameToAppend){
     var arrayOfNodes;
 
     for (i = 0; i < object.length(); i++) {

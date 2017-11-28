@@ -20,8 +20,10 @@
 				<h6>Ensure that the contents follow the DIT029 Template<br> for a Sequence Diagram</h6>
 			</div>
 			<form class="fileForm" name="fileForm" action="/animationPage.html" method="get">
-				<input class="fileInput" name="file" type="file" id="JSONFile" accept=".json" required>
-				<button type="submit">Submit</button>
+				<input class="fileInput" name="file" type="file" id="JSONFile" accept=".json" required multiple>
+				<div id="error">Only Json files accepted</div>
+				<div class ="fileSelDiv" id="selectedFiles"></div>
+				<button type="submit" id="submitbutton">Submit</button>
 			</form>
 		</div>
 	</main>
