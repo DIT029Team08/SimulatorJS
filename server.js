@@ -21,8 +21,6 @@ app.get('/', function(req, res) {
     if (connections.length === 0) {
         app.use('/', express.static(path.join(__dirname)));
         res.sendFile(__dirname + '/index.html');
-        users.push(users.length + 1);
-        console.log("Current Users: " + users.length);
     }
     else if(connections.length > 0) {
         app.use('/public', express.static(path.join(__dirname, '/public')));
@@ -35,8 +33,7 @@ app.get('/', function(req, res) {
 
 io.sockets.on('connection', function(socket) {
     connections.push(socket);
-    users.push(users.length + 1);
-    console.log("Current Users: " + users.length);
+
 
     // socket.id = Math.floor(Date.now() * Math.random());
     // socket.on('data', function(data) {
@@ -54,5 +51,10 @@ io.sockets.on('connection', function(socket) {
             localStorage.removeItem("stringJSON");
             console.log("localStorage cleared");
         }
+    });
+
+    socket.on('send message', function(data){
+        // io.sockets.emit('new message', {msg: data});
+        console.log(data.msg);
     });
 });
