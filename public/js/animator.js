@@ -18,12 +18,17 @@ var scrollBoolean = true;
 //var animator = JSON.parse(localStorage.getItem('stringJSON'));
 // localStorage.removeItem("stringJSON");
 var mainDiv = document.getElementById("outputJSON");
+var log = document.getElementById("logList");
 var frameDiv;
 var llHeight = 150;
 
 // Checks if it's a sequence diagram
 function outputAnimation (animator) {
     console.log("test 1");
+    mainDiv.innerHTML = "";
+    log.innerHTML = "";
+    llHeight = 150;
+    scrollBoolean = true;
     if (animator.type === 'sequence_diagram') {
             console.log("test 2");
             //Selects the processes array in JSON File and iterates for every element
@@ -148,7 +153,6 @@ else {
 
 
 function createLog(animator, i, e, total) {
-    var ul = document.getElementById("logList");
 
     // resets the i and increment e as for loop inside a for loop to get all messages.
     
@@ -166,7 +170,7 @@ function createLog(animator, i, e, total) {
         animator.diagram.content[e].content[i].from.toString() + " To: " +
         animator.diagram.content[e].content[i].to.toString() + " || Message: " +
         animator.diagram.content[e].content[i].message.toString()));
-    ul.appendChild(li);
+    log.appendChild(li);
 
     if (animator.diagram.content.length > e) {
 
@@ -397,7 +401,6 @@ function pageScroll() {
         }
     }
     function classLog(animator){
-        var ul = document.getElementById("logList");
         var relation = "";
         for(var i = 0; i < animator.relationships.length; i++){
             var li = document.createElement("li");
@@ -415,7 +418,7 @@ function pageScroll() {
                 animator.relationships[i].subclass.toString() +
                 relation +
                 animator.relationships[i].superclass.toString()));
-            ul.appendChild(li);
+            log.appendChild(li);
         }
     }
     function makeRelations(animator){
