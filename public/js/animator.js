@@ -366,13 +366,13 @@ function pageScroll() {
             //Scrolls to the bottom of the outputJSON page
             mainDiv.scrollBy(0,document.getElementById('outputJSON').scrollHeight); // horizontal and vertical scroll increments
             //scrolls to the bottom of the log
-            log.scrollBy(0,document.getElementById('log').scrollHeight);
+            document.getElementById('log').scrollBy(0, document.getElementById('log').scrollHeight);
             setTimeout(function() {
                 pageScroll();
         },1000); // scrolls every 1000 milliseconds
         }
     }
-    function createClass(animator, i, left, top) {
+function createClass(animator, i, left, top) {
         var div = document.createElement("div");
         div.className = classesDivClassName;
         div.innerHTML = animator.classes[i].name.toString();
@@ -392,7 +392,7 @@ function pageScroll() {
         fillFields(animator, div3, i);
         dragElement(div);
     }
-    function fillFields(animator, div, i){
+function fillFields(animator, div, i){
         for (var x = 0; x < animator.classes[i].fields.length; x++) {
             var text = document.createElement("div");
             text.innerHTML = animator.classes[i].fields[x].name.toString() + ": " +
@@ -400,7 +400,7 @@ function pageScroll() {
             div.appendChild(text);
         }
     }
-    function classLog(animator){
+function classLog(animator){
         var relation = "";
         for(var i = 0; i < animator.relationships.length; i++){
             var li = document.createElement("li");
@@ -421,7 +421,7 @@ function pageScroll() {
             log.appendChild(li);
         }
     }
-    function makeRelations(animator){
+function makeRelations(animator){
         for(var i = 0; i < animator.relationships.length; i++){
         // If both are defined - Do nothing
         if (document.getElementById("SUPER" + animator.relationships[i].superclass.toString() &&
