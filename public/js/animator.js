@@ -616,8 +616,10 @@ function createFrames(object, frameToAppend){
             seqFrameDiv.appendChild(seqFrameTitle);             //append to frameToAppend
         }
         else if (arrayOfNodes[i] === "par") {
-            //create frame div parFrame
-            //create frameTitle with "par" title
+            var parFrameDiv = document.createElement("div");    //create frame div parFrame
+            parFrameDiv.className = parFrameDivClassName;
+            frameToAppend.appendChild(parFrameDiv);
+            var parFrameTitle = document.createElement("div");  //create frameTitle with "par" title
             //call createFrame(object content, frame parFrame)
         }
         else if (arrayOfNodes[i] === "send") {
