@@ -3,7 +3,8 @@
 const processDivClassName = "processes";
 const classesDivClassName = "classes";
 const fieldsDivClassName = "fields";
-const frameDivClassName = "frame";
+const seqFrameDivClassName = "frame seq";
+const parFrameDivClassName = "frame par"
 const frameTitleClassName = "frameTitle";
 const lifelines = "lifeLine";
 const arrowDivClassNameL2R = "arrowLtoR";
@@ -605,9 +606,13 @@ function createFrames(object, frameToAppend){
 
     for (i = 0; i < arrayOfNodes.length(); i++) {
         if (arrayOfNodes[i] === "seq") {
-            //create frame div seqFrame
-            //create frameTitle with "seq" Title
-            //append to frameToAppend
+            var seqFrameDiv = document.createElement("div");    //create frame div seqFrame
+            seqFrameDiv.className = seqFrameDivClassName;
+            mainDiv.appendChild(seqFrameDiv);
+            var seqFrameTitle = document.createElement("div");  //create frameTitle with "seq" Title
+            seqFrameTitle.className = frameTitleClassName;
+            seqFrameTitle.innerHTML = "seq";
+            seqFrameDiv.appendChild(seqFrameTitle);             //append to frameToAppend
         }
         else if (arrayOfNodes[i] === "par") {
             //create frame div parFrame
