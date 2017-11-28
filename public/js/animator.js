@@ -608,7 +608,7 @@ createFrames(object, frameToAppend) {
         if (arrayOfNodes[i] === "seq") {
             var seqFrameDiv = document.createElement("div");    //create frame div seqFrame
             seqFrameDiv.className = seqFrameDivClassName;
-            mainDiv.appendChild(seqFrameDiv);
+            frameToAppend.appendChild(seqFrameDiv);
             var seqFrameTitle = document.createElement("div");  //create frameTitle with "seq" Title
             seqFrameTitle.className = frameTitleClassName;
             seqFrameTitle.innerHTML = "seq";
