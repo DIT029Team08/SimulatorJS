@@ -30,7 +30,7 @@ if(animator.type === 'sequence_diagram') {
         mainDiv.appendChild(processDiv);
         for (var i = 0; i < animator.processes.length; i++) {
 
-                createProcess(animator, i);
+            createProcess(animator, i);
 
                 //Similar behavior as in the previous block, but this time the lifelines are given a unique ID, are appended to the <div> created in the previous block
                 //and the activators are appended to the lifeline divs.
@@ -57,12 +57,12 @@ if(animator.type === 'sequence_diagram') {
                     frameDiv.appendChild(frameTitle);
                 }
             }
-        createArrow(animator, 0, 0);
-        createLog(animator, 0, 0, 0);
-        pageScroll();
-    }
+            createArrow(animator, 0, 0);
+            createLog(animator, 0, 0, 0);
+            pageScroll();
+        }
 
-}
+    }
 // Checks if it's a class diagram
 if(animator.type === 'class_diagram'){
     var left = 25;
@@ -80,7 +80,7 @@ if(animator.type === 'class_diagram'){
 * This function creates arrows based on the direction of the arrow by using the functions arrowL2R and arrowR2L.
 * It checks the start and end position of each arrow in the content of the diagram section provided in the JSON file.
 * The function is set to a timeout in order to generate the arrows one by one with a timeout of one second.
- */
+*/
 
 function createArrow(animator, j, i) {
 
@@ -108,7 +108,7 @@ function createArrow(animator, j, i) {
 
             // Lifeline height
             var LifeLinesArray = document.querySelectorAll('.lifeLine');
-                llHeight = llHeight + 65;
+            llHeight = llHeight + 65;
             
             for (var k=0; k < LifeLinesArray.length; k++) {
                 LifeLinesArray[k].style.height = (llHeight + "px");
@@ -138,12 +138,12 @@ function createArrow(animator, j, i) {
 
     // the recursive call of the loop and the incrementing of var i
 
-    else {
-        setTimeout(function () {
-            i++;
-            createArrow(animator, j, i, mainDiv);
-        }, 1000);
-    }
+else {
+    setTimeout(function () {
+        i++;
+        createArrow(animator, j, i, mainDiv);
+    }, 1000);
+}
 }
 
 
@@ -195,7 +195,7 @@ function createLog(animator, i, e, total) {
  * the message that each arrow carries. As stated in the function, arrows are children of frameDiv.
  */
 
-function arrowL2R(from, to, j, i) {
+ function arrowL2R(from, to, j, i) {
 
     var arrow = document.createElement("div");
     var svg = document.createElementNS('http://www.w3.org/2000/svg', "svg");
@@ -236,7 +236,7 @@ function arrowL2R(from, to, j, i) {
  * the message that each arrow carries. As stated in the function, arrows are children of frameDiv.
  */
 
-function arrowR2L(from, to, j, i) {
+ function arrowR2L(from, to, j, i) {
 
     var arrow = document.createElement("div");
     var svg = document.createElementNS('http://www.w3.org/2000/svg', "svg");
@@ -275,7 +275,7 @@ function arrowR2L(from, to, j, i) {
  * Helper function that gets an arrow's exact position by using its dedicated id
  */
 
-function getPosition(el) {
+ function getPosition(el) {
     var xPos = 0;
     var yPos = 0;
     while (el) {
@@ -304,7 +304,7 @@ function getPosition(el) {
  * This function creates an object (process) in the SSD diagram from the list of processes in the JSON file provided.
  */
 
-function createProcess(animator, i) {
+ function createProcess(animator, i) {
 
     div = document.createElement("div");            //Creates an HTML <div> element
     div.className = processDivClassName;                //assigns it a class
@@ -329,11 +329,11 @@ function createProcess(animator, i) {
     stickyDiv.innerHTML =
         animator.processes[i].name.toString() + ": " +  //Gives it a text output as specified in the JSON file, here the class and name of the object
         animator.processes[i].class.toString();         //here it is the class and name of the SSD object
-    stickyProcessContainerDiv.appendChild(stickyDiv);
+        stickyProcessContainerDiv.appendChild(stickyDiv);
 
 
 
-}
+    }
 
 /*
  * This function creates the lifeline related to each object (process) in the SSD diagram. It also assigns an id to
@@ -341,7 +341,7 @@ function createProcess(animator, i) {
  * of the arrows.
  */
 
-function createLifeline(animator, i) {
+ function createLifeline(animator, i) {
 
     var lifeLineDiv = document.createElement("div");
     lifeLineDiv.className = lifelines;
@@ -350,9 +350,9 @@ function createLifeline(animator, i) {
 
 }
 
-  var lastScroll = 0;
-  function pageScroll() {
-    
+var lastScroll = 0;
+function pageScroll() {
+
         //checks if it should continue scrolling or not
         if(scrollBoolean || lastScroll == 0){
             // some logic to do one more iteration of this function. Overwise it will skip the last scroll of the SSD.
@@ -364,67 +364,67 @@ function createLifeline(animator, i) {
             //scrolls to the bottom of the log
             log.scrollBy(0,document.getElementById('log').scrollHeight);
             setTimeout(function() {
-            pageScroll();
+                pageScroll();
         },1000); // scrolls every 1000 milliseconds
-    }
-}
-function createClass(animator, i, left, top) {
-    var div = document.createElement("div");
-    div.className = classesDivClassName;
-    div.innerHTML = animator.classes[i].name.toString();
-    div.id = animator.classes[i].name.toString();
-    mainDiv.appendChild(div);
-    div.style.left = left + "px";
-    div.style.top = top + "px";
-
-    var div2 = document.createElement("div");
-    div2.className = "hr2";
-    div.appendChild(div2);
-
-    var div3 = document.createElement("div");
-    div3.className = fieldsDivClassName;
-    div.appendChild(div3);
-
-    fillFields(animator, div3, i);
-    dragElement(div);
-}
-function fillFields(animator, div, i){
-    for (var x = 0; x < animator.classes[i].fields.length; x++) {
-        var text = document.createElement("div");
-        text.innerHTML = animator.classes[i].fields[x].name.toString() + ": " +
-                         animator.classes[i].fields[x].type.toString();
-        div.appendChild(text);
-    }
-}
-function classLog(animator){
-    var ul = document.getElementById("logList");
-    var relation = "";
-    for(var i = 0; i < animator.relationships.length; i++){
-        var li = document.createElement("li");
-        if(animator.relationships[i].type === 'inheritance'){
-            relation = " inherits "
         }
-        else{
-            relation = " poops on "
-        }
-        li.setAttribute('id',((i+1)+": " +
-            animator.relationships[i].subclass.toString() +
-            relation +
-            animator.relationships[i].superclass.toString()));
-        li.appendChild(document.createTextNode((i+1)+": " +
-            animator.relationships[i].subclass.toString() +
-            relation +
-            animator.relationships[i].superclass.toString()));
-        ul.appendChild(li);
     }
-}
-function makeRelations(animator){
-    for(var i = 0; i < animator.relationships.length; i++){
+    function createClass(animator, i, left, top) {
+        var div = document.createElement("div");
+        div.className = classesDivClassName;
+        div.innerHTML = animator.classes[i].name.toString();
+        div.id = animator.classes[i].name.toString();
+        mainDiv.appendChild(div);
+        div.style.left = left + "px";
+        div.style.top = top + "px";
+
+        var div2 = document.createElement("div");
+        div2.className = "hr2";
+        div.appendChild(div2);
+
+        var div3 = document.createElement("div");
+        div3.className = fieldsDivClassName;
+        div.appendChild(div3);
+
+        fillFields(animator, div3, i);
+        dragElement(div);
+    }
+    function fillFields(animator, div, i){
+        for (var x = 0; x < animator.classes[i].fields.length; x++) {
+            var text = document.createElement("div");
+            text.innerHTML = animator.classes[i].fields[x].name.toString() + ": " +
+            animator.classes[i].fields[x].type.toString();
+            div.appendChild(text);
+        }
+    }
+    function classLog(animator){
+        var ul = document.getElementById("logList");
+        var relation = "";
+        for(var i = 0; i < animator.relationships.length; i++){
+            var li = document.createElement("li");
+            if(animator.relationships[i].type === 'inheritance'){
+                relation = " inherits "
+            }
+            else{
+                relation = " poops on "
+            }
+            li.setAttribute('id',((i+1)+": " +
+                animator.relationships[i].subclass.toString() +
+                relation +
+                animator.relationships[i].superclass.toString()));
+            li.appendChild(document.createTextNode((i+1)+": " +
+                animator.relationships[i].subclass.toString() +
+                relation +
+                animator.relationships[i].superclass.toString()));
+            ul.appendChild(li);
+        }
+    }
+    function makeRelations(animator){
+        for(var i = 0; i < animator.relationships.length; i++){
         // If both are defined - Do nothing
         if (document.getElementById("SUPER" + animator.relationships[i].superclass.toString() &&
-                document.getElementById("SUB" + animator.relationships[i].subclass.toString()))) {
+            document.getElementById("SUB" + animator.relationships[i].subclass.toString()))) {
             // Nothing
-        }
+    }
         // If super is defined - Make sub
         else if(document.getElementById("SUPER" + animator.relationships[i].superclass.toString())){
             makeSub(animator, i);
@@ -437,9 +437,9 @@ function makeRelations(animator){
         }
         // If none are defined - Make both
         else{
-        makeSuper(animator, i);
-        makeSub(animator, i);
-        makeLine(animator, i);
+            makeSuper(animator, i);
+            makeSub(animator, i);
+            makeLine(animator, i);
         }
     }
 }
@@ -591,4 +591,32 @@ function dragElement(element) {
         document.onmouseup = null;
         document.onmousemove = null;
     }
+}
+
+function createFrames(object, frameToAppend){
+    var arrayOfNodes;
+
+    for (i = 0; i < object.length(); i++) {
+        if (i % 2 == 0) {
+            arrayOfNodes.push(object[i]);
+            console.log("Array of Nodes" + arrayOfNodes);
+        }
+    }
+
+    for (i = 0; i < arrayOfNodes.length(); i++) {
+        if (arrayOfNodes[i] === "seq") {
+            //create frame div seqFrame
+            //create frameTitle with "seq" Title
+            //append to frameToAppend
+        }
+        else if (arrayOfNodes[i] === "par") {
+            //create frame div parFrame
+            //create frameTitle with "par" title
+            //call createFrame(object content, frame parFrame)
+        }
+        else if (arrayOfNodes[i] === "send") {
+            //create arrow from "from" to "to"
+        }
+    }
+
 }

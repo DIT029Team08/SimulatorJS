@@ -1,7 +1,7 @@
+var fileInput = document.getElementById('JSONFile');
 window.onload = function() {
-    var fileInput = document.getElementById('JSONFile');
     var button = document.getElementById('submitbutton');
-    var message = document.getElementById('error')
+    var message = document.getElementById('error');
     message.style.opacity = 0;
 
     if (fileInput) {
@@ -11,37 +11,51 @@ window.onload = function() {
             var regTypesAllowed =  /(.*?)\.(json|JSON)$/;
 
             if (fileValue.match(regTypesAllowed)) {
-                console.log("WORKS")
                 button.disabled = false;
                 message.style.opacity = 0;
                 var reader = new FileReader();
                 reader.onload = function(e) {
+                	localStorage.clear();
                     localStorage.setItem('stringJSON', reader.result); // Once file is read, JSON text is put in local storage
                 };
                 reader.readAsText(fullFile);
             }
             else{
-                console.log("NOPE")
                 button.disabled = true;
                 message.style.opacity = 100;
             }
         });
     }
+
 };
+var selDiv = "";
+document.addEventListener("DOMContentLoaded", init, false);  //event is fired when the initial HTML document has been completely loaded and parsed
 
+function init() {
+	fileInput.addEventListener("change", handleFileSelect, false);
+	selDiv = document.querySelector("#selectedFiles");
+}
 
-    /**JavaScript
-    var scroll = setInterval(function(){ window.scrollBy(0,1000); }, 2000);
-         
-            if (fileValue.match(regTypesAllowed) && && $window.localStorage !== null) {
-                var reader = new FileReader();
-                try{
-                reader.onload = function(e) {
-                    localStorage.setItem('stringJSON', reader.result);
-                    //localStorage.removeItem('stringJSON');
-                };
-                reader.readAsText(fullFile);
-            }catch(e){
-                reader = false;
-            }  
-            } */
+function handleFileSelect(e) {
+
+	if (!e.target.files) return;
+
+	selDiv.innerHTML = ""; //sets the HTML content (inner HTML) of an element.
+
+	var files = e.target.files;
+    
+	//goes through a list of selected jsons and saves and appends to the div html
+	for (var i = 0; i < files.length ; i++) {
+		var selectedJson;
+		if (this.files.length < 4){
+			selectedJson = files[i];
+		}
+		else {
+            document.getElementById("JSONFile").value = null; //..clears the input file
+            alert("Maximum of 3 files allowed");
+
+		}
+		selDiv.innerHTML += selectedJson.name + "<br/>"; //returns the HTML content (inner HTML) of an element.
+
+	}
+}
