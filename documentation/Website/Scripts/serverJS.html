@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server.js Documentation</title>
+</head>
+<body>
+<h1><a href="documentation.html">Back</a></h1>
+<hr>
+<h1>server.js</h1>
+<h2>app.get(String path, function(request, response)</h2>
+<p style="max-width: 800px;">
+    Checks if any connections are made or not. If not any connections are made
+    it sends the client to the index page but if there already are connections
+    the client is sent to the animation page instead.
+</p>
+<hr>
+<h2>io.sockets.on(String path, function(socket)</h2>
+<p style="max-width: 800px;">
+    This code works like a server loop. The socket will receive a message and
+    dependent on what the message is the function will do a specific task connected
+    to the message.
+
+    The code snippet is an example of where the first part checks for a message and
+    the later part is the function that should run when the message is received.
+    <div style="border: solid black 1px; max-width:350px">
+    <code>
+        socket.on('disconnect', function(socket) {<br>
+        connections.splice(connections.indexOf(socket), 1); <br>
+        ........... });</code>
+    </div>
+
+</p>
+<hr>
+</body>
+</html>

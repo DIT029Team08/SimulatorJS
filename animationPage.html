@@ -42,7 +42,22 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         $(function() {
-            socket = io.connect();
+            var socket = io.connect();
+//            var $homeNav = $('#homeNav');
+//            $homeNav.click(function (e) {
+//                e.preventDefault();
+//                localStorage.clear();
+//
+//            });
+            var $pause = $('#pause');
+            $pause.click(function (e) {
+                e.preventDefault();
+                socket.emit('send message', {msg: 'Lets see'});
+                json.parse(localStorage.getItem('stringJSON'));
+                console.log("YO");
+            });
+
+
         });
     </script>
     <!--<script type="text/javascript" src="../js/app.js"></script>-->
