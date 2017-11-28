@@ -58,7 +58,8 @@ io.sockets.on('connection', function(socket) {
         console.log(data.msg);
     });
 
-    socket.on('begin animation', function () {
-        io.sockets.emit('begin animation', users);
+    socket.on('begin animation', function (data) {
+        console.log("Users after animation started " + connections.length)
+        io.sockets.emit('begin animation', data.animator);
     })
 });

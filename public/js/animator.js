@@ -15,16 +15,17 @@ const messageDivClassName = "messages";
 
 var scrollBoolean = true;
 
-var animator = JSON.parse(localStorage.getItem('stringJSON'));
+//var animator = JSON.parse(localStorage.getItem('stringJSON'));
 // localStorage.removeItem("stringJSON");
 var mainDiv = document.getElementById("outputJSON");
 var frameDiv;
 var llHeight = 150;
 
 // Checks if it's a sequence diagram
-function outputAnimation () {
+function outputAnimation (animator) {
+    console.log("test 1");
     if (animator.type === 'sequence_diagram') {
-
+            console.log("test 2");
             //Selects the processes array in JSON File and iterates for every element
             processDiv = document.createElement("div");
             processDiv.className = "processDiv";
@@ -124,11 +125,11 @@ function createArrow(animator, j, i) {
 
     if (startPosition.x > endPosition.x) {
 
-        arrowR2L(startPosition, endPosition, j, i);
+        arrowR2L(animator, startPosition, endPosition, j, i);
     }
     else {
 
-        arrowL2R(startPosition, endPosition, j, i);
+        arrowL2R(animator, startPosition, endPosition, j, i);
     }
     
     // base case of the recursive loop
@@ -194,7 +195,7 @@ function createLog(animator, i, e, total) {
  * the message that each arrow carries. As stated in the function, arrows are children of frameDiv.
  */
 
- function arrowL2R(from, to, j, i) {
+ function arrowL2R(animator, from, to, j, i) {
 
     var arrow = document.createElement("div");
     var svg = document.createElementNS('http://www.w3.org/2000/svg', "svg");
@@ -235,7 +236,7 @@ function createLog(animator, i, e, total) {
  * the message that each arrow carries. As stated in the function, arrows are children of frameDiv.
  */
 
- function arrowR2L(from, to, j, i) {
+ function arrowR2L(animator, from, to, j, i) {
 
     var arrow = document.createElement("div");
     var svg = document.createElementNS('http://www.w3.org/2000/svg', "svg");

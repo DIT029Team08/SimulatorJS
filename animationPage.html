@@ -47,15 +47,14 @@
 
             $pause.click(function (e) {
                 e.preventDefault();
-                //socket.emit('send message', {msg: 'Lets see'});
-                //JSON.parse(localStorage.getItem('stringJSON'));
-                socket.emit('begin animation', {});
-                console.log("YO");
+                var stringJSON = JSON.parse(localStorage.getItem('stringJSON'));
+                socket.emit('begin animation', {animator: stringJSON});
             });
 
-            socket.on("begin animation", function () {
-                outputAnimation();
-            })
+            socket.on("begin animation", function (data) {
+                console.log(data);
+                outputAnimation(data);
+            });
         });
     </script>
     <!--<script type="text/javascript" src="../js/app.js"></script>-->
