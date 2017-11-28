@@ -596,6 +596,10 @@ function dragElement(element) {
 }
 
 function createFrames(object, frameToAppend){
+
+    if (object.length() == 0) {
+        return console.log("JSON is empty.");
+    }
     var arrayOfNodes;
 
     for (i = 0; i < object.length(); i++) {
@@ -603,9 +607,10 @@ function createFrames(object, frameToAppend){
             arrayOfNodes.push(object[i]);
             console.log("Array of Nodes" + arrayOfNodes);
         }
+
     }
 
-    for (i = 0; i < arrayOfNodes.length(); i++) {
+    for (i = 0; i < arrayOfNodes.length(); i+2) {
         if (arrayOfNodes[i] === "seq") {
             var seqFrameDiv = document.createElement("div");    //create frame div seqFrame
             seqFrameDiv.className = seqFrameDivClassName;
@@ -620,7 +625,8 @@ function createFrames(object, frameToAppend){
             parFrameDiv.className = parFrameDivClassName;
             frameToAppend.appendChild(parFrameDiv);
             var parFrameTitle = document.createElement("div");  //create frameTitle with "par" title
-            //call createFrame(object content, frame parFrame)
+            parFrameDiv.appendChild(parFrameTitle);             //call createFrame(object content, frame parFrame)
+            createFrames(arrayOfNodes[i+1], parFrameDiv);
         }
         else if (arrayOfNodes[i] === "send") {
             //create arrow from "from" to "to"
