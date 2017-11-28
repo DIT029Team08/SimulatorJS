@@ -17,7 +17,7 @@
             </ul>
             <ul id="playNav">
                 <li><a href="#"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span></a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span></a></li>
+                <li><a href="#" id="pause"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span></a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-forward" aria-hidden="true"></span></a></li>
             </ul>
             <ul id="helpNav">
@@ -52,9 +52,10 @@
             var $pause = $('#pause');
             $pause.click(function (e) {
                 e.preventDefault();
-                socket.emit('send message', {msg: 'Lets see'});
-                json.parse(localStorage.getItem('stringJSON'));
+                //socket.emit('send message', {msg: 'Lets see'});
+                //JSON.parse(localStorage.getItem('stringJSON'));
                 console.log("YO");
+                outputAnimation();
             });
 
 

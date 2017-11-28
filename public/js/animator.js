@@ -5,7 +5,7 @@ const classesDivClassName = "classes";
 const fieldsDivClassName = "fields";
 const frameDivClassName = "frame"; //remember to remove this after refactor
 const seqFrameDivClassName = "frame seq";
-const parFrameDivClassName = "frame par"
+const parFrameDivClassName = "frame par";
 const frameTitleClassName = "frameTitle";
 const lifelines = "lifeLine";
 const arrowDivClassNameL2R = "arrowLtoR";
@@ -22,17 +22,16 @@ var frameDiv;
 var llHeight = 150;
 
 // Checks if it's a sequence diagram
-if(animator.type === 'sequence_diagram') {
+function outputAnimation () {
+    if (animator.type === 'sequence_diagram') {
 
-    window.onload = function animateJSON() {
+            //Selects the processes array in JSON File and iterates for every element
+            processDiv = document.createElement("div");
+            processDiv.className = "processDiv";
+            mainDiv.appendChild(processDiv);
+            for (var i = 0; i < animator.processes.length; i++) {
 
-        //Selects the processes array in JSON File and iterates for every element
-        processDiv = document.createElement("div");
-        processDiv.className = "processDiv";
-        mainDiv.appendChild(processDiv);
-        for (var i = 0; i < animator.processes.length; i++) {
-
-            createProcess(animator, i);
+                createProcess(animator, i);
 
                 //Similar behavior as in the previous block, but this time the lifelines are given a unique ID, are appended to the <div> created in the previous block
                 //and the activators are appended to the lifeline divs.
@@ -62,22 +61,20 @@ if(animator.type === 'sequence_diagram') {
             createArrow(animator, 0, 0);
             createLog(animator, 0, 0, 0);
             pageScroll();
-        }
-
     }
 // Checks if it's a class diagram
-if(animator.type === 'class_diagram'){
-    var left = 25;
-    var top = 25;
-    for (var i = 0; i < animator.classes.length; i++) {
-        createClass(animator, i, left, top);
-        left = left + 400;
-        top = top + 150;
+    if (animator.type === 'class_diagram') {
+        var left = 25;
+        var top = 25;
+        for (var i = 0; i < animator.classes.length; i++) {
+            createClass(animator, i, left, top);
+            left = left + 400;
+            top = top + 150;
+        }
+        classLog(animator);
+        makeRelations(animator);
     }
-    classLog(animator);
-    makeRelations(animator);
 }
-
 /*
 * This function creates arrows based on the direction of the arrow by using the functions arrowL2R and arrowR2L.
 * It checks the start and end position of each arrow in the content of the diagram section provided in the JSON file.
@@ -477,7 +474,7 @@ function makeSub(animator, i) {
     //svg2.appendChild(polygon2);
     subCont.appendChild(svg2);
     mainDiv.appendChild(subCont);
-    subCont.style.left = subClass.offsetLeft + "px";
+    subCont.style.left = subClass.offsetLeft + 125 + "px";
     subCont.style.top = subClass.offsetTop + 60 + "px";
 }
 function makeLine(animator, i) {
