@@ -1,7 +1,6 @@
 window.onload = function() {
 	var fileInput = document.getElementById("JSONFile");
-    
-<<<<<<< HEAD:docs/resources/js/inputFile.js
+
 	if (fileInput) {
 		fileInput.addEventListener("change", function(e) {
 			var fullFile = fileInput.files[0];
@@ -18,24 +17,6 @@ window.onload = function() {
 			}
 		});
 	}
-=======
-    if (fileInput) {
-        fileInput.addEventListener('change', function(e) {
-            var fullFile = fileInput.files[0];
-            var fileValue = fileForm.file.value; // Retrieves file extension submitted
-            var regTypesAllowed =  /(.*?)\.(json|JSON)$/;
-
-            
-            if (fileValue.match(regTypesAllowed)) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    localStorage.setItem('stringJSON', reader.result); // Once file is read, JSON text is put in local storage
-                };
-                reader.readAsText(fullFile);
-            }
-        });
-    }
->>>>>>> d79bbfd871784b644b9b493759470886fda30613:public/js/inputFile.js
 };
 var selDiv = "";
 document.addEventListener("DOMContentLoaded", init, false);  //event is fired when the initial HTML document has been completely loaded and parsed
