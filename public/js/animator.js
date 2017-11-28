@@ -3,6 +3,7 @@
 const processDivClassName = "processes";
 const classesDivClassName = "classes";
 const fieldsDivClassName = "fields";
+const frameDivClassName = "frame"; //remember to remove this after refactor
 const seqFrameDivClassName = "frame seq";
 const parFrameDivClassName = "frame par"
 const frameTitleClassName = "frameTitle";
