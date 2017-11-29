@@ -600,7 +600,7 @@ function dragElement(element) {
     }
 }
 
-function createFrames(object, frameToAppend){
+function createNodes(object, frameToAppend){
 
     if (object.length() == 0) {
         return console.log("JSON is empty.");
@@ -631,7 +631,7 @@ function createFrames(object, frameToAppend){
             frameToAppend.appendChild(parFrameDiv);
             var parFrameTitle = document.createElement("div");  //create frameTitle with "par" title
             parFrameDiv.appendChild(parFrameTitle);             //call createFrame(object content, frame parFrame)
-            createFrames(arrayOfNodes[i+1], parFrameDiv);
+            createNodes(arrayOfNodes[i+1], parFrameDiv);
         }
         else if (arrayOfNodes[i] === "send") {
             //create arrow from "from" to "to"
@@ -652,10 +652,10 @@ function createFrames(object, frameToAppend){
             }
 
             if (fromNode.x > toNode.x) {
-                arrowR2L(fromNode, toNode, message);
+                arrowR2L(fromNode, toNode, message, frameToAppend);
             }
             else {
-                arrowL2R(fromNode, toNode, message);
+                arrowL2R(fromNode, toNode, message, frameToAppend);
             }
 
         }
