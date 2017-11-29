@@ -13,7 +13,7 @@ const arrowDivClassNameR2L = "arrowRtoL";
 const messageDivClassName = "messages";
 //const activatorClassName = "activator";
 
-var scrollBoolean = true;
+var scrollBoolean = false;
 
 //var animator = JSON.parse(localStorage.getItem('stringJSON'));
 // localStorage.removeItem("stringJSON");
@@ -24,6 +24,9 @@ var llHeight = 150;
 
 // Checks if it's a sequence diagram
 function outputAnimation (animator) {
+    // an if statement to check if animation is going on at the moment or not. If it already is running it will do nothing.
+    if(scrollBoolean){}
+    else{
     //Resets values used in the animation and clears the divs of previous content
     mainDiv.innerHTML = "";
     log.innerHTML = "";
@@ -79,6 +82,7 @@ function outputAnimation (animator) {
         }
         classLog(animator);
         makeRelations(animator);
+    }
     }
 }
 /*
@@ -596,7 +600,7 @@ function dragElement(element) {
     }
 }
 
-function createFrames(object, frameToAppend){
+function createNodes(object, frameToAppend){
 
     if (object.length() == 0) {
         return console.log("JSON is empty.");
@@ -627,10 +631,33 @@ function createFrames(object, frameToAppend){
             frameToAppend.appendChild(parFrameDiv);
             var parFrameTitle = document.createElement("div");  //create frameTitle with "par" title
             parFrameDiv.appendChild(parFrameTitle);             //call createFrame(object content, frame parFrame)
-            createFrames(arrayOfNodes[i+1], parFrameDiv);
+            createNodes(arrayOfNodes[i+1], parFrameDiv);
         }
         else if (arrayOfNodes[i] === "send") {
             //create arrow from "from" to "to"
+            var fromNode = getPosition(arrayOfNodes[i].from);
+            var toNode   = getPosition(arrayOfNodes[i].to);
+            var message;
+
+            for (j = 0; j < arrayOfNodes[i].fwd.length(); i++) {
+                if (j == 0) {
+                    message += arrayOfNodes[i].fwd[0] + "(";
+                }
+                else if (j == arrayOfNodes.fwd.length() - 1) {
+                    message += arrayOfNodes[i].fwd[j] + ")";
+                }
+                else {
+                    message += arrayOfNodes[i].fwd[j];
+                }
+            }
+
+            if (fromNode.x > toNode.x) {
+                arrowR2L(fromNode, toNode, message, frameToAppend);
+            }
+            else {
+                arrowL2R(fromNode, toNode, message, frameToAppend);
+            }
+
         }
     }
 
