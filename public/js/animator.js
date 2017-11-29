@@ -13,7 +13,7 @@ const arrowDivClassNameR2L = "arrowRtoL";
 const messageDivClassName = "messages";
 //const activatorClassName = "activator";
 
-var scrollBoolean = true;
+var scrollBoolean = false;
 
 //var animator = JSON.parse(localStorage.getItem('stringJSON'));
 // localStorage.removeItem("stringJSON");
@@ -24,6 +24,9 @@ var llHeight = 150;
 
 // Checks if it's a sequence diagram
 function outputAnimation (animator) {
+    // an if statement to check if animation is going on at the moment or not. If it already is running it will do nothing.
+    if(scrollBoolean){}
+    else{
     //Resets values used in the animation and clears the divs of previous content
     mainDiv.innerHTML = "";
     log.innerHTML = "";
@@ -79,6 +82,7 @@ function outputAnimation (animator) {
         }
         classLog(animator);
         makeRelations(animator);
+    }
     }
 }
 /*
