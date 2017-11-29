@@ -47,8 +47,8 @@
 
             $pause.click(function (e) {
                 e.preventDefault();
-                var stringJSON = JSON.parse(localStorage.getItem('stringJSON'));
-                socket.emit('begin animation', {animator: stringJSON});
+                var json = JSON.parse(localStorage.getItem('stringJSON'));
+                socket.emit('begin animation', {animator: json});
             });
 
             socket.on("begin animation", function (data) {
