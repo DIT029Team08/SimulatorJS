@@ -635,6 +635,29 @@ function createFrames(object, frameToAppend){
         }
         else if (arrayOfNodes[i] === "send") {
             //create arrow from "from" to "to"
+            var fromNode = getPosition(arrayOfNodes[i].from);
+            var toNode   = getPosition(arrayOfNodes[i].to);
+            var message;
+
+            for (j = 0; j < arrayOfNodes[i].fwd.length(); i++) {
+                if (j == 0) {
+                    message += arrayOfNodes[i].fwd[0] + "(";
+                }
+                else if (j == arrayOfNodes.fwd.length() - 1) {
+                    message += arrayOfNodes[i].fwd[j] + ")";
+                }
+                else {
+                    message += arrayOfNodes[i].fwd[j];
+                }
+            }
+
+            if (fromNode.x > toNode.x) {
+                arrowR2L(fromNode, toNode, message);
+            }
+            else {
+                arrowL2R(fromNode, toNode, message);
+            }
+
         }
     }
 
