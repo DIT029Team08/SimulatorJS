@@ -42,6 +42,7 @@ io.sockets.on('connection', function(socket) {
     console.log('Socket ID is: %s', socket.id);
 
     console.log('One Connected: %s sockets connected', connections.length);
+    // io.to(connections[0]).emit('send message', {msg: 'Hello'});
 
     //Disconnect
     socket.on('disconnect', function(socket) {
@@ -53,13 +54,17 @@ io.sockets.on('connection', function(socket) {
         }
     });
 
-    socket.on('send message', function(data){
-        // io.sockets.emit('new message', {msg: data});
-        console.log(data.msg);
-    });
+    // socket.on('send message', function(){
+    //     // io.sockets.emit('new message', {msg: data});
+    //     ;
+    // });
 
     socket.on('begin animation', function (data) {
-        console.log("Users after animation started " + connections.length)
+        console.log("Users after animation started " + connections.length);
         io.sockets.emit('begin animation', data.animator);
+        io.to(connections[0].id).emit('send message', data.animator.diagram.content[0].content[0].from.toString());
     })
+
+
+
 });
