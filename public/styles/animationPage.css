@@ -32,12 +32,13 @@ ul {
 ul li {
     display: inline-block;
 }
+
 li a {
     display: block;
     text-align: center;
     color: white;
     padding: 14px 16px;
-    text-decoration: none;
+    text-decoration: none !important;
 }
 li a:hover {
     background-color: #111;
@@ -66,12 +67,11 @@ main {
 }
 .processDiv{
     overflow-x: visible;
-z-index: 11;
-position: sticky;
-position: -webkit-sticky;
-background-color: #f5f5f5;
-top: 0px;
-
+    z-index: 11;
+    position: sticky;
+    position: -webkit-sticky;
+    background-color: #f5f5f5;
+    top: 0px;
 }
 .processes {
     color: #f5f5f5;
