@@ -103,6 +103,7 @@ function createArrow(animator, j, i) {
         LifeLinesArray[k].style.height = (llHeight + "px");
     }
 
+
     // resets the i and increment j as for loop inside a for loop  to get all messages.
     if (animator.diagram.content[j].content.length === i) {
 
@@ -146,12 +147,12 @@ function createArrow(animator, j, i) {
 
     // the recursive call of the loop and the incrementing of var i
 
-    else {
-        setTimeout(function () {
-            i++;
-            createArrow(animator, j, i, mainDiv);
-        }, 1000);
-    }
+else {
+    setTimeout(function () {
+        i++;
+        createArrow(animator, j, i, mainDiv);
+    }, 1000);
+}
 }
 
 
