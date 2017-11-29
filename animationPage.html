@@ -14,10 +14,11 @@
         <nav>
             <ul id="homeNav">
                 <li><a href="/index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-play" aria-hidden="true" id="restart"></span></a></li>
             </ul>
             <ul id="playNav">
                 <li><a href="#"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span></a></li>
-                <li><a href="#" id="pause"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span></a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span></a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-forward" aria-hidden="true"></span></a></li>
             </ul>
             <ul id="helpNav">
@@ -42,18 +43,28 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         $(function() {
-            var socket = io.connect();
-            var $pause = $('#pause');
 
-            $pause.click(function (e) {
+            var socket = io.connect();
+            var $restart = $('#restart');
+
+            $restart.click(function (e) {
+                $restart.removeClass('glyphicon glyphicon-play');
+                $restart.addClass('glyphicon glyphicon-repeat');
+
                 e.preventDefault();
-                var json = JSON.parse(localStorage.getItem('stringJSON'));
-                socket.emit('begin animation', {animator: json});
+                var stringJSON = JSON.parse(localStorage.getItem('stringJSON'));
+                socket.emit('begin animation', {animator: stringJSON});
+                socket.emit('send message');
             });
 
             socket.on("begin animation", function (data) {
                 console.log(data);
                 outputAnimation(data);
+            });
+
+            socket.on('send message', function (data) {
+//                socket.emit('send message', "say something");
+                console.log(data.msg);
             });
         });
     </script>
