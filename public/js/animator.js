@@ -14,6 +14,7 @@ const messageDivClassName = "messages";
 //const activatorClassName = "activator";
 
 var scrollBoolean = false;
+var lastScroll = 0;
 
 //var animator = JSON.parse(localStorage.getItem('stringJSON'));
 // localStorage.removeItem("stringJSON");
@@ -32,6 +33,7 @@ function outputAnimation (animator) {
     log.innerHTML = "";
     llHeight = 150;
     scrollBoolean = true;
+    lastScroll = 0;
 
     if (animator.type === 'sequence_diagram') {
             //Selects the processes array in JSON File and iterates for every element
@@ -358,7 +360,6 @@ function createLog(animator, i, e, total) {
 
 }
 
-var lastScroll = 0;
 function pageScroll() {
 
         //checks if it should continue scrolling or not
