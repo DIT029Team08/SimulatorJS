@@ -31,11 +31,11 @@ function outputAnimation (animator) {
     //Resets values used in the animation and clears the divs of previous content
     mainDiv.innerHTML = "";
     log.innerHTML = "";
-    llHeight = 150;
-    scrollBoolean = true;
     lastScroll = 0;
 
     if (animator.type === 'sequence_diagram') {
+            scrollBoolean = true;
+            llHeight = 150;
             //Selects the processes array in JSON File and iterates for every element
             processDiv = document.createElement("div");
             processDiv.className = "processDiv";
