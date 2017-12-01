@@ -25,7 +25,7 @@ var llHeight = 150;
 
 // Checks if it's a sequence diagram
 function outputAnimation (animator, tmpSocketIds) {
-    var socketIds = arrayifyString(tmpSocketIds);
+    socketIds = arrayifyString(tmpSocketIds);
     console.log(socketIds);
     // an if statement to check if animation is going on at the moment or not. If it already is running it will do nothing.
     if(scrollBoolean){}
@@ -316,10 +316,36 @@ function createLog(animator, i, e, total) {
  * This function creates an object (process) in the SSD diagram from the list of processes in the JSON file provided.
  */
 
+var counter = 0;
+
  function createProcess(animator, i) {
 
     div = document.createElement("div");            //Creates an HTML <div> element
     div.className = processDivClassName;                //assigns it a class
+
+     if(animator.processes.length === socketIds.length){
+             div.id = socketIds[i];
+     }
+
+     else if (animator.processes.length > socketIds.length){
+         if (counter < socketIds.length){
+             div.id = socketIds[i];
+             counter++;
+         }
+         else{
+             div.id = socketIds[i - counter]
+         }
+     }
+
+     else if(animator.processes.length < socketIds.length){
+         if (counter < animator.processes.length){
+             div.id = socketIds[i];
+             counter++;
+         }
+         else{}
+     }
+     console.log(div.id);
+
     div.innerHTML =
         animator.processes[i].name.toString() + ": " +  //Gives it a text output as specified in the JSON file, here the class and name of the object
         animator.processes[i].class.toString();         //here it is the class and name of the SSD object
@@ -342,9 +368,6 @@ function createLog(animator, i, e, total) {
         animator.processes[i].name.toString() + ": " +  //Gives it a text output as specified in the JSON file, here the class and name of the object
         animator.processes[i].class.toString();         //here it is the class and name of the SSD object
         stickyProcessContainerDiv.appendChild(stickyDiv);
-
-
-
     }
 
 /*

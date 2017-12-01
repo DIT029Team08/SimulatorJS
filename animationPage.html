@@ -46,6 +46,7 @@
 
             var socket = io.connect();
             var $restart = $('#restart');
+//            var $div = $('div.processDivClassName').html;
 
             $restart.click(function (e) {
                 $restart.removeClass('glyphicon glyphicon-play');
@@ -60,7 +61,7 @@
             socket.on("begin animation", function (data, socketIds) {
                 console.log(data);
                 outputAnimation(data, socketIds);
-            })
+            });
 
             socket.on('send message', function (data) {
 //                socket.emit('send message', "say something");
