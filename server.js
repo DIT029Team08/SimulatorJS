@@ -52,10 +52,22 @@ io.sockets.on('connection', function(socket) {
 
     socket.on('begin animation', function (data) {
         console.log("Users after animation started " + connections.length);
-        io.sockets.emit('begin animation', data.animator);
+        io.sockets.emit('begin animation', data.animator , stringifyArray(connections));
         // io.to(connections[0].id).emit('send message', data.animator.diagram.content[0].content[0].from.toString());
         // io.to(connections[0].id).emit('send message', data.animator.type.toString());
-    })
+    });
+
+    function stringifyArray(Array) {
+        var returnString = "";
+
+        for(var i = 0; i < Array.length; i++){
+            returnString += Array[i].id;
+            if(i+1 < Array.length)
+            returnString += ",";
+        }
+        console.log(returnString);
+        return returnString;
+    }
 
 
 

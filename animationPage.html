@@ -57,10 +57,10 @@
                 socket.emit('send message');
             });
 
-            socket.on("begin animation", function (data) {
+            socket.on("begin animation", function (data, socketIds) {
                 console.log(data);
-                outputAnimation(data);
-            });
+                outputAnimation(data, socketIds);
+            })
 
             socket.on('send message', function (data) {
 //                socket.emit('send message', "say something");

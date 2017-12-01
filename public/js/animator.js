@@ -24,7 +24,9 @@ var frameDiv;
 var llHeight = 150;
 
 // Checks if it's a sequence diagram
-function outputAnimation (animator) {
+function outputAnimation (animator, tmpSocketIds) {
+    var socketIds = arrayifyString(tmpSocketIds);
+    console.log(socketIds);
     // an if statement to check if animation is going on at the moment or not. If it already is running it will do nothing.
     if(scrollBoolean){}
     else{
@@ -662,4 +664,9 @@ function createNodes(object, frameToAppend){
         }
     }
 
+}
+
+function arrayifyString(string){
+    var array = string.split(",");
+    return array;
 }
