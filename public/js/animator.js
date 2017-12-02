@@ -334,7 +334,7 @@ function createLog(animator, i, e, total) {
              div.id = socketIds[i];
              counter++;
          }
-         else if(i-counter == socketIds.length){
+         else if(i-counter === socketIds.length){
              counter += socketIds.length;
              div.id = socketIds[i- counter];
          }
@@ -395,7 +395,7 @@ function createLog(animator, i, e, total) {
 function pageScroll() {
 
         //checks if it should continue scrolling or not
-        if(scrollBoolean || lastScroll == 0){
+        if(scrollBoolean || lastScroll === 0){
             // some logic to do one more iteration of this function. Overwise it will skip the last scroll of the SSD.
             if(!scrollBoolean){
                 lastScroll++;

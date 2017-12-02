@@ -246,6 +246,7 @@ main {
     width: 100%;
     position: relative;
     border-bottom: solid gray 1px;
+    overflow: auto;
 }
 #messageTextArea {
     resize: none;

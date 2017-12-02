@@ -45,12 +45,8 @@
                     </form>
                 </div>
                 <div id="chatArea">
-                    <ul id="messagesBox">
-
-                    </ul>
-                    <textarea id="messageTextArea">
-
-                    </textarea>
+                    <div id="messagesBox"></div>
+                    <textarea id="messageTextArea"></textarea>
                     <button type="button" id="messageButton">Send</button>
                 </div>
             </div>
@@ -67,6 +63,7 @@
 
             var socket = io.connect();
             var $restart = $('#restart');
+            var $nameForm = $('#nameForm');
             var $nameButton = $('#nameButton');
             var $nameFormArea = $('#nameFormArea');
             var $nameTextArea = $('#nameTextArea');
@@ -99,20 +96,9 @@
                 }
             });
 
-//            $nameButton.click(function (e) {
-//                e.preventDefault();
-//                socket.emit('new user', $nameButton.val(), function (data) {
-//                    if (data) {
-//                        $nameFormArea.hide();
-//                        $chatArea.show();
-//                    }
-//                });
-//                $nameButton.val('');
-//            });
-
             $nameButton.click(function (e) {
                 e.preventDefault();
-                socket.emit('new user', $nameButton.val(), function (data) {
+                socket.emit('new user', $nameTextArea.val(), function (data) {
                     if (data) {
                         $nameFormArea.hide();
                         $chatArea.show();
@@ -134,7 +120,7 @@
             });
 
             socket.on('new message', function(data){
-                $messagesBox.append('<li>' + data.user + ': ' + data.msg + '</li>');
+                $messagesBox.append('<div><strong>' + data.user + '</strong>: ' + data.msg + '</div>');
             });
         });
     </script>
