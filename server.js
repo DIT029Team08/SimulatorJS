@@ -38,7 +38,9 @@ io.sockets.on('connection', function(socket) {
     //Disconnect
     socket.on('disconnect', function(socket) {
         connections.splice(connections.indexOf(socket), 1);
+        users.splice(users.indexOf(socket.username), 1);
         console.log('One Disconnected: %s sockets connected', connections.length);
+        console.log('Number of clients in chat room: ' + users.length);
         if(connections.length === 1){
             localStorage.removeItem("stringJSON");
             console.log("localStorage cleared");
@@ -58,7 +60,7 @@ io.sockets.on('connection', function(socket) {
         callback(true);
         socket.username = data;
         users.push(socket.username);
-        console.log(users.length);
+        console.log('Number of clients in chat room: ' + users.length);
     });
 
     socket.on('send message', function(data){
