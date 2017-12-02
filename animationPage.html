@@ -45,9 +45,9 @@
                     </form>
                 </div>
                 <div id="chatArea">
-                    <div id="messagesBox">
+                    <ul id="messagesBox">
 
-                    </div>
+                    </ul>
                     <textarea id="messageTextArea">
 
                     </textarea>
@@ -71,6 +71,7 @@
             var $nameFormArea = $('#nameFormArea');
             var $nameTextArea = $('#nameTextArea');
             var $chatArea = $('#chatArea');
+            var $messagesBox = $('#messagesBox');
             var $messageTextArea = $('#messageTextArea');
             var $messageButton = $('#messageButton');
 //          var $div = $('div.processDivClassName').html;
@@ -90,10 +91,7 @@
                 outputAnimation(data, socketIds);
             });
 
-            socket.on('send message', function (data) {
-//              socket.emit('send message', "say something");
-                console.log(data.msg);
-            });
+
 
             $nameTextArea.keyup(function(event) {
                 if (event.keyCode === 13) {
@@ -101,9 +99,26 @@
                 }
             });
 
+//            $nameButton.click(function (e) {
+//                e.preventDefault();
+//                socket.emit('new user', $nameButton.val(), function (data) {
+//                    if (data) {
+//                        $nameFormArea.hide();
+//                        $chatArea.show();
+//                    }
+//                });
+//                $nameButton.val('');
+//            });
+
             $nameButton.click(function (e) {
-                $nameFormArea.hide();
-                $chatArea.show();
+                e.preventDefault();
+                socket.emit('new user', $nameButton.val(), function (data) {
+                    if (data) {
+                        $nameFormArea.hide();
+                        $chatArea.show();
+                    }
+                });
+                $nameButton.val('');
             });
 
             $messageTextArea.keyup(function(event) {
@@ -113,7 +128,13 @@
             });
 
             $messageButton.click(function (e) {
+                e.preventDefault();
+                socket.emit('send message', $messageTextArea.val());
                 $messageTextArea.val('');
+            });
+
+            socket.on('new message', function(data){
+                $messagesBox.append('<li>' + data.user + ': ' + data.msg + '</li>');
             });
         });
     </script>

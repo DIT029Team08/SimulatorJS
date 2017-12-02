@@ -45,16 +45,24 @@ io.sockets.on('connection', function(socket) {
         }
     });
 
-    // socket.on('send message', function(){
-    //     // io.sockets.emit('new message', {msg: data});
-    //     ;
-    // });
-
     socket.on('begin animation', function (data) {
         console.log("Users after animation started " + connections.length);
         io.sockets.emit('begin animation', data.animator , stringifyArray(connections));
         // io.to(connections[0].id).emit('send message', data.animator.diagram.content[0].content[0].from.toString());
         // io.to(connections[0].id).emit('send message', data.animator.type.toString());
+    });
+
+
+    //New User
+    socket.on('new user', function(data, callback){
+        callback(true);
+        socket.username = data;
+        users.push(socket.username);
+        console.log(users.length);
+    });
+
+    socket.on('send message', function(data){
+        io.sockets.emit('new message', {msg: data, user: socket.username});
     });
 
     function stringifyArray(Array) {
