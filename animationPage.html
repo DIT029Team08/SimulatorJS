@@ -39,10 +39,19 @@
             <div class="logAndChatBox" id="chat">
                 <div id="nameFormArea">
                     <form id="nameForm">
-                        <label>Enter Username to chat</label>
-                        <textarea></textarea>
-                        <button type="button">Submit</button>
+                        <label>Enter username to chat</label>
+                        <textarea id="nameTextArea"></textarea>
+                        <button type="button" id="nameButton">Submit</button>
                     </form>
+                </div>
+                <div id="chatArea">
+                    <div id="messagesBox">
+
+                    </div>
+                    <textarea id="messageTextArea">
+
+                    </textarea>
+                    <button type="button" id="messageButton">Send</button>
                 </div>
             </div>
         </div>
@@ -58,6 +67,12 @@
 
             var socket = io.connect();
             var $restart = $('#restart');
+            var $nameButton = $('#nameButton');
+            var $nameFormArea = $('#nameFormArea');
+            var $nameTextArea = $('#nameTextArea');
+            var $chatArea = $('#chatArea');
+            var $messageTextArea = $('#messageTextArea');
+            var $messageButton = $('#messageButton');
 //          var $div = $('div.processDivClassName').html;
 
             $restart.click(function (e) {
@@ -80,8 +95,27 @@
                 console.log(data.msg);
             });
 
+            $nameTextArea.keyup(function(event) {
+                if (event.keyCode === 13) {
+                    $nameButton.click();
+                }
+            });
 
+            $nameButton.click(function (e) {
+                $nameFormArea.hide();
+                $chatArea.show();
+            });
+
+            $messageTextArea.keyup(function(event) {
+                if (event.keyCode === 13) {
+                    $messageButton.click();
+                }
+            });
+
+            $messageButton.click(function (e) {
+                $messageTextArea.val('');
+            });
         });
     </script>
 </body>
-</html>
+</html>-

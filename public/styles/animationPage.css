@@ -1,3 +1,6 @@
+body {
+    overflow: hidden;
+}
 header {
     position: fixed;
     width:100%;
@@ -218,18 +221,48 @@ main {
 #nameForm textarea {
     display: block;
     resize: none;
-    height: 30px;
+    height: 25px;
     width: 100%;
     background-color: whitesmoke;
+    border-radius: 10px;
 }
 #nameForm button {
     display: block;
-    padding: 5px 20px;
+    padding: 5px 15px;
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s ease 0s;
     margin-top: 10px;
     margin-left: 35%;
+}
+#chatArea {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: none;
+}
+#messagesBox {
+    height: 85%;
+    width: 100%;
+    position: relative;
+    border-bottom: solid gray 1px;
+}
+#messageTextArea {
+    resize: none;
+    height: 15%;
+    width: 90%;
+    border-bottom-left-radius: 5px;
+    border: 1px solid gray;
+}
+#messageButton {
+    position: absolute;
+    height: 15%;
+    width: 10%;
+    bottom: 0px;
+    right: 0px;
+    border-bottom-right-radius: 5px;
+    background-color: #333;
+    color: white;
 }
 #logList {
     position: relative;
