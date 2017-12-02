@@ -80,7 +80,6 @@
                 e.preventDefault();
                 var stringJSON = JSON.parse(localStorage.getItem('stringJSON'));
                 socket.emit('begin animation', {animator: stringJSON});
-                socket.emit('send message');
             });
 
             socket.on("begin animation", function (data, socketIds) {

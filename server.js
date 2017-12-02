@@ -63,6 +63,7 @@ io.sockets.on('connection', function(socket) {
         console.log('Number of clients in chat room: ' + users.length);
     });
 
+    //Send Message
     socket.on('send message', function(data){
         io.sockets.emit('new message', {msg: data, user: socket.username});
     });
