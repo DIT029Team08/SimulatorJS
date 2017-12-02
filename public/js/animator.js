@@ -334,6 +334,10 @@ function createLog(animator, i, e, total) {
              div.id = socketIds[i];
              counter++;
          }
+         else if(i-counter == socketIds.length){
+             counter += socketIds.length;
+             div.id = socketIds[i- counter];
+         }
          else{
              div.id = socketIds[i - counter]
          }
