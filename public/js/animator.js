@@ -344,7 +344,7 @@ var counter = 0;
          }
          else{}
      }
-     console.log(div.id);
+     console.log("Div id: " + div.id);
 
     div.innerHTML =
         animator.processes[i].name.toString() + ": " +  //Gives it a text output as specified in the JSON file, here the class and name of the object
@@ -396,7 +396,7 @@ function pageScroll() {
             //Scrolls to the bottom of the outputJSON page
             mainDiv.scrollBy(0,document.getElementById('outputJSON').scrollHeight); // horizontal and vertical scroll increments
             //scrolls to the bottom of the log
-            document.getElementById('log').scrollBy(0, document.getElementById('log').scrollHeight);
+            document.getElementById('logList').scrollBy(0, document.getElementById('logList').scrollHeight);
             setTimeout(function() {
                 pageScroll();
         },1000); // scrolls every 1000 milliseconds

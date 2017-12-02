@@ -26,13 +26,25 @@
             </ul>
         </nav>
     </header>
-    <main> 
+    <main>
+
         <div id="outputJSON">
             <!--<svg width="20px" height="14" preserveAspectRatio="xMaxYMid slice" viewBox="0 0 1400 14">-->
                 <!--<polygon points="1400,7 1385,1 1390,6 0,6 0,8 1390,8 1385,13 1400,7 "></polygon></svg>-->
         </div>
-        <div id="log">
-            <ul id="logList"></ul>
+        <div id="logAndChat">
+            <div class="logAndChatBox" id="log">
+                <ul id="logList"></ul>
+            </div>
+            <div class="logAndChatBox" id="chat">
+                <div id="nameFormArea">
+                    <form id="nameForm">
+                        <label>Enter Username to chat</label>
+                        <textarea></textarea>
+                        <button type="button">Submit</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -46,7 +58,7 @@
 
             var socket = io.connect();
             var $restart = $('#restart');
-//            var $div = $('div.processDivClassName').html;
+//          var $div = $('div.processDivClassName').html;
 
             $restart.click(function (e) {
                 $restart.removeClass('glyphicon glyphicon-play');
@@ -64,9 +76,11 @@
             });
 
             socket.on('send message', function (data) {
-//                socket.emit('send message', "say something");
+//              socket.emit('send message', "say something");
                 console.log(data.msg);
             });
+
+
         });
     </script>
 </body>

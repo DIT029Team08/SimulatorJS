@@ -176,7 +176,7 @@ main {
 .messages{
     position: relative;
 }
-#log {
+#logAndChat {
     z-index: 12;
     position: relative;
     margin-top: 10px;
@@ -184,10 +184,56 @@ main {
     height: 24%;
     margin-left: 20px;
     margin-right: 20px;
+}
+.logAndChatBox {
+    display: inline-block;
+    height: 100%;
+    width: 49%;
     background-color: #f5f5f5;
-    padding: 10px;
     border-radius: 5px;
     border: 1px solid #bcbcbc;
+}
+#log {
+    padding: 10px;
+}
+#chat {
+    float: right;
+}
+#nameFormArea {
+    height: 100%;
+    background-color: #333;
+    text-align: center;
+    border-radius: 5px;
+}
+#nameForm {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+}
+#nameForm label {
+    font-size: 25px;
+    color: gainsboro;
+}
+#nameForm textarea {
+    display: block;
+    resize: none;
+    height: 30px;
+    width: 100%;
+    background-color: whitesmoke;
+}
+#nameForm button {
+    display: block;
+    padding: 5px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    margin-top: 10px;
+    margin-left: 35%;
+}
+#logList {
+    position: relative;
+    height: 100%;
     overflow: auto;
 }
 #logList li {
