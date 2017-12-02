@@ -22,6 +22,7 @@ var mainDiv = document.getElementById("outputJSON");
 var log = document.getElementById("logList");
 var frameDiv;
 var llHeight = 150;
+var counter = 0;
 
 // Checks if it's a sequence diagram
 function outputAnimation (animator, tmpSocketIds) {
@@ -34,6 +35,7 @@ function outputAnimation (animator, tmpSocketIds) {
     mainDiv.innerHTML = "";
     log.innerHTML = "";
     lastScroll = 0;
+    counter = 0;
 
     if (animator.type === 'sequence_diagram') {
             scrollBoolean = true;
@@ -316,7 +318,7 @@ function createLog(animator, i, e, total) {
  * This function creates an object (process) in the SSD diagram from the list of processes in the JSON file provided.
  */
 
-var counter = 0;
+
 
  function createProcess(animator, i) {
 
@@ -332,6 +334,10 @@ var counter = 0;
              div.id = socketIds[i];
              counter++;
          }
+         else if(i-counter == socketIds.length){
+             counter += socketIds.length;
+             div.id = socketIds[i- counter];
+         }
          else{
              div.id = socketIds[i - counter]
          }
@@ -345,6 +351,7 @@ var counter = 0;
          else{}
      }
      console.log("Div id: " + div.id);
+
 
     div.innerHTML =
         animator.processes[i].name.toString() + ": " +  //Gives it a text output as specified in the JSON file, here the class and name of the object
