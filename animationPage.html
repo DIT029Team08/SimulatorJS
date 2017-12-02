@@ -89,8 +89,9 @@
 
 
 
-            $nameTextArea.keyup(function(event) {
+            $nameTextArea.keydown(function(event) {
                 if (event.keyCode === 13) {
+                    event.preventDefault();
                     $nameButton.click();
                 }
             });
@@ -106,8 +107,9 @@
                 $nameButton.val('');
             });
 
-            $messageTextArea.keyup(function(event) {
+            $messageTextArea.keydown(function(event) {
                 if (event.keyCode === 13) {
+                    event.preventDefault();
                     $messageButton.click();
                 }
             });
