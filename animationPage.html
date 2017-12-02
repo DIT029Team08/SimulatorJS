@@ -120,6 +120,7 @@
 
             socket.on('new message', function(data){
                 $messagesBox.append('<div><strong>' + data.user + '</strong>: ' + data.msg + '</div>');
+                document.getElementById('messagesBox').scrollBy(0, document.getElementById('messagesBox').scrollHeight);
             });
         });
     </script>
