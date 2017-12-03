@@ -1,3 +1,6 @@
+body {
+    overflow: hidden;
+}
 header {
     position: fixed;
     width:100%;
@@ -32,12 +35,13 @@ ul {
 ul li {
     display: inline-block;
 }
+
 li a {
     display: block;
     text-align: center;
     color: white;
     padding: 14px 16px;
-    text-decoration: none;
+    text-decoration: none !important;
 }
 li a:hover {
     background-color: #111;
@@ -66,12 +70,11 @@ main {
 }
 .processDiv{
     overflow-x: visible;
-z-index: 11;
-position: sticky;
-position: -webkit-sticky;
-background-color: #f5f5f5;
-top: 0px;
-
+    z-index: 11;
+    position: sticky;
+    position: -webkit-sticky;
+    background-color: #f5f5f5;
+    top: 0px;
 }
 .processes {
     color: #f5f5f5;
@@ -176,7 +179,7 @@ top: 0px;
 .messages{
     position: relative;
 }
-#log {
+#logAndChat {
     z-index: 12;
     position: relative;
     margin-top: 10px;
@@ -184,10 +187,87 @@ top: 0px;
     height: 24%;
     margin-left: 20px;
     margin-right: 20px;
+}
+.logAndChatBox {
+    display: inline-block;
+    height: 100%;
+    width: 49%;
     background-color: #f5f5f5;
-    padding: 10px;
     border-radius: 5px;
     border: 1px solid #bcbcbc;
+}
+#log {
+    padding: 10px;
+}
+#chat {
+    float: right;
+}
+#nameFormArea {
+    height: 100%;
+    background-color: #333;
+    text-align: center;
+    border-radius: 5px;
+}
+#nameForm {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+}
+#nameForm label {
+    font-size: 25px;
+    color: gainsboro;
+}
+#nameForm textarea {
+    display: block;
+    resize: none;
+    height: 25px;
+    width: 100%;
+    background-color: whitesmoke;
+    border-radius: 10px;
+}
+#nameForm button {
+    display: block;
+    padding: 5px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    margin-top: 10px;
+    margin-left: 35%;
+}
+#chatArea {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: none;
+}
+#messagesBox {
+    height: 85%;
+    width: 100%;
+    position: relative;
+    border-bottom: solid gray 1px;
+    overflow: auto;
+}
+#messageTextArea {
+    resize: none;
+    height: 15%;
+    width: 90%;
+    border-bottom-left-radius: 5px;
+    border: 1px solid gray;
+}
+#messageButton {
+    position: absolute;
+    height: 15%;
+    width: 10%;
+    bottom: 0px;
+    right: 0px;
+    border-bottom-right-radius: 5px;
+    background-color: #333;
+    color: white;
+}
+#logList {
+    position: relative;
+    height: 100%;
     overflow: auto;
 }
 #logList li {

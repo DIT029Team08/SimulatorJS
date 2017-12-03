@@ -14,6 +14,7 @@ const messageDivClassName = "messages";
 //const activatorClassName = "activator";
 
 var scrollBoolean = false;
+var lastScroll = 0;
 
 //var animator = JSON.parse(localStorage.getItem('stringJSON'));
 // localStorage.removeItem("stringJSON");
@@ -21,19 +22,24 @@ var mainDiv = document.getElementById("outputJSON");
 var log = document.getElementById("logList");
 var frameDiv;
 var llHeight = 150;
+var counter = 0;
 
 // Checks if it's a sequence diagram
-function outputAnimation (animator) {
+function outputAnimation (animator, tmpSocketIds) {
+    socketIds = arrayifyString(tmpSocketIds);
+    console.log(socketIds);
     // an if statement to check if animation is going on at the moment or not. If it already is running it will do nothing.
     if(scrollBoolean){}
     else{
     //Resets values used in the animation and clears the divs of previous content
     mainDiv.innerHTML = "";
     log.innerHTML = "";
-    llHeight = 150;
-    scrollBoolean = true;
+    lastScroll = 0;
+    counter = 0;
 
     if (animator.type === 'sequence_diagram') {
+            scrollBoolean = true;
+            llHeight = 150;
             //Selects the processes array in JSON File and iterates for every element
             processDiv = document.createElement("div");
             processDiv.className = "processDiv";
@@ -300,10 +306,41 @@ function createLog(animator, i, e, total) {
  * This function creates an object (process) in the SSD diagram from the list of processes in the JSON file provided.
  */
 
+
+
  function createProcess(animator, i) {
 
     div = document.createElement("div");            //Creates an HTML <div> element
     div.className = processDivClassName;                //assigns it a class
+
+     if(animator.processes.length === socketIds.length){
+             div.id = socketIds[i];
+     }
+
+     else if (animator.processes.length > socketIds.length){
+         if (counter < socketIds.length){
+             div.id = socketIds[i];
+             counter++;
+         }
+         else if(i-counter === socketIds.length){
+             counter += socketIds.length;
+             div.id = socketIds[i- counter];
+         }
+         else{
+             div.id = socketIds[i - counter]
+         }
+     }
+
+     else if(animator.processes.length < socketIds.length){
+         if (counter < animator.processes.length){
+             div.id = socketIds[i];
+             counter++;
+         }
+         else{}
+     }
+     console.log("Div id: " + div.id);
+
+
     div.innerHTML =
         animator.processes[i].name.toString() + ": " +  //Gives it a text output as specified in the JSON file, here the class and name of the object
         animator.processes[i].class.toString();         //here it is the class and name of the SSD object
@@ -326,9 +363,6 @@ function createLog(animator, i, e, total) {
         animator.processes[i].name.toString() + ": " +  //Gives it a text output as specified in the JSON file, here the class and name of the object
         animator.processes[i].class.toString();         //here it is the class and name of the SSD object
         stickyProcessContainerDiv.appendChild(stickyDiv);
-
-
-
     }
 
 /*
@@ -346,11 +380,10 @@ function createLog(animator, i, e, total) {
 
 }
 
-var lastScroll = 0;
 function pageScroll() {
 
         //checks if it should continue scrolling or not
-        if(scrollBoolean || lastScroll == 0){
+        if(scrollBoolean || lastScroll === 0){
             // some logic to do one more iteration of this function. Overwise it will skip the last scroll of the SSD.
             if(!scrollBoolean){
                 lastScroll++;
@@ -358,7 +391,7 @@ function pageScroll() {
             //Scrolls to the bottom of the outputJSON page
             mainDiv.scrollBy(0,document.getElementById('outputJSON').scrollHeight); // horizontal and vertical scroll increments
             //scrolls to the bottom of the log
-            document.getElementById('log').scrollBy(0, document.getElementById('log').scrollHeight);
+            document.getElementById('logList').scrollBy(0, document.getElementById('logList').scrollHeight);
             setTimeout(function() {
                 pageScroll();
         },1000); // scrolls every 1000 milliseconds
@@ -670,4 +703,9 @@ function createNodes(object, frameToAppend){
             }
         }
     }
+}
+
+function arrayifyString(string){
+    var array = string.split(",");
+    return array;
 }

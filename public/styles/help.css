@@ -5,9 +5,11 @@ body {
             rgba(0, 0, 0, 0.2),
             rgba(0, 0, 0, 0.5)
             );
-    height: 100vh;
+    height: 140vh;
     padding: 20px;
     width: 410px;
+    overflow-y: hidden;
+
 }
 h1 {
     text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.55);

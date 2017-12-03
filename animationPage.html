@@ -14,24 +14,42 @@
         <nav>
             <ul id="homeNav">
                 <li><a href="/index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a></li>
+                <li><a href="#" id="restart" class="glyphicon glyphicon-play" aria-hidden="true"></a></li>
             </ul>
             <ul id="playNav">
-                <li><a href="#"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span></a></li>
-                <li><a href="#" id="pause"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span></a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-forward" aria-hidden="true"></span></a></li>
+                <li><a href="#"><span class="sequenceDiagram" aria-hidden="true">S</span></a></li>
+                <li><a href="#"><span class="classDiagram" aria-hidden="true">C</span></a></li>
+                <li><a href="#"><span class="deploymentDiagram" aria-hidden="true">D</span></a></li>
             </ul>
             <ul id="helpNav">
                 <li><a  onclick="newHelpWindow()" href="#"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></li>
             </ul>
         </nav>
     </header>
-    <main> 
+    <main>
+
         <div id="outputJSON">
             <!--<svg width="20px" height="14" preserveAspectRatio="xMaxYMid slice" viewBox="0 0 1400 14">-->
                 <!--<polygon points="1400,7 1385,1 1390,6 0,6 0,8 1390,8 1385,13 1400,7 "></polygon></svg>-->
         </div>
-        <div id="log">
-            <ul id="logList"></ul>
+        <div id="logAndChat">
+            <div class="logAndChatBox" id="log">
+                <ul id="logList"></ul>
+            </div>
+            <div class="logAndChatBox" id="chat">
+                <div id="nameFormArea">
+                    <form id="nameForm">
+                        <label>Enter username to chat</label>
+                        <textarea id="nameTextArea"></textarea>
+                        <button type="button" id="nameButton">Submit</button>
+                    </form>
+                </div>
+                <div id="chatArea">
+                    <div id="messagesBox"></div>
+                    <textarea id="messageTextArea"></textarea>
+                    <button type="button" id="messageButton">Send</button>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -42,22 +60,71 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         $(function() {
-            var socket = io.connect();
-            var $pause = $('#pause');
 
-            $pause.click(function (e) {
+            var socket = io.connect();
+            var $restart = $('#restart');
+            var $nameForm = $('#nameForm');
+            var $nameButton = $('#nameButton');
+            var $nameFormArea = $('#nameFormArea');
+            var $nameTextArea = $('#nameTextArea');
+            var $chatArea = $('#chatArea');
+            var $messagesBox = $('#messagesBox');
+            var $messageTextArea = $('#messageTextArea');
+            var $messageButton = $('#messageButton');
+//          var $div = $('div.processDivClassName').html;
+
+            $restart.click(function (e) {
+                $restart.removeClass('glyphicon glyphicon-play');
+                $restart.addClass('glyphicon glyphicon-repeat');
+
                 e.preventDefault();
                 var stringJSON = JSON.parse(localStorage.getItem('stringJSON'));
                 socket.emit('begin animation', {animator: stringJSON});
             });
 
-            socket.on("begin animation", function (data) {
+            socket.on("begin animation", function (data, socketIds) {
                 console.log(data);
-                outputAnimation(data);
+                outputAnimation(data, socketIds);
+            });
+
+
+
+            $nameTextArea.keydown(function(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    $nameButton.click();
+                }
+            });
+
+            $nameButton.click(function (e) {
+                e.preventDefault();
+                socket.emit('new user', $nameTextArea.val(), function (data) {
+                    if (data) {
+                        $nameFormArea.hide();
+                        $chatArea.show();
+                    }
+                });
+                $nameButton.val('');
+            });
+
+            $messageTextArea.keydown(function(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    $messageButton.click();
+                }
+            });
+
+            $messageButton.click(function (e) {
+                e.preventDefault();
+                socket.emit('send message', $messageTextArea.val());
+                $messageTextArea.val('');
+            });
+
+            socket.on('new message', function(data){
+                $messagesBox.append('<div><strong>' + data.user + '</strong>: ' + data.msg + '</div>');
+                document.getElementById('messagesBox').scrollBy(0, document.getElementById('messagesBox').scrollHeight);
             });
         });
     </script>
-    <!--<script type="text/javascript" src="../js/app.js"></script>-->
-
 </body>
-</html>
+</html>-
