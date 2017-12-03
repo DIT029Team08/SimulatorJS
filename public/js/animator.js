@@ -51,7 +51,7 @@ function outputAnimation (animator) {
                 // activatorDiv.className = activatorClassName;
                 // lifeLineDiv.appendChild(activatorDiv);
             }
-            var animatorDiagramArray = Object.keys(animator.diagram); //In order to check whether or not the JSON element is a node, we must select the diagram object's keys.
+            /*var animatorDiagramArray = Object.keys(animator.diagram); //In order to check whether or not the JSON element is a node, we must select the diagram object's keys.
             //if the JSON has no frame element, it will not go through the for loop as the length will be 0
             for (var i = 0; i < animatorDiagramArray.length; i++) {   //loop through the array of Keys created above
                 if (animatorDiagramArray[i] === 'node') {             //we check wether the JSON element is a node here
@@ -67,7 +67,9 @@ function outputAnimation (animator) {
                     frameDiv.appendChild(frameTitle);
                 }
             }
+            */
             createArrow(animator, 0, 0);
+            createNodes(animator.diagram, mainDiv);
             createLog(animator, 0, 0, 0);
             pageScroll();
     }
@@ -102,8 +104,7 @@ function createArrow(animator, j, i) {
     for (var k=0; k < LifeLinesArray.length; k++) {
         LifeLinesArray[k].style.height = (llHeight + "px");
     }
-
-
+/*
     // resets the i and increment j as for loop inside a for loop  to get all messages.
     if (animator.diagram.content[j].content.length === i) {
 
@@ -124,7 +125,6 @@ function createArrow(animator, j, i) {
             }
         }
     }
-
 
     var startPosition = getPosition(document.querySelector("#" + animator.diagram.content[j].content[i].from.toString()));
     var endPosition = getPosition(document.querySelector("#" + animator.diagram.content[j].content[i].to.toString()));
@@ -152,7 +152,7 @@ else {
         i++;
         createArrow(animator, j, i, mainDiv);
     }, 1000);
-}
+}*/
 }
 
 
@@ -203,7 +203,7 @@ function createLog(animator, i, e, total) {
  * the message that each arrow carries. As stated in the function, arrows are children of frameDiv.
  */
 
- function arrowL2R(animator, from, to, j, i) {
+ function arrowL2R(from, to, messageSent, frameToAppend) {
 
     var arrow = document.createElement("div");
     var svg = document.createElementNS('http://www.w3.org/2000/svg', "svg");
@@ -224,18 +224,12 @@ function createLog(animator, i, e, total) {
     arrow.style.left = from.x - 20 + 'px';
 
     message.className = messageDivClassName;
-    message.innerHTML = animator.diagram.content[j].content[i].message.toString();
+    message.innerHTML = messageSent;
 
     arrow.appendChild(message);
     svg.appendChild(polygon);
     arrow.appendChild(svg);
-
-    if (frameDiv === undefined) {
-        mainDiv.appendChild(arrow);
-    }
-    else {
-        frameDiv.appendChild(arrow);
-    }
+    frameToAppend.appendChild(arrow);
 
 }
 
@@ -244,7 +238,7 @@ function createLog(animator, i, e, total) {
  * the message that each arrow carries. As stated in the function, arrows are children of frameDiv.
  */
 
- function arrowR2L(animator, from, to, j, i) {
+ function arrowR2L(from, to, messageSent, frameToAppend) {
 
     var arrow = document.createElement("div");
     var svg = document.createElementNS('http://www.w3.org/2000/svg', "svg");
@@ -264,18 +258,12 @@ function createLog(animator, i, e, total) {
     arrow.style.left =  to.x - 20 + 'px';
 
     message.className = messageDivClassName;
-    message.innerHTML = animator.diagram.content[j].content[i].message.toString();
+    message.innerHTML = messageSent;
 
     arrow.appendChild(message);
     svg.appendChild(polygon);
     arrow.appendChild(svg);
-
-    if (frameDiv === undefined) {
-        mainDiv.appendChild(arrow);
-    }
-    else {
-        frameDiv.appendChild(arrow);
-    }
+    frameToAppend.appendChild(arrow);
 }
 
 
@@ -600,65 +588,86 @@ function dragElement(element) {
     }
 }
 
+/*
+ *This function is responsible for parsing the JSON File nodes in its entirety.
+ *It takes two parameters, a JSON Object (this could also be an array) as well as the frame
+ *to append the nodes to.
+ *
+ *It is called recursively after each node creation and stops once the parsing is done.
+ *The JSON must have at least one "send" node otherwise the function will hang
+ */
 function createNodes(object, frameToAppend){
+    var arrayOfNodes = []; //this array will contain all the JSON Objects (nodes) inside object
+    var arrayOfObjects = []; //this array will contain the "content" objects in the object
 
-    if (object.length() == 0) {
-        return console.log("JSON is empty.");
+    for (key in object) {
+        if (object.hasOwnProperty(key)) {
+            if (key == "node") {
+                arrayOfNodes.push(object[key]);
+            }
+            else if (key == "content") {
+                    arrayOfObjects = object[key];
+            }
+        }
     }
-    var arrayOfNodes;
 
-    for (i = 0; i < object.length(); i++) {
-        if (i % 2 == 0) {
-            arrayOfNodes.push(object[i]);
-            console.log("Array of Nodes" + arrayOfNodes);
-        }
-
-    }
-
-    for (i = 0; i < arrayOfNodes.length(); i+2) {
-        if (arrayOfNodes[i] === "seq") {
-            var seqFrameDiv = document.createElement("div");    //create frame div seqFrame
-            seqFrameDiv.className = seqFrameDivClassName;
-            frameToAppend.appendChild(seqFrameDiv);
-            var seqFrameTitle = document.createElement("div");  //create frameTitle with "seq" Title
-            seqFrameTitle.className = frameTitleClassName;
-            seqFrameTitle.innerHTML = "seq";
-            seqFrameDiv.appendChild(seqFrameTitle);             //append to frameToAppend
-        }
-        else if (arrayOfNodes[i] === "par") {
-            var parFrameDiv = document.createElement("div");    //create frame div parFrame
-            parFrameDiv.className = parFrameDivClassName;
-            frameToAppend.appendChild(parFrameDiv);
-            var parFrameTitle = document.createElement("div");  //create frameTitle with "par" title
-            parFrameDiv.appendChild(parFrameTitle);             //call createFrame(object content, frame parFrame)
-            createNodes(arrayOfNodes[i+1], parFrameDiv);
-        }
-        else if (arrayOfNodes[i] === "send") {
-            //create arrow from "from" to "to"
-            var fromNode = getPosition(arrayOfNodes[i].from);
-            var toNode   = getPosition(arrayOfNodes[i].to);
-            var message;
-
-            for (j = 0; j < arrayOfNodes[i].fwd.length(); i++) {
-                if (j == 0) {
-                    message += arrayOfNodes[i].fwd[0] + "(";
+    for (var i = 0; i < arrayOfNodes.length; i++) {
+        for (key in arrayOfNodes) {
+            if (arrayOfNodes[i] === "seq") {
+                var seqFrameDiv = document.createElement("div");    //create frame div seqFrame
+                seqFrameDiv.className = seqFrameDivClassName;
+                frameToAppend.appendChild(seqFrameDiv);
+                var seqFrameTitle = document.createElement("div");  //create frameTitle with "seq" Title
+                seqFrameTitle.className = frameTitleClassName;
+                seqFrameTitle.innerHTML = "seq";
+                seqFrameDiv.appendChild(seqFrameTitle);             //append to frameToAppend
+                for (var j = 0; j < arrayOfObjects.length; j++) {
+                    createNodes(arrayOfObjects[j], seqFrameDiv);    //calls the function to create objects contained in seq
                 }
-                else if (j == arrayOfNodes.fwd.length() - 1) {
-                    message += arrayOfNodes[i].fwd[j] + ")";
+            }
+            else if (arrayOfNodes[i] === "par") {
+                var parFrameDiv = document.createElement("div");    //create frame div parFrame
+                parFrameDiv.className = parFrameDivClassName;
+                frameToAppend.appendChild(parFrameDiv);
+                var parFrameTitle = document.createElement("div");
+                parFrameTitle.className = frameTitleClassName;
+                parFrameTitle.innerHTML = "par";                    //create frameTitle with "par" title
+                parFrameDiv.appendChild(parFrameTitle);             //call createFrame(object content, frame parFrame)
+                for (var j = 0; j < arrayOfObjects.length; j++) {
+                    createNodes(arrayOfObjects[j], parFrameDiv);    //calls the function to create objects contained in par
+                }
+            }
+            else if (arrayOfNodes[i] === "send") {
+                //create arrow from "from" to "to"
+                var fromNode = getPosition(document.querySelector("#" + object.from.toString()));
+                var toNode   = getPosition(document.querySelector("#" + object.to.toString()));
+                console.log(fromNode.x + " " + toNode.x);
+                var messageToSend = "";
+
+                if (object.message.length == 1) {
+                    messageToSend += object.message[0];
+                }
+                else { //this clause serves to format the message if it contains function arguments
+                    for (var j = 0; j < object.message.length; j++) {
+                        if (j == 0) {
+                            messageToSend += object.message[0] + "(";
+                        }
+                        else if (j == object.message.length - 1) {
+                            messageToSend += object.message[j] + ")";
+                        }
+                        else {
+                            messageToSend += object.message[j] + ", ";
+                        }
+                    }
+                }
+
+                if (fromNode.x > toNode.x) {
+                    arrowR2L(fromNode, toNode, messageToSend, frameToAppend);
                 }
                 else {
-                    message += arrayOfNodes[i].fwd[j];
+                    arrowL2R(fromNode, toNode, messageToSend, frameToAppend);
                 }
             }
-
-            if (fromNode.x > toNode.x) {
-                arrowR2L(fromNode, toNode, message, frameToAppend);
-            }
-            else {
-                arrowL2R(fromNode, toNode, message, frameToAppend);
-            }
-
         }
     }
-
 }
