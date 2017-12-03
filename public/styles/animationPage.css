@@ -244,6 +244,7 @@ main {
 #messagesBox {
     height: 85%;
     width: 100%;
+    padding-left: 5px;
     position: relative;
     border-bottom: solid gray 1px;
     overflow: auto;
@@ -281,7 +282,7 @@ main {
     transition: all 1s ease-in;
 }
 .frameseq{
-    border-bottom: 1.5px solid black;
+    border-bottom: 1.5px dashed black;
 }
 .frameTitle{
     border: 1px solid;
