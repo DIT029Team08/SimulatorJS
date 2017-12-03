@@ -274,11 +274,14 @@ main {
     float: left;
     clear: left;
 }
-.frame {
+.framepar{
     border: 1.5px solid black;
     top: 40px;
     position: relative;
     transition: all 1s ease-in;
+}
+.frameseq{
+    border-bottom: 1.5px solid black;
 }
 .frameTitle{
     border: 1px solid;

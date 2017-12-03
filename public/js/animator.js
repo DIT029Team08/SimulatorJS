@@ -4,8 +4,8 @@ const processDivClassName = "processes";
 const classesDivClassName = "classes";
 const fieldsDivClassName = "fields";
 const frameDivClassName = "frame"; //remember to remove this after refactor
-const seqFrameDivClassName = "frame seq";
-const parFrameDivClassName = "frame par";
+const seqFrameDivClassName = "frameseq";
+const parFrameDivClassName = "framepar";
 const frameTitleClassName = "frameTitle";
 const lifelines = "lifeLine";
 const arrowDivClassNameL2R = "arrowLtoR";
@@ -650,10 +650,7 @@ function createNodes(object, frameToAppend){
                 var seqFrameDiv = document.createElement("div");    //create frame div seqFrame
                 seqFrameDiv.className = seqFrameDivClassName;
                 frameToAppend.appendChild(seqFrameDiv);
-                var seqFrameTitle = document.createElement("div");  //create frameTitle with "seq" Title
-                seqFrameTitle.className = frameTitleClassName;
-                seqFrameTitle.innerHTML = "seq";
-                seqFrameDiv.appendChild(seqFrameTitle);             //append to frameToAppend
+                // NO FRAMETITLE FOR YOUUUU
                 for (var j = 0; j < arrayOfObjects.length; j++) {
                     createNodes(arrayOfObjects[j], seqFrameDiv);    //calls the function to create objects contained in seq
                 }
