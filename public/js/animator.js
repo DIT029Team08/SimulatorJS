@@ -74,7 +74,7 @@ function outputAnimation (animator, tmpSocketIds) {
                 }
             }
             */
-            createArrow(animator, 0, 0);
+            //createArrow(animator, 0, 0);
             createNodes(animator.diagram, mainDiv);
             createLog(animator, 0, 0, 0);
             pageScroll();
@@ -99,7 +99,7 @@ function outputAnimation (animator, tmpSocketIds) {
 * The function is set to a timeout in order to generate the arrows one by one with a timeout of one second.
 */
 
-function createArrow(animator, j, i) {
+function incrementLifeline() {
 
 
     // Lifeline height
@@ -693,9 +693,13 @@ function createNodes(object, frameToAppend){
 
                 if (fromNode.x > toNode.x) {
                     arrowR2L(fromNode, toNode, messageToSend, frameToAppend);
+                    incrementLifeline();
+
                 }
                 else {
                     arrowL2R(fromNode, toNode, messageToSend, frameToAppend);
+                    incrementLifeline();
+
                 }
             }
         }
