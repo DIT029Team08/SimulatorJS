@@ -1,42 +1,26 @@
 {
-<<<<<<< HEAD
-    "meta":	{
-=======
-    "meta" : {
->>>>>>> a3bae6082c7b14d2b0ed31435ae8567d596e04ed
-        "format": "DIT029 format",
-        "version": "1.0",
-        "extensions": []
+  "meta" : {
+    "format": "DIT029 format",
+    "version": "1.0",
+    "extensions": []
+  },
+  "type":	"deployment_diagram",
+  "mapping": [
+    {
+      "process":	"g",
+      "device": "server"
     },
-<<<<<<< HEAD
-    "type": "deployment_diagram",
-    "mapping":	[
-        {
-            "process": "g",
-            "device":	"server"
-        },
-        {
-            "process":	"u1",
-            "device": "smartphone1"
-=======
-    "type":	"deployment_diagram",
-    "mapping": [
-        {
-            "process":	"g",
-            "device": "server"
-        },	
-        {
-            "process":	"u1",
-            "device":	"smartphone1"
->>>>>>> a3bae6082c7b14d2b0ed31435ae8567d596e04ed
-        },
-        {
-            "process":	"u2",
-            "device":	"desktop_computer1"
-        },
-        {
-            "process":	"u3",
-            "device":	"desktop_computer1"
-        }
-    ]
+    {
+      "process":	"u1",
+      "device":	"smartphone1"
+    },
+    {
+      "process":	"u2",
+      "device":	"desktop_computer1"
+    },
+    {
+      "process":	"u3",
+      "device":	"desktop_computer1"
+    }
+  ]
 }

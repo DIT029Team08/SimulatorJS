@@ -1,3 +1,4 @@
+
 //Block of constants used to name classes of HTML elements created, if change needed change the constant's value
 
 const processDivClassName = "processes";
@@ -23,9 +24,10 @@ var log = document.getElementById("logList");
 var frameDiv;
 var llHeight = 150;
 var counter = 0;
+logCounter = 0;
 
 // Checks if it's a sequence diagram
-function outputAnimation (animator, tmpSocketIds) {
+function outputAnimation(animator, tmpSocketIds) {
     socketIds = arrayifyString(tmpSocketIds);
     console.log(socketIds);
     // an if statement to check if animation is going on at the moment or not. If it already is running it will do nothing.
@@ -36,7 +38,7 @@ function outputAnimation (animator, tmpSocketIds) {
         log.innerHTML = "";
         lastScroll = 0;
         counter = 0;
-
+        logCounter = 0;
         if (animator.type === 'sequence_diagram') {
             scrollBoolean = true;
             llHeight = 150;
@@ -92,31 +94,6 @@ function outputAnimation (animator, tmpSocketIds) {
             makeRelations(animator);
         }
 
-
-        if (animator.type === 'deployment_diagram'){
-            console.log("hej");
-            var left = 25;
-            var top = 25;
-            for (var i = 0; i < animator.mapping.length; i++) {
-                createDeploymentClass(animator, i, left, top);
-                left = left + 200;
-                top = top + 100;
-                createDeploymentSVG(animator, i);
-
-            }
-
-            for(var i = 0; i +1  < animator.mapping.length; i++)
-
-                createDeploymentLines(animator, i);
-
-        }
-<<<<<<< HEAD
-=======
-        classLog(animator);
-        makeRelations(animator);
-    }
-
-
         if (animator.type === 'deployment_diagram'){
             var left = 25;
             var top = 25;
@@ -126,13 +103,9 @@ function outputAnimation (animator, tmpSocketIds) {
                 left = left + 200;
                 top = top + 100;
             }
-
             makeDeploymentRelations(animator);
 
-
-
-    }
->>>>>>> a3bae6082c7b14d2b0ed31435ae8567d596e04ed
+        }
     }
 }
 /*
@@ -152,7 +125,6 @@ function incrementLifeline() {
     for (var k=0; k < LifeLinesArray.length; k++) {
         LifeLinesArray[k].style.height = (llHeight + "px");
     }
-<<<<<<< HEAD
     /*
         // resets the i and increment j as for loop inside a for loop  to get all messages.
         if (animator.diagram.content[j].content.length === i) {
@@ -161,11 +133,6 @@ function incrementLifeline() {
             j++;
 
             var lineBreak = document.createElement('hr');
-=======
-/*
-    // resets the i and increment j as for loop inside a for loop  to get all messages.
-    if (animator.diagram.content[j].content.length === i) {
->>>>>>> a3bae6082c7b14d2b0ed31435ae8567d596e04ed
 
             if (frameDiv != undefined) {
                 frameDiv.appendChild(lineBreak);
@@ -180,14 +147,9 @@ function incrementLifeline() {
             }
         }
 
-<<<<<<< HEAD
         var startPosition = getPosition(document.querySelector("#" + animator.diagram.content[j].content[i].from.toString()));
         var endPosition = getPosition(document.querySelector("#" + animator.diagram.content[j].content[i].to.toString()));
 
-=======
-    var startPosition = getPosition(document.querySelector("#" + animator.diagram.content[j].content[i].from.toString()));
-    var endPosition = getPosition(document.querySelector("#" + animator.diagram.content[j].content[i].to.toString()));
->>>>>>> a3bae6082c7b14d2b0ed31435ae8567d596e04ed
 
         // decides what direction the arrow will go, and makes the length of the arrows
 
@@ -206,21 +168,12 @@ function incrementLifeline() {
 
         // the recursive call of the loop and the incrementing of var i
 
-<<<<<<< HEAD
     else {
         setTimeout(function () {
             i++;
             createArrow(animator, j, i, mainDiv);
         }, 1000);
     }*/
-=======
-else {
-    setTimeout(function () {
-        i++;
-        createArrow(animator, j, i, mainDiv);
-    }, 1000);
-}*/
->>>>>>> a3bae6082c7b14d2b0ed31435ae8567d596e04ed
 }
 
 
@@ -265,17 +218,21 @@ function createLog(animator, i, e, total) {
     }
 
 }
+function concatLog(string) {
+    logcounter++;
+    var li = document.createElement("li");
+    li.setAttribute('id', logcounter + ":" +  string);
+    li.appendChild(document.createTextNode(logcounter + ":" +  string));
+    log.appendChild(li);
+    document.getElementById('logList').scrollBy(0, document.getElementById('logList').scrollHeight);
+}
 
 /*
  * This function generates an arrow with the specific direction of left to right. It also generates the div related to
  * the message that each arrow carries. As stated in the function, arrows are children of frameDiv.
  */
 
-<<<<<<< HEAD
 function arrowL2R(from, to, messageSent, frameToAppend) {
-=======
- function arrowL2R(from, to, messageSent, frameToAppend) {
->>>>>>> a3bae6082c7b14d2b0ed31435ae8567d596e04ed
 
     var arrow = document.createElement("div");
     var svg = document.createElementNS('http://www.w3.org/2000/svg', "svg");
@@ -310,11 +267,7 @@ function arrowL2R(from, to, messageSent, frameToAppend) {
  * the message that each arrow carries. As stated in the function, arrows are children of frameDiv.
  */
 
-<<<<<<< HEAD
 function arrowR2L(from, to, messageSent, frameToAppend) {
-=======
- function arrowR2L(from, to, messageSent, frameToAppend) {
->>>>>>> a3bae6082c7b14d2b0ed31435ae8567d596e04ed
 
     var arrow = document.createElement("div");
     var svg = document.createElementNS('http://www.w3.org/2000/svg', "svg");
@@ -597,60 +550,6 @@ function makeLine(animator, i) {
     line.setAttribute("y2" , (document.getElementById("SUB" + animator.relationships[i].subclass.toString()).offsetTop + 13 + "px"));
     line.setAttribute("style","stroke:black;stroke-width:2");
 }
-<<<<<<< HEAD
-
-function createDeploymentClass(animator,i,left,top){
-    var div = document.createElement("div");
-    div.className = classesDivClassName + " deploymentBox";
-    div.innerHTML = animator.mapping[i].device.toString();
-    div.id = animator.mapping[i].process.toString();
-    mainDiv.appendChild(div);
-    div.style.left = left + "px";
-    div.style.top = top + "px";
-
-    dragElement(div);
-}
-
-function createDeploymentSVG(animator, i) {
-    var subClass = document.querySelector("#" + animator.mapping[i].process.toString());
-    var subCont = document.createElement("div");
-    subCont.className = "svgCont";
-    subCont.id = animator.mapping[i].process.toString();
-    //var polygon2 = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-    var svg2 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg2.setAttribute("height", "25px");
-    svg2.setAttribute("width", "25px");
-    //                              0 0,0% 100%, 100% 50%
-    //polygon2.setAttribute("points","1,1 1,25 25,12.5");
-    //polygon2.setAttribute("style","fill:white;stroke:black;stroke-width:3");
-    //svg2.appendChild(polygon2);
-    subCont.appendChild(svg2);
-    mainDiv.appendChild(subCont);
-    subCont.style.left = subClass.offsetLeft + 125 + "px";
-    subCont.style.top = subClass.offsetTop + 60 + "px";
-
-}
-function createDeploymentLines(animator, i) {
-    var main = $("#outputJSON");
-    var lineCont = document.createElement("div");
-    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-
-    line.id = animator.mapping[i].device.toString() + animator.mapping[i+1].device.toString();
-    lineCont.className = "lineCont";
-
-    svg.appendChild(line);
-    lineCont.appendChild(svg);
-    mainDiv.appendChild(lineCont);
-
-    svg.setAttribute("height", main.innerHeight());
-    svg.setAttribute("width", main.innerWidth());
-    line.setAttribute("x1" , (document.getElementById(animator.mapping[i].process.toString()).offsetLeft + 13 + "px"));
-    line.setAttribute("y1" , (document.getElementById(animator.mapping[i].process.toString()).offsetTop + 13 + "px"));
-    line.setAttribute("x2" , (document.getElementById(animator.mapping[i+1].process.toString()).offsetLeft + 13 + "px"));
-    line.setAttribute("y2" , (document.getElementById(animator.mapping[i+1].process.toString()).offsetTop + 13 + "px"));
-    line.setAttribute("style","stroke:black;stroke-width:2");
-=======
 function makeFrom(animator, i) {
     var subClass = document.querySelector("#" + animator.mapping[i].process.toString());
     var subCont = document.createElement("div");
@@ -731,17 +630,12 @@ function createDeploymentLines(animator, i) {
         line.setAttribute("y2", (document.getElementById(animator.mapping[i + 1].process.toString()).offsetTop + 13 + "px"));
         line.setAttribute("style", "stroke:black;stroke-width:2");
     }
->>>>>>> a3bae6082c7b14d2b0ed31435ae8567d596e04ed
 }
 
 function dragElement(element) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     element.onmousedown = dragMouseDown;
-<<<<<<< HEAD
     console.log(element);
-=======
-console.log(element);
->>>>>>> a3bae6082c7b14d2b0ed31435ae8567d596e04ed
     function dragMouseDown(e) {
         e = e || window.event;
         // get the mouse cursor position at startup:
@@ -820,15 +714,6 @@ console.log(element);
                 e.setAttribute("y2" , ((SUB.offsetTop -pos1) + 13) + "px");
             }
         }
-<<<<<<< HEAD
-        else if(document.getElementById("DEP"+element.id.toString())){
-            // Move the SUBcont
-            var SUB = document.getElementById(element.id.toString());
-            SUB.style.top = (SUB.offsetTop - pos2) + "px";
-            SUB.style.left = (SUB.offsetLeft - pos1) + "px";
-            // Get all lines that has a connection to this SUB
-            var elements = $("line[id$='"+element.id.toString()+"']");
-=======
         else if(document.getElementById("FROM"+element.id.toString()) && document.getElementById("TO"+element.id.toString())){
             var SUPER = document.getElementById("FROM"+element.id.toString());
             var SUB = document.getElementById("TO"+element.id.toString());
@@ -882,7 +767,6 @@ console.log(element);
             SUB.style.left = (SUB.offsetLeft - pos1) + "px";
             // Get all lines that has a connection to this TO
             var elements = $("line[id$='TO"+element.id.toString()+"']");
->>>>>>> a3bae6082c7b14d2b0ed31435ae8567d596e04ed
             // Loop through them and change their points
             for(var i = 0; i < elements.length; i++) {
                 var e = elements[i];
@@ -920,11 +804,7 @@ function createNodes(object, frameToAppend){
                 arrayOfNodes.push(object[key]);
             }
             else if (key == "content") {
-<<<<<<< HEAD
                 arrayOfObjects = object[key];
-=======
-                    arrayOfObjects = object[key];
->>>>>>> a3bae6082c7b14d2b0ed31435ae8567d596e04ed
             }
         }
     }
