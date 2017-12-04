@@ -1,26 +1,26 @@
 {
-    "meta"	:	{
-        "format"	:	"DIT029	format",
-        "version"	:	"1.0",
-        "extensions"	:	[]
+    "meta" : {
+        "format": "DIT029 format",
+        "version": "1.0",
+        "extensions": []
     },
-    "type"	:	"deployment_diagram",
-    "mapping"	:	[
+    "type":	"deployment_diagram",
+    "mapping": [
         {
-            "process"	:	"g",
-            "device"	:	"server"
+            "process":	"g",
+            "device": "server"
         },	
         {
-            "process"	:	"u1",
-            "device"	:	"smartphone1"
+            "process":	"u1",
+            "device":	"smartphone1"
         },
         {
-            "process"	:	"u2",
-            "device"	:	"desktop_computer1"
+            "process":	"u2",
+            "device":	"desktop_computer1"
         },
         {
-            "process"	:	"u3",
-            "device"	:	"desktop_computer1"
+            "process":	"u3",
+            "device":	"desktop_computer1"
         }
     ]
 }

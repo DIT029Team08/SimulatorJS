@@ -295,3 +295,7 @@ hr {
     margin-top: 50px !important;
     margin-bottom: 50px !important;
 }
+.deploymentBox{
+    height: 100px;
+    text-align:center;
+}
