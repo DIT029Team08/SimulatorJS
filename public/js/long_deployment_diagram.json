@@ -1,0 +1,78 @@
+{
+    "meta":	{
+        "format": "DIT029 format",
+        "version": "1.0",
+        "extensions": []
+    },
+    "type": "deployment_diagram",
+    "mapping":	[
+        {
+            "process": "g",
+            "device":	"server"
+        },	
+        {
+            "process":	"u1",
+            "device": "smartphone1"
+        },
+        {
+            "process":	"u2",
+            "device":	"desktop_computer1"
+        },
+        {
+            "process":	"u3",
+            "device":	"laptop_computer2"
+        },
+        {
+            "process":	"u4",
+            "device":	"linux_computer3"
+        },
+        {
+            "process":	"u5",
+            "device":	"axus_computer4"
+        },
+        {
+            "process":	"u3",
+            "device":	"mercury_computer5"
+        },
+        {
+            "process":	"u3",
+            "device":	"Hentai_computer6"
+        },
+        {
+            "process":	"u3",
+            "device":	"USA_computer7"
+        },
+        {
+            "process":	"u3",
+            "device":	"RNK_computer8"
+        },
+        {
+            "process":	"u3",
+            "device":	"Holiday_computer9"
+        },
+        {
+            "process":	"u3",
+            "device":	"socket io 10"
+        },
+        {
+            "process":	"u3",
+            "device":	"Express js server11"
+        },
+        {
+            "process":	"u3",
+            "device":	"Web Application12"
+        },
+        {
+            "process":	"u3",
+            "device":	"apache HTTP14"
+        },
+        {
+            "process":	"u3",
+            "device":	"Gatsby js15"
+        },
+        {
+            "process":	"u3",
+            "device":	"nodejs 6"
+        }
+    ]
+}
