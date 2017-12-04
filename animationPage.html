@@ -99,7 +99,7 @@
             $nameButton.click(function (e) {
                 e.preventDefault();
                 socket.emit('new user', $nameTextArea.val(), function (data) {
-                    if (data) {
+                    if (data && $nameTextArea.val() !== '') {
                         $nameFormArea.hide();
                         $chatArea.show();
                     }

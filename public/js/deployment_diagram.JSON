@@ -1,9 +1,14 @@
 {
+<<<<<<< HEAD
     "meta":	{
+=======
+    "meta" : {
+>>>>>>> a3bae6082c7b14d2b0ed31435ae8567d596e04ed
         "format": "DIT029 format",
         "version": "1.0",
         "extensions": []
     },
+<<<<<<< HEAD
     "type": "deployment_diagram",
     "mapping":	[
         {
@@ -13,6 +18,17 @@
         {
             "process":	"u1",
             "device": "smartphone1"
+=======
+    "type":	"deployment_diagram",
+    "mapping": [
+        {
+            "process":	"g",
+            "device": "server"
+        },	
+        {
+            "process":	"u1",
+            "device":	"smartphone1"
+>>>>>>> a3bae6082c7b14d2b0ed31435ae8567d596e04ed
         },
         {
             "process":	"u2",

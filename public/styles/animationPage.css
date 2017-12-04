@@ -244,6 +244,7 @@ main {
 #messagesBox {
     height: 85%;
     width: 100%;
+    padding-left: 5px;
     position: relative;
     border-bottom: solid gray 1px;
     overflow: auto;
@@ -274,11 +275,14 @@ main {
     float: left;
     clear: left;
 }
-.frame {
+.framepar{
     border: 1.5px solid black;
     top: 40px;
     position: relative;
     transition: all 1s ease-in;
+}
+.frameseq{
+    border-bottom: 1.5px dashed black;
 }
 .frameTitle{
     border: 1px solid;
@@ -290,4 +294,8 @@ hr {
     border-top: 1.5px dashed black !important;
     margin-top: 50px !important;
     margin-bottom: 50px !important;
+}
+.deploymentBox{
+    height: 100px;
+    text-align:center;
 }
