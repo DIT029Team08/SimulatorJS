@@ -98,10 +98,23 @@ function outputAnimation(animator, tmpSocketIds) {
             var left = 25;
             var top = 25;
             // creates the boxes for the deployment diagram
+            var depBool = true;
             for (var i = 0; i < animator.mapping.length; i++) {
                 createDeploymentClass(animator, i, left, top);
-                left = left + 200;
-                top = top + 100;
+                if(mainDiv.clientWidth -350 < left && depBool){
+                    depBool = false;
+                    top += 150;
+                }
+                else if(left < 150 && !depBool) {
+                    top += 150;
+                    depBool = true;
+                }
+                else if (depBool) {
+                    left = left + 255
+                }
+                else
+                    left -= 255;
+
             }
             makeDeploymentRelations(animator);
 
