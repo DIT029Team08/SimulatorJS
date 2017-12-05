@@ -568,7 +568,7 @@ function makeFrom(animator, i) {
     var subClass = document.querySelector("#" + animator.mapping[i].process.toString());
     var subCont = document.createElement("div");
     subCont.className = "svgCont";
-    subCont.id = "FROM" + animator.mapping[i].process.toString();
+    subCont.id = "FROM" + animator.mapping[i].process.toString() + "FROM" + animator.mapping[i].process.toString();
     var svg2 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg2.setAttribute("height", "25px");
     svg2.setAttribute("width", "25px");
@@ -581,7 +581,7 @@ function makeTo(animator, i) {
     var subClass = document.querySelector("#" + animator.mapping[i].process.toString());
     var subCont = document.createElement("div");
     subCont.className = "svgCont";
-    subCont.id = "TO" + animator.mapping[i].process.toString();
+    subCont.id = "TO" + animator.mapping[i].process.toString()+"TO" + animator.mapping[i].process.toString();
     var svg2 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg2.setAttribute("height", "25px");
     svg2.setAttribute("width", "25px");
@@ -627,7 +627,8 @@ function createDeploymentLines(animator, i) {
         var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
 
-        line.id = "FROM" + animator.mapping[i].process.toString() + "TO" + animator.mapping[i + 1].process.toString();
+        line.id = "FROM" + animator.mapping[i].process.toString() +"FROM" + animator.mapping[i].process.toString() +
+            "TO" + animator.mapping[i + 1].process.toString()+"TO" + animator.mapping[i + 1].process.toString();
         lineCont.className = "lineCont";
 
         svg.appendChild(line);
@@ -726,19 +727,16 @@ function dragElement(element) {
                 e.setAttribute("y2" , ((SUB.offsetTop -pos1) + 13) + "px");
             }
         }
-        else if(document.getElementById("FROM"+element.id.toString()) && document.getElementById("TO"+element.id.toString())){
-            var SUPER = document.getElementById("FROM"+element.id.toString());
-            var SUB = document.getElementById("TO"+element.id.toString());
-            console.log("1      " +pos1);
-            console.log("22     " +pos2);
-            console.log("333    " +pos3);
-            console.log("4444   " + pos4);
+        else if(document.getElementById("FROM"+element.id.toString()+"FROM"+element.id.toString()) &&
+            document.getElementById("TO"+element.id.toString()+"TO"+element.id.toString())){
+            var SUPER = document.getElementById("FROM"+element.id.toString()+"FROM"+element.id.toString());
+            var SUB = document.getElementById("TO"+element.id.toString()+"TO"+element.id.toString());
             SUPER.style.top = (SUPER.offsetTop - pos2) + "px";
             SUPER.style.left = (SUPER.offsetLeft - pos1) + "px";
             SUB.style.top = (SUB.offsetTop - pos2) + "px";
             SUB.style.left = (SUB.offsetLeft - pos1) + "px";
             // Get all lines that has a connection to this FROM
-            var elements = $("line[id^='FROM"+element.id.toString()+"']");
+            var elements = $("line[id^='FROM"+element.id.toString()+"FROM"+element.id.toString()+"']");
             // Loop through them and change their points
             for(var i = 0; i < elements.length; i++) {
                 var e = elements[i];
@@ -746,7 +744,7 @@ function dragElement(element) {
                 e.setAttribute("y1" , ((SUPER.offsetTop -pos1) + 13) + "px");
             }
             // Get all lines that has a connection to this TO
-            var elements = $("line[id$='TO"+element.id.toString()+"']");
+            var elements = $("line[id$='TO"+element.id.toString()+"TO"+element.id.toString()+"']");
             // Loop through them and change their points
             for(var i = 0; i < elements.length; i++) {
                 var e = elements[i];
@@ -757,14 +755,14 @@ function dragElement(element) {
 
 
         }
-        else if(document.getElementById("FROM"+element.id.toString())){
-            var SUPER = document.getElementById("FROM"+element.id.toString());
+        else if(document.getElementById("FROM"+element.id.toString()+"FROM"+element.id.toString())){
+            var SUPER = document.getElementById("FROM"+element.id.toString()+"FROM"+element.id.toString());
             console.log(SUPER);
             SUPER.style.top = (SUPER.offsetTop - pos2) + "px";
             SUPER.style.left = (SUPER.offsetLeft - pos1) + "px";
 
             // Get all lines that has a connection to this FROM
-            var elements = $("line[id^='FROM"+element.id.toString()+"']");
+            var elements = $("line[id^='FROM"+element.id.toString()+"FROM"+element.id.toString()+"']");
             // Loop through them and change their points
             for(var i = 0; i < elements.length; i++) {
                 var e = elements[i];
@@ -772,13 +770,13 @@ function dragElement(element) {
                 e.setAttribute("y1" , ((SUPER.offsetTop -pos1) + 13) + "px");
             }
         }
-        else if(document.getElementById("TO"+element.id.toString())){
-            var SUB = document.getElementById("TO"+element.id.toString());
+        else if(document.getElementById("TO"+element.id.toString()+"TO"+element.id.toString())){
+            var SUB = document.getElementById("TO"+element.id.toString()+"TO"+element.id.toString());
             console.log(SUB);
             SUB.style.top = (SUB.offsetTop - pos2) + "px";
             SUB.style.left = (SUB.offsetLeft - pos1) + "px";
             // Get all lines that has a connection to this TO
-            var elements = $("line[id$='TO"+element.id.toString()+"']");
+            var elements = $("line[id$='TO"+element.id.toString()+"TO"+element.id.toString()+"']");
             // Loop through them and change their points
             for(var i = 0; i < elements.length; i++) {
                 var e = elements[i];
