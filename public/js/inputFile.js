@@ -65,19 +65,19 @@ window.onload = function() {
 function setupReader(files, i) {
     var file = files[i];
     var textVersion = [];
-    var JSONFiles = [];
+    var jsonVersion = [];
     var reader = new FileReader();
     reader.onload = function(e){
         // Once done reading - call loaded
-        readerLoaded(e, files, textVersion, JSONFiles, i);
+        readerLoaded(e, files, textVersion, jsonVersion, i);
     };
     reader.readAsText(file);
 }
-function readerLoaded(e, files, textVersion, JSONFiles, i) {
+function readerLoaded(e, files, textVersion, jsonVersion, i) {
     // Get the file content as text
     textVersion[i] = e.target.result;
     // Parse it and put in JSON array
-    JSONFiles[i] = JSON.parse(textVersion[i]);
+    jsonVersion[i] = JSON.parse(textVersion[i]);
 
     // If there's a file left to load
     if (i < files.length - 1) {
@@ -87,22 +87,51 @@ function readerLoaded(e, files, textVersion, JSONFiles, i) {
     // If not, everything is done, make the comparisons and add to local storage
     else{
         console.log("Done reading " + (i+1) + " files");
-        // If there are 3 files
-        if(textVersion.length > 2){
-            // DO THINGS WITH 3 FILES
-        }
-        // If there are 2 files
-        else if(textVersion.length > 1){
-            // DO THINGS WITH 2 FILES
-        }
-        // If there is only one file. set it to the local storage as file 1, which is default.
-        else{
-            localStorage.clear();
-            localStorage.setItem('file1', textVersion[0]);
-        }
+        compareAndAdd(textVersion, jsonVersion);
     }
 }
+function compareAndAdd(textVersion, jsonVersion) {
+    var button = document.getElementById('submitbutton');
+    var message = document.getElementById('error');
+    console.log(jsonVersion[0].type);
 
+    // If there are 3 files
+    if(textVersion.length > 2){
+        // DO THINGS WITH 3 FILES
+    }
+    // If there are 2 files
+    else if(textVersion.length > 1){
+
+        // If both diagram are of the same type
+        if(jsonVersion[0].type === jsonVersion[1].type){
+            button.disabled = false;
+            message.style.opacity = 0;
+        }
+        // If not, continue to check
+        else{
+            for(var n = 0; n < jsonVersion.length; n++) {
+                switch (jsonVersion[n].type) {
+                    case 'sequence_diagram':
+                        console.log("File " + n + " is a SEQ");
+                        break;
+                    case 'class_diagram':
+                        console.log("File " + n + " is a CLASS");
+                        break;
+                    case 'deployment_diagram':
+                        console.log("File " + n + " is a DEP");
+                        break;
+                    default:
+                        alert("EVERYTHING IS BAD")
+                }
+            }
+        }
+    }
+    // If there is only one file. set it to the local storage as file 1, which is default.
+    else{
+        localStorage.clear();
+        localStorage.setItem('file1', textVersion[0]);
+    }
+}
 var selDiv = "";
 document.addEventListener("DOMContentLoaded", init, false);  //event is fired when the initial HTML document has been completely loaded and parsed
 
