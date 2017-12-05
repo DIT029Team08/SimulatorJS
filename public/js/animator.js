@@ -101,7 +101,7 @@ function outputAnimation(animator, tmpSocketIds) {
             var depBool = true;
             for (var i = 0; i < animator.mapping.length; i++) {
                 createDeploymentClass(animator, i, left, top);
-                if(mainDiv.clientWidth -350 < left && depBool){
+                if(mainDiv.clientWidth -400 < left && depBool){
                     depBool = false;
                     top += 150;
                 }
@@ -110,10 +110,10 @@ function outputAnimation(animator, tmpSocketIds) {
                     depBool = true;
                 }
                 else if (depBool) {
-                    left = left + 255
+                    left = left + 260
                 }
                 else
-                    left -= 255;
+                    left -= 260;
 
             }
             makeDeploymentRelations(animator);
@@ -591,12 +591,10 @@ function makeTo(animator, i) {
 function makeDeploymentRelations(animator){
     for(var i = 0; i < animator.mapping.length; i++){
         if (i < 1) {
-            console.log("HELLO 1");
             makeFrom(animator, i);
             createDeploymentLines(animator, i);
         }
         else if(i == animator.mapping.length-1){
-            console.log("Hello 22");
             makeTo(animator, i);
             createDeploymentLines(animator, i);
         }
@@ -611,7 +609,7 @@ function makeDeploymentRelations(animator){
 function createDeploymentClass(animator,i,left,top){
     var div = document.createElement("div");
     div.className = classesDivClassName + " deploymentBox";
-    div.innerHTML = animator.mapping[i].device.toString();
+    div.innerHTML = "&lt;&lt;" + animator.mapping[i].device.toString() + "&gt;&gt;";
     div.id = animator.mapping[i].process.toString();
     mainDiv.appendChild(div);
     div.style.left = left + "px";
