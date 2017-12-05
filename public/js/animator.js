@@ -78,7 +78,7 @@ function outputAnimation(animator, tmpSocketIds) {
             */
             //createArrow(animator, 0, 0);
             createNodes(animator.diagram, mainDiv);
-            createLog(animator, 0, 0, 0);
+            //createLog(animator, 0, 0, 0);
             pageScroll();
         }
 // Checks if it's a class diagram
@@ -227,15 +227,14 @@ function createLog(animator, i, e, total) {
                 createLog(animator, i, e, total);
             }, 1000);
         }
-
     }
-
 }
+
 function concatLog(string) {
-    logcounter++;
+    logCounter++;
     var li = document.createElement("li");
-    li.setAttribute('id', logcounter + ":" +  string);
-    li.appendChild(document.createTextNode(logcounter + ":" +  string));
+    li.setAttribute('id', logCounter + ":" +  string);
+    li.appendChild(document.createTextNode(logCounter + ":" +  string));
     log.appendChild(li);
     document.getElementById('logList').scrollBy(0, document.getElementById('logList').scrollHeight);
 }
@@ -869,6 +868,7 @@ function createNodes(object, frameToAppend){
                     }
                 }
 
+                concatLog(messageToSend);
                 if (fromNode.x > toNode.x) {
                     arrowR2L(fromNode, toNode, messageToSend, frameToAppend);
                     incrementLifeline();
