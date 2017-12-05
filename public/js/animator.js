@@ -230,11 +230,12 @@ function createLog(animator, i, e, total) {
     }
 }
 
-function concatLog(string) {
+function concatLog(to, from, messageString) {
     logCounter++;
     var li = document.createElement("li");
-    li.setAttribute('id', logCounter + ":" +  string);
-    li.appendChild(document.createTextNode(logCounter + ":" +  string));
+    li.setAttribute('id', logCounter + ":" +  messageString);
+    li.appendChild(document.createTextNode(logCounter + ". Sending message From: \"" + from +
+                     "\" To: \"" + to + "\" || Message: " +  messageString));
     log.appendChild(li);
     document.getElementById('logList').scrollBy(0, document.getElementById('logList').scrollHeight);
 }
@@ -866,7 +867,7 @@ function createNodes(object, frameToAppend){
                     }
                 }
 
-                concatLog(messageToSend);
+                concatLog(object.from, object.to, messageToSend);
                 if (fromNode.x > toNode.x) {
                     arrowR2L(fromNode, toNode, messageToSend, frameToAppend);
                     incrementLifeline();
