@@ -71,6 +71,7 @@
             var $messagesBox = $('#messagesBox');
             var $messageTextArea = $('#messageTextArea');
             var $messageButton = $('#messageButton');
+            var stringJSON = JSON.parse(localStorage.getItem('file1'));
 //          var $div = $('div.processDivClassName').html;
 
             $restart.click(function (e) {
@@ -78,7 +79,6 @@
                 $restart.addClass('glyphicon glyphicon-repeat');
 
                 e.preventDefault();
-                var stringJSON = JSON.parse(localStorage.getItem('file1'));
                 socket.emit('begin animation', {animator: stringJSON});
             });
 

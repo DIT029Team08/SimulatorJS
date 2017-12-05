@@ -9,15 +9,15 @@ window.onload = function() {
         fileInput.addEventListener('change', function(e) {
             // If there are 3 files
             if(fileInput.files.length > 2){
-                console.log("3 files");
-                var file1 = fileInput.files[0];
-                var file2 = fileInput.files[1];
-                var file3 = fileInput.files[2];
                 // Check so the files are allowed
-                if(file1.name.match(regTypesAllowed) && file2.name.match(regTypesAllowed) && file3.name.match(regTypesAllowed)){
+                if(fileInput.files[0].name.match(regTypesAllowed) &&
+                    fileInput.files[1].name.match(regTypesAllowed) &&
+                    fileInput.files[2].name.match(regTypesAllowed)) {
+
                     button.disabled = false;
                     message.style.opacity = 0;
 
+                    setupReader(fileInput.files, 0);
                 }
                 // If not allowed
                 else{
@@ -28,14 +28,14 @@ window.onload = function() {
 
             // If there are 2 files
             else if(fileInput.files.length > 1){
-                console.log("2 files");
-                var file1 = fileInput.files[0];
-                var file2 = fileInput.files[1];
-                // Check so the files are allowed
-                if(file1.name.match(regTypesAllowed) && file2.name.match(regTypesAllowed)){
+                // Check so the files are allowed - then text and parse them
+                if(fileInput.files[0].name.match(regTypesAllowed) &&
+                    fileInput.files[1].name.match(regTypesAllowed)){
+
                     button.disabled = false;
                     message.style.opacity = 0;
 
+                    setupReader(fileInput.files, 0);
                 }
                 // If not allowed
                 else{
@@ -46,18 +46,12 @@ window.onload = function() {
 
             // If there is only 1 file
             else{
-                console.log("1 file");
-                var file1 = fileInput.files[0];
                 // Check so the file is allowed
-                if (file1.name.match(regTypesAllowed)){
+                if (fileInput.files[0].name.match(regTypesAllowed)){
                     button.disabled = false;
                     message.style.opacity = 0;
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                	localStorage.clear();
-                    localStorage.setItem('file1', reader.result); // Once file is read, JSON text is put in local storage
-                    };
-                    reader.readAsText(file1);
+
+                    setupReader(fileInput.files, 0);
                 }
                 else{
                     button.disabled = true;
@@ -67,6 +61,48 @@ window.onload = function() {
         });
     }
 };
+
+function setupReader(files, i) {
+    var file = files[i];
+    var textVersion = [];
+    var JSONFiles = [];
+    var reader = new FileReader();
+    reader.onload = function(e){
+        // Once done reading - call loaded
+        readerLoaded(e, files, textVersion, JSONFiles, i);
+    };
+    reader.readAsText(file);
+}
+function readerLoaded(e, files, textVersion, JSONFiles, i) {
+    // Get the file content as text
+    textVersion[i] = e.target.result;
+    // Parse it and put in JSON array
+    JSONFiles[i] = JSON.parse(textVersion[i]);
+
+    // If there's a file left to load
+    if (i < files.length - 1) {
+        // Load the next file
+        setupReader(files, i+1);
+    }
+    // If not, everything is done, make the comparisons and add to local storage
+    else{
+        console.log("Done reading " + (i+1) + " files");
+        // If there are 3 files
+        if(textVersion.length > 2){
+            // DO THINGS WITH 3 FILES
+        }
+        // If there are 2 files
+        else if(textVersion.length > 1){
+            // DO THINGS WITH 2 FILES
+        }
+        // If there is only one file. set it to the local storage as file 1, which is default.
+        else{
+            localStorage.clear();
+            localStorage.setItem('file1', textVersion[0]);
+        }
+    }
+}
+
 var selDiv = "";
 document.addEventListener("DOMContentLoaded", init, false);  //event is fired when the initial HTML document has been completely loaded and parsed
 
