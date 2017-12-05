@@ -78,7 +78,7 @@
                 $restart.addClass('glyphicon glyphicon-repeat');
 
                 e.preventDefault();
-                var stringJSON = JSON.parse(localStorage.getItem('stringJSON'));
+                var stringJSON = JSON.parse(localStorage.getItem('file1'));
                 socket.emit('begin animation', {animator: stringJSON});
             });
 

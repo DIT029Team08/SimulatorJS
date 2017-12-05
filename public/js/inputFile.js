@@ -55,7 +55,7 @@ window.onload = function() {
                     var reader = new FileReader();
                     reader.onload = function(e) {
                 	localStorage.clear();
-                    localStorage.setItem('stringJSON', reader.result); // Once file is read, JSON text is put in local storage
+                    localStorage.setItem('file1', reader.result); // Once file is read, JSON text is put in local storage
                     };
                     reader.readAsText(file1);
                 }
@@ -73,10 +73,6 @@ document.addEventListener("DOMContentLoaded", init, false);  //event is fired wh
 function init() {
 	fileInput.addEventListener("change", handleFileSelect, false);
 	selDiv = document.querySelector("#selectedFiles");
-}
-// Helper function to get extension.
-function getFileExtension(filename) {
-    return filename.name.split('.').pop();
 }
 function handleFileSelect(e) {
 
