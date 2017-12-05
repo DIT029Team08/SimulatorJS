@@ -298,4 +298,5 @@ hr {
 .deploymentBox{
     height: 100px;
     text-align:center;
+    box-shadow: 5px 5px #464646 inset;
 }
