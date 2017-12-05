@@ -78,6 +78,7 @@ function outputAnimation(animator, tmpSocketIds) {
             */
             //createArrow(animator, 0, 0);
             createNodes(animator.diagram, mainDiv);
+            scrollBoolean = false;
             //createLog(animator, 0, 0, 0);
             pageScroll();
         }
