@@ -729,10 +729,6 @@ function dragElement(element) {
         else if(document.getElementById("FROM"+element.id.toString()) && document.getElementById("TO"+element.id.toString())){
             var SUPER = document.getElementById("FROM"+element.id.toString());
             var SUB = document.getElementById("TO"+element.id.toString());
-            console.log("1      " +pos1);
-            console.log("22     " +pos2);
-            console.log("333    " +pos3);
-            console.log("4444   " + pos4);
             SUPER.style.top = (SUPER.offsetTop - pos2) + "px";
             SUPER.style.left = (SUPER.offsetLeft - pos1) + "px";
             SUB.style.top = (SUB.offsetTop - pos2) + "px";
