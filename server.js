@@ -68,6 +68,11 @@ io.sockets.on('connection', function(socket) {
         io.sockets.emit('new message', {msg: data, user: socket.username});
     });
 
+    socket.on('arrow request', function (data) {
+        //io.sockets.emit('arrow reply', {socketId: data.socketId, processName: data.processName});
+        io.sockets.emit('arrow reply', {socketId: data.socketId});
+    });
+
     function stringifyArray(Array) {
         var returnString = "";
 

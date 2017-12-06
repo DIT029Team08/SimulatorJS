@@ -59,8 +59,9 @@
     <script type="text/javascript" src="public/js/help.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
+        var objectIndex = 0;
+        var isSubmitter = false;
         $(function() {
-
             var socket = io.connect();
             var $restart = $('#restart');
             var $nameForm = $('#nameForm');
@@ -71,7 +72,7 @@
             var $messagesBox = $('#messagesBox');
             var $messageTextArea = $('#messageTextArea');
             var $messageButton = $('#messageButton');
-//          var $div = $('div.processDivClassName').html;
+            var $div = $('div.processDivClassName').html;
 
             $restart.click(function (e) {
                 $restart.removeClass('glyphicon glyphicon-play');
@@ -79,11 +80,13 @@
 
                 e.preventDefault();
                 var stringJSON = JSON.parse(localStorage.getItem('stringJSON'));
+                isSubmitter = true;
                 socket.emit('begin animation', {animator: stringJSON});
             });
 
             socket.on("begin animation", function (data, socketIds) {
                 console.log(data);
+                objectIndex = 0;
                 outputAnimation(data, socketIds);
             });
 
@@ -124,7 +127,73 @@
                 $messagesBox.append('<div><strong>' + data.user + '</strong>: ' + data.msg + '</div>');
                 document.getElementById('messagesBox').scrollBy(0, document.getElementById('messagesBox').scrollHeight);
             });
+
+
+            socket.on('arrow reply', function (data) {
+                console.log("GOT REPLY FROM SERVER");
+//                    addColor = true;
+//                    console.log("MADE TRUE");
+//                }
+
+                // Arrow animation
+                if (objectArray[objectIndex].fromNode.x > objectArray[objectIndex].toNode.x) {
+                    arrowR2L(objectArray[objectIndex].fromNode, objectArray[objectIndex].toNode,
+                        objectArray[objectIndex].messageToSend, objectArray[objectIndex].frameToAppend);
+                    incrementLifeline();
+
+                }
+                else {
+                    arrowL2R(objectArray[objectIndex].fromNode, objectArray[objectIndex].toNode,
+                        objectArray[objectIndex].messageToSend, objectArray[objectIndex].frameToAppend);
+                    incrementLifeline();
+                }
+
+                if (objectArray.length - 1 > objectIndex) {
+                    objectIndex++;
+                }
+                else {
+                    console.log("JNFSMDFLKE");
+                    isSubmitter = false;
+                }
+            });
+
+            serverRequest = function serverRequest() {
+                if (isSubmitter) {
+                    console.log("OBJECT INDEX: " + objectIndex);
+                    addColor = false;
+                    console.log("MADE FALSE");
+//                var $lifelineId = $('#' + objectArray[objectIndex].lifelineElement.id); // name of process is the id of lifeline
+//                var lifeLineIdNoQuery = objectArray[objectIndex].lifelineElement.id;
+//                var $processId = $lifelineId.parent().closest('div').attr('id'); // socketId is Id of process
+//                console.log($processId);
+//                if (socket.id === $processId) {
+//                    console.log("SENT TO SERVER");
+//                    socket.emit('arrow request', {socketId: socket.id, processName: lifeLineIdNoQuery});
+//                }
+                    socket.emit('arrow request', {socketId: socket.id});
+                }
+            }
+
+//            serverRequest = function serverRequest(from1, lifeline) {
+//                addColor = false;
+//                console.log(addColor);
+//                var $lifelineId = $('#' + lifeline.id); // name of process is the id of lifeline
+//                var lifeLineIdNoQuery = lifeline.id;
+//                var $processId = $lifelineId.parent().closest('div').attr('id'); // socketId is Id of process
+//
+//                if (socket.id === $processId) {
+//                    socket.emit('arrow request', {socketId: socket.id, processName: lifeLineIdNoQuery});
+//                }
+//            };
+
+//            serverRequest1 = function serverRequest1() {
+//                console.log("TIMEOUT THING HAPPENED");
+//                console.log(arrowCounter);
+//
+//            };
         });
+
+
     </script>
 </body>
-</html>-
+</html>

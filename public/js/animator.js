@@ -23,6 +23,7 @@ var log = document.getElementById("logList");
 var frameDiv;
 var llHeight = 150;
 var counter = 0;
+addColor = false;
 
 // Checks if it's a sequence diagram
 function outputAnimation (animator, tmpSocketIds) {
@@ -31,66 +32,70 @@ function outputAnimation (animator, tmpSocketIds) {
     // an if statement to check if animation is going on at the moment or not. If it already is running it will do nothing.
     if(scrollBoolean){}
     else{
-    //Resets values used in the animation and clears the divs of previous content
-    mainDiv.innerHTML = "";
-    log.innerHTML = "";
-    lastScroll = 0;
-    counter = 0;
+        //Resets values used in the animation and clears the divs of previous content
+        mainDiv.innerHTML = "";
+        log.innerHTML = "";
+        lastScroll = 0;
+        counter = 0;
 
-    if (animator.type === 'sequence_diagram') {
-            scrollBoolean = true;
-            llHeight = 150;
-            //Selects the processes array in JSON File and iterates for every element
-            processDiv = document.createElement("div");
-            processDiv.className = "processDiv";
-            mainDiv.appendChild(processDiv);
-            for (var i = 0; i < animator.processes.length; i++) {
+        if (animator.type === 'sequence_diagram') {
+                scrollBoolean = true;
+                llHeight = 150;
+                //Selects the processes array in JSON File and iterates for every element
+                processDiv = document.createElement("div");
+                processDiv.className = "processDiv";
+                mainDiv.appendChild(processDiv);
+                for (var i = 0; i < animator.processes.length; i++) {
 
-                createProcess(animator, i);
+                    createProcess(animator, i);
 
-                //Similar behavior as in the previous block, but this time the lifelines are given a unique ID, are appended to the <div> created in the previous block
-                //and the activators are appended to the lifeline divs.
+                    //Similar behavior as in the previous block, but this time the lifelines are given a unique ID, are appended to the <div> created in the previous block
+                    //and the activators are appended to the lifeline divs.
 
-                createLifeline(animator, i);
+                    createLifeline(animator, i);
 
-                // var activatorDiv = document.createElement("div");
-                // activatorDiv.className = activatorClassName;
-                // lifeLineDiv.appendChild(activatorDiv);
-            }
-            /*var animatorDiagramArray = Object.keys(animator.diagram); //In order to check whether or not the JSON element is a node, we must select the diagram object's keys.
-            //if the JSON has no frame element, it will not go through the for loop as the length will be 0
-            for (var i = 0; i < animatorDiagramArray.length; i++) {   //loop through the array of Keys created above
-                if (animatorDiagramArray[i] === 'node') {             //we check wether the JSON element is a node here
-                    frameDiv = document.createElement("div");
-                    frameDiv.className = frameDivClassName;
-                    frameDiv.id = animator.diagram.node.toString();
-                    mainDiv.appendChild(frameDiv);
-
-                    var frameTitle = document.createElement("div");
-                    frameTitle.className = frameTitleClassName;
-                    frameTitle.id = animator.diagram.node.toString() + "Title";
-                    frameTitle.innerHTML = animator.diagram.node.toString();
-                    frameDiv.appendChild(frameTitle);
+                    // var activatorDiv = document.createElement("div");
+                    // activatorDiv.className = activatorClassName;
+                    // lifeLineDiv.appendChild(activatorDiv);
                 }
-            }
-            */
-            //createArrow(animator, 0, 0);
-            createNodes(animator.diagram, mainDiv);
-            createLog(animator, 0, 0, 0);
-            pageScroll();
-    }
-// Checks if it's a class diagram
-    if (animator.type === 'class_diagram') {
-        var left = 25;
-        var top = 25;
-        for (var i = 0; i < animator.classes.length; i++) {
-            createClass(animator, i, left, top);
-            left = left + 400;
-            top = top + 150;
+                /*var animatorDiagramArray = Object.keys(animator.diagram); //In order to check whether or not the JSON element is a node, we must select the diagram object's keys.
+                //if the JSON has no frame element, it will not go through the for loop as the length will be 0
+                for (var i = 0; i < animatorDiagramArray.length; i++) {   //loop through the array of Keys created above
+                    if (animatorDiagramArray[i] === 'node') {             //we check wether the JSON element is a node here
+                        frameDiv = document.createElement("div");
+                        frameDiv.className = frameDivClassName;
+                        frameDiv.id = animator.diagram.node.toString();
+                        mainDiv.appendChild(frameDiv);
+
+                        var frameTitle = document.createElement("div");
+                        frameTitle.className = frameTitleClassName;
+                        frameTitle.id = animator.diagram.node.toString() + "Title";
+                        frameTitle.innerHTML = animator.diagram.node.toString();
+                        frameDiv.appendChild(frameTitle);
+                    }
+                }
+                */
+                //createArrow(animator, 0, 0);
+                objectArray = [];
+                //localStorage.setItem('objectArray', objectArray);
+                console.log("EMPTIED");
+                arrowCounter = 0;
+                createNodes(animator.diagram, mainDiv);
+                createLog(animator, 0, 0, 0);
+                pageScroll();
         }
-        classLog(animator);
-        makeRelations(animator);
-    }
+    // Checks if it's a class diagram
+        if (animator.type === 'class_diagram') {
+            var left = 25;
+            var top = 25;
+            for (var i = 0; i < animator.classes.length; i++) {
+                createClass(animator, i, left, top);
+                left = left + 400;
+                top = top + 150;
+            }
+            classLog(animator);
+            makeRelations(animator);
+        }
     }
 }
 /*
@@ -220,6 +225,12 @@ function createLog(animator, i, e, total) {
     var arrowLengthL2R = to.x - from.x;
     arrow.style.maxWidth = arrowLengthL2R + 'px';
 
+    if (addColor === true) {
+        console.log("GOT TRUE");
+        console.log("------------");
+        arrow.className += " redText";
+    }
+
 
     svg.setAttribute("preserveAspectRatio", "xMaxYMid slice");
     svg.setAttribute("viewBox", "0 0 1400 14");
@@ -254,6 +265,12 @@ function createLog(animator, i, e, total) {
     arrow.className = arrowDivClassNameR2L;
     var arrowLengthR2L = from.x - to.x;
     arrow.style.maxWidth = arrowLengthR2L + 'px';
+
+     if (addColor === true) {
+         console.log("GOT TRUE");
+         console.log("------------");
+         arrow.className += " redText";
+     }
 
     svg.setAttribute("preserveAspectRatio", "xMinYMid slice");
     svg.setAttribute("viewBox", "0 0 1400 14");
@@ -464,7 +481,7 @@ function makeRelations(animator){
             makeLine(animator, i);
         }
         // If none are defined - Make both
-        else{
+        else {
             makeSuper(animator, i);
             makeSub(animator, i);
             makeLine(animator, i);
@@ -629,6 +646,8 @@ function dragElement(element) {
  *It is called recursively after each node creation and stops once the parsing is done.
  *The JSON must have at least one "send" node otherwise the function will hang
  */
+
+
 function createNodes(object, frameToAppend){
     var arrayOfNodes = []; //this array will contain all the JSON Objects (nodes) inside object
     var arrayOfObjects = []; //this array will contain the "content" objects in the object
@@ -643,6 +662,8 @@ function createNodes(object, frameToAppend){
             }
         }
     }
+
+
 
     for (var i = 0; i < arrayOfNodes.length; i++) {
         for (key in arrayOfNodes) {
@@ -670,8 +691,8 @@ function createNodes(object, frameToAppend){
             else if (arrayOfNodes[i] === "send") {
                 //create arrow from "from" to "to"
                 var fromNode = getPosition(document.querySelector("#" + object.from.toString()));
-                var toNode   = getPosition(document.querySelector("#" + object.to.toString()));
-                console.log(fromNode.x + " " + toNode.x);
+                var toNode = getPosition(document.querySelector("#" + object.to.toString()));
+                //console.log(fromNode.x + " " + toNode.x);
                 var messageToSend = "";
 
                 if (object.message.length == 1) {
@@ -691,16 +712,32 @@ function createNodes(object, frameToAppend){
                     }
                 }
 
-                if (fromNode.x > toNode.x) {
-                    arrowR2L(fromNode, toNode, messageToSend, frameToAppend);
-                    incrementLifeline();
+                var lifelineElement = document.getElementById(object.from);
 
-                }
-                else {
-                    arrowL2R(fromNode, toNode, messageToSend, frameToAppend);
-                    incrementLifeline();
+                objectArray.push({fromNode: fromNode, toNode: toNode, messageToSend: messageToSend,
+                    frameToAppend: frameToAppend, objectFrom: object.from, lifelineElement: lifelineElement});
 
-                }
+                setTimeout(function () {serverRequest()}, arrowCounter * 1000);
+                arrowCounter++;
+
+
+                // setTimeout(function animateArrow()
+                // {
+                //     console.log(frameToAppend);
+                //     if (fromNode.x > toNode.x) {
+                //         arrowR2L(fromNode, toNode, messageToSend, frameToAppend);
+                //         incrementLifeline();
+                //
+                //     }
+                //     else {
+                //         arrowL2R(fromNode, toNode, messageToSend, frameToAppend);
+                //         incrementLifeline();
+                //     }
+                //     //document.getElementById(object.from).style.color = 'red';
+                //     console.log(arrowCounter);
+                // }, 1000 * arrowCounter);
+                //
+                // arrowCounter++;
             }
         }
     }

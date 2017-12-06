@@ -24,6 +24,7 @@
         }
     ],
     "diagram": {
+        "node" : "seq",
         "content": [
             {
                 "node": "seq",
