@@ -179,8 +179,9 @@ main {
 .redText {
     color: red;
 }
-.greenProcess {
-    background-color: lightgreen;
+.blackProcess {
+    background-color: #333;
+    color: white;
 }
 .messages{
     position: relative;
