@@ -17,9 +17,9 @@
                 <li><a href="#" id="restart" class="glyphicon glyphicon-play" aria-hidden="true"></a></li>
             </ul>
             <ul id="playNav">
-                <li><a href="#"><span class="sequenceDiagram" aria-hidden="true">S</span></a></li>
-                <li><a href="#"><span class="classDiagram" aria-hidden="true">C</span></a></li>
-                <li><a href="#"><span class="deploymentDiagram" aria-hidden="true">D</span></a></li>
+                <li><a href="#" id="SDbutton"><span aria-hidden="true">S</span></a></li>
+                <li><a href="#" id="CDbutton"><span aria-hidden="true">C</span></a></li>
+                <li><a href="#" id="DDbutton"><span aria-hidden="true">D</span></a></li>
             </ul>
             <ul id="helpNav">
                 <li><a  onclick="newHelpWindow()" href="#"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></li>
@@ -72,16 +72,72 @@
             var $messagesBox = $('#messagesBox');
             var $messageTextArea = $('#messageTextArea');
             var $messageButton = $('#messageButton');
-            var $div = $('div.processDivClassName').html;
+            var $SDbutton = $('#SDbutton');
+            var $CDbutton = $('#CDbutton');
+            var $DDbutton = $('#DDbutton');
+            var stringJSON;
+
+            // Check the localstorage for files - removes unused buttons
+            if(localStorage.getItem('DD') !== null){
+                stringJSON = JSON.parse(localStorage.getItem('DD'));
+            }
+            else{
+                $DDbutton.remove();
+            }
+            if(localStorage.getItem('CD') !== null){
+                stringJSON = JSON.parse(localStorage.getItem('CD'));
+            }
+            else{
+                $CDbutton.remove();
+            }
+            if(localStorage.getItem('SD') !== null){
+                stringJSON = JSON.parse(localStorage.getItem('SD'));
+            }
+            else{
+                $SDbutton.remove();
+            }
 
             $restart.click(function (e) {
                 $restart.removeClass('glyphicon glyphicon-play');
                 $restart.addClass('glyphicon glyphicon-repeat');
 
                 e.preventDefault();
-                var stringJSON = JSON.parse(localStorage.getItem('stringJSON'));
+                var stringJSON = JSON.parse(localStorage.getItem('SD'));
                 isSubmitter = true;
                 socket.emit('begin animation', {animator: stringJSON});
+            });
+
+            $SDbutton.click(function (e) {
+                // Check if already loaded said diagram
+                if(stringJSON.type === 'sequence_diagram'){
+                    // Do nothing
+                }
+                else {
+                    stringJSON = JSON.parse(localStorage.getItem('SD'));
+                    socket.emit('begin animation', {animator: stringJSON});
+                }
+            });
+
+            $CDbutton.click(function (e) {
+                // Check if already loaded said diagram
+                if(stringJSON.type === 'class_diagram'){
+                    // Do nothing
+                }
+                else {
+                    stringJSON = JSON.parse(localStorage.getItem('CD'));
+                    socket.emit('begin animation', {animator: stringJSON});
+                }
+            });
+
+            $DDbutton.click(function (e) {
+                // Check if already loaded said diagram
+                if(stringJSON.type === 'deployment_diagram'){
+                    // Do nothing
+                }
+                else {
+                    stringJSON = JSON.parse(localStorage.getItem('DD'));
+                    socket.emit('begin animation', {animator: stringJSON});
+                }
             });
 
             socket.on("begin animation", function (data, socketIds) {
@@ -89,8 +145,6 @@
                 objectIndex = 0;
                 outputAnimation(data, socketIds);
             });
-
-
 
             $nameTextArea.keydown(function(event) {
                 if (event.keyCode === 13) {
@@ -130,6 +184,7 @@
 
 
             socket.on('arrow reply', function (data) {
+                console.log("ANIMATING ARROW");
                 // Arrow animation
                 if (objectArray[objectIndex].fromNode.x > objectArray[objectIndex].toNode.x) {
                     arrowR2L(objectArray[objectIndex].fromNode, objectArray[objectIndex].toNode,
@@ -153,6 +208,7 @@
 
             serverRequest = function serverRequest() {
                 if (isSubmitter) {
+                    console.log("REQUESTING SERVER");
                     addColor = false;
 
                     var $lifelineId = $('#' + objectArray[objectIndex].lifelineElement.id); // name of process is the id of lifeline
