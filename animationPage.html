@@ -17,9 +17,9 @@
                 <li><a href="#" id="restart" class="glyphicon glyphicon-play" aria-hidden="true"></a></li>
             </ul>
             <ul id="playNav">
-                <li><a href="#"><span class="sequenceDiagram" aria-hidden="true">S</span></a></li>
-                <li><a href="#"><span class="classDiagram" aria-hidden="true">C</span></a></li>
-                <li><a href="#"><span class="deploymentDiagram" aria-hidden="true">D</span></a></li>
+                <li><a href="#" id="SDbutton"><span aria-hidden="true">S</span></a></li>
+                <li><a href="#" id="CDbutton"><span aria-hidden="true">C</span></a></li>
+                <li><a href="#" id="DDbutton"><span aria-hidden="true">D</span></a></li>
             </ul>
             <ul id="helpNav">
                 <li><a  onclick="newHelpWindow()" href="#"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></li>
@@ -71,8 +71,13 @@
             var $messagesBox = $('#messagesBox');
             var $messageTextArea = $('#messageTextArea');
             var $messageButton = $('#messageButton');
-            var stringJSON = JSON.parse(localStorage.getItem('file1'));
+            var $SDbutton = $('#SDbutton');
+            var $CDbutton = $('#CDbutton');
+            var $DDbutton = $('#DDbutton');
+
+            var stringJSON = JSON.parse(localStorage.getItem('SD'));
 //          var $div = $('div.processDivClassName').html;
+
 
             $restart.click(function (e) {
                 $restart.removeClass('glyphicon glyphicon-play');
@@ -82,12 +87,31 @@
                 socket.emit('begin animation', {animator: stringJSON});
             });
 
+            $SDbutton.click(function (e) {
+                e.preventDefault();
+
+                stringJSON = JSON.parse(localStorage.getItem('SD'));
+                socket.emit('begin animation', {animator: stringJSON});
+            });
+
+            $CDbutton.click(function (e) {
+                e.preventDefault();
+
+                stringJSON = JSON.parse(localStorage.getItem('CD'));
+                socket.emit('begin animation', {animator: stringJSON});
+            });
+
+            $DDbutton.click(function (e) {
+                e.preventDefault();
+
+                stringJSON = JSON.parse(localStorage.getItem('DD'));
+                socket.emit('begin animation', {animator: stringJSON});
+            });
+
             socket.on("begin animation", function (data, socketIds) {
                 console.log(data);
                 outputAnimation(data, socketIds);
             });
-
-
 
             $nameTextArea.keydown(function(event) {
                 if (event.keyCode === 13) {

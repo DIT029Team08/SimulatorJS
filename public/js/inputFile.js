@@ -45,7 +45,6 @@ window.onload = function() {
                     message.style.opacity = 100;
                 }
             }
-
             // If there is only 1 file
             else{
                 // Check so the file is allowed
@@ -161,7 +160,7 @@ function addToStorage(textVersion, jsonVersion) {
                 localStorage.setItem('DD', textVersion[n]);
                 break;
             default:
-                alert("EVERYTHING IS BAD")
+                alert("EVERYTHING IS BAD");
         }
     }
 }
