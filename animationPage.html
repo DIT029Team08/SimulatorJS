@@ -75,7 +75,6 @@
             var $CDbutton = $('#CDbutton');
             var $DDbutton = $('#DDbutton');
             var stringJSON;
-//          var $div = $('div.processDivClassName').html;
 
             // Check the localstorage for files - removes unused buttons
             if(localStorage.getItem('DD') !== null){
@@ -105,10 +104,9 @@
                 socket.emit('begin animation', {animator: stringJSON});
             });
 
-            // TODO - Make sure this works
             $SDbutton.click(function (e) {
                 // Check if already loaded said diagram
-                if(stringJSON === JSON.parse(localStorage.getItem('SD'))){
+                if(stringJSON.type === 'sequence_diagram'){
                     // Do nothing
                 }
                 else {
@@ -119,7 +117,7 @@
 
             $CDbutton.click(function (e) {
                 // Check if already loaded said diagram
-                if(stringJSON === JSON.parse(localStorage.getItem('CD'))){
+                if(stringJSON.type === 'class_diagram'){
                     // Do nothing
                 }
                 else {
@@ -130,7 +128,7 @@
 
             $DDbutton.click(function (e) {
                 // Check if already loaded said diagram
-                if(stringJSON === JSON.parse(localStorage.getItem('DD'))){
+                if(stringJSON.type === 'deployment_diagram'){
                     // Do nothing
                 }
                 else {

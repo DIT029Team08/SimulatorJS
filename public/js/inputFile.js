@@ -92,14 +92,8 @@ function readerLoaded(e, files, textVersion, jsonVersion, i) {
 function compareAndAdd(textVersion, jsonVersion) {
     var button = document.getElementById('submitbutton');
     var message = document.getElementById('error');
-
     // If there are 3 files
     if(textVersion.length > 2){
-        console.log("3 files");
-        console.log(jsonVersion[0].type);
-        console.log(jsonVersion[1].type);
-        console.log(jsonVersion[2].type);
-
         // If any of the 3 diagrams are of the same type, deny user
         if(jsonVersion[0].type === jsonVersion[1].type || jsonVersion[1].type === jsonVersion[2].type || jsonVersion[0].type === jsonVersion[2].type){
             console.log("Same type. No no no...");
@@ -115,10 +109,6 @@ function compareAndAdd(textVersion, jsonVersion) {
     }
     // If there are 2 files
     else if(textVersion.length > 1){
-        console.log("2 files");
-        console.log(jsonVersion[0].type);
-        console.log(jsonVersion[1].type);
-
         // If both diagram are of the same type, deny user
         if(jsonVersion[0].type === jsonVersion[1].type){
             console.log("Same type. No no no...");
@@ -134,8 +124,6 @@ function compareAndAdd(textVersion, jsonVersion) {
     }
     // If there is only one file, just add it.
     else{
-        console.log("1 file");
-        console.log(jsonVersion[0].type);
         button.disabled = false;
         message.style.opacity = 0;
         addToStorage(textVersion, jsonVersion);
