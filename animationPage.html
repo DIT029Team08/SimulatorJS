@@ -105,25 +105,38 @@
                 socket.emit('begin animation', {animator: stringJSON});
             });
 
+            // TODO - Make sure this works
             $SDbutton.click(function (e) {
-                e.preventDefault();
-
-                stringJSON = JSON.parse(localStorage.getItem('SD'));
-                socket.emit('begin animation', {animator: stringJSON});
+                // Check if already loaded said diagram
+                if(stringJSON === JSON.parse(localStorage.getItem('SD'))){
+                    // Do nothing
+                }
+                else {
+                    stringJSON = JSON.parse(localStorage.getItem('SD'));
+                    socket.emit('begin animation', {animator: stringJSON});
+                }
             });
 
             $CDbutton.click(function (e) {
-                e.preventDefault();
-
-                stringJSON = JSON.parse(localStorage.getItem('CD'));
-                socket.emit('begin animation', {animator: stringJSON});
+                // Check if already loaded said diagram
+                if(stringJSON === JSON.parse(localStorage.getItem('CD'))){
+                    // Do nothing
+                }
+                else {
+                    stringJSON = JSON.parse(localStorage.getItem('CD'));
+                    socket.emit('begin animation', {animator: stringJSON});
+                }
             });
 
             $DDbutton.click(function (e) {
-                e.preventDefault();
-
-                stringJSON = JSON.parse(localStorage.getItem('DD'));
-                socket.emit('begin animation', {animator: stringJSON});
+                // Check if already loaded said diagram
+                if(stringJSON === JSON.parse(localStorage.getItem('DD'))){
+                    // Do nothing
+                }
+                else {
+                    stringJSON = JSON.parse(localStorage.getItem('DD'));
+                    socket.emit('begin animation', {animator: stringJSON});
+                }
             });
 
             socket.on("begin animation", function (data, socketIds) {
