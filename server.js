@@ -69,7 +69,6 @@ io.sockets.on('connection', function(socket) {
     });
 
     socket.on('arrow request', function (data) {
-        //io.sockets.emit('arrow reply', {socketId: data.socketId, processName: data.processName});
         io.sockets.emit('arrow reply', {socketId: data.socketId});
     });
 

@@ -77,8 +77,6 @@ function outputAnimation (animator, tmpSocketIds) {
                 */
                 //createArrow(animator, 0, 0);
                 objectArray = [];
-                //localStorage.setItem('objectArray', objectArray);
-                console.log("EMPTIED");
                 arrowCounter = 0;
                 createNodes(animator.diagram, mainDiv);
                 createLog(animator, 0, 0, 0);
@@ -719,25 +717,6 @@ function createNodes(object, frameToAppend){
 
                 setTimeout(function () {serverRequest()}, arrowCounter * 1000);
                 arrowCounter++;
-
-
-                // setTimeout(function animateArrow()
-                // {
-                //     console.log(frameToAppend);
-                //     if (fromNode.x > toNode.x) {
-                //         arrowR2L(fromNode, toNode, messageToSend, frameToAppend);
-                //         incrementLifeline();
-                //
-                //     }
-                //     else {
-                //         arrowL2R(fromNode, toNode, messageToSend, frameToAppend);
-                //         incrementLifeline();
-                //     }
-                //     //document.getElementById(object.from).style.color = 'red';
-                //     console.log(arrowCounter);
-                // }, 1000 * arrowCounter);
-                //
-                // arrowCounter++;
             }
         }
     }

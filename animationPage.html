@@ -130,11 +130,6 @@
 
 
             socket.on('arrow reply', function (data) {
-                console.log("GOT REPLY FROM SERVER");
-//                    addColor = true;
-//                    console.log("MADE TRUE");
-//                }
-
                 // Arrow animation
                 if (objectArray[objectIndex].fromNode.x > objectArray[objectIndex].toNode.x) {
                     arrowR2L(objectArray[objectIndex].fromNode, objectArray[objectIndex].toNode,
@@ -152,45 +147,20 @@
                     objectIndex++;
                 }
                 else {
-                    console.log("JNFSMDFLKE");
                     isSubmitter = false;
                 }
             });
 
             serverRequest = function serverRequest() {
                 if (isSubmitter) {
-                    console.log("OBJECT INDEX: " + objectIndex);
                     addColor = false;
-                    console.log("MADE FALSE");
-//                var $lifelineId = $('#' + objectArray[objectIndex].lifelineElement.id); // name of process is the id of lifeline
-//                var lifeLineIdNoQuery = objectArray[objectIndex].lifelineElement.id;
-//                var $processId = $lifelineId.parent().closest('div').attr('id'); // socketId is Id of process
-//                console.log($processId);
-//                if (socket.id === $processId) {
-//                    console.log("SENT TO SERVER");
-//                    socket.emit('arrow request', {socketId: socket.id, processName: lifeLineIdNoQuery});
-//                }
+
+                    var $lifelineId = $('#' + objectArray[objectIndex].lifelineElement.id); // name of process is the id of lifeline
+                    var lifeLineIdNoQuery = objectArray[objectIndex].lifelineElement.id;
+                    var $processId = $lifelineId.parent().closest('div').attr('id'); // socketId is Id of process
                     socket.emit('arrow request', {socketId: socket.id});
                 }
             }
-
-//            serverRequest = function serverRequest(from1, lifeline) {
-//                addColor = false;
-//                console.log(addColor);
-//                var $lifelineId = $('#' + lifeline.id); // name of process is the id of lifeline
-//                var lifeLineIdNoQuery = lifeline.id;
-//                var $processId = $lifelineId.parent().closest('div').attr('id'); // socketId is Id of process
-//
-//                if (socket.id === $processId) {
-//                    socket.emit('arrow request', {socketId: socket.id, processName: lifeLineIdNoQuery});
-//                }
-//            };
-
-//            serverRequest1 = function serverRequest1() {
-//                console.log("TIMEOUT THING HAPPENED");
-//                console.log(arrowCounter);
-//
-//            };
         });
 
 
