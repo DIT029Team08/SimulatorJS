@@ -74,10 +74,28 @@
             var $SDbutton = $('#SDbutton');
             var $CDbutton = $('#CDbutton');
             var $DDbutton = $('#DDbutton');
-
-            var stringJSON = JSON.parse(localStorage.getItem('SD'));
+            var stringJSON;
 //          var $div = $('div.processDivClassName').html;
 
+            // Check the localstorage for files - removes unused buttons
+            if(localStorage.getItem('DD') !== null){
+                stringJSON = JSON.parse(localStorage.getItem('DD'));
+            }
+            else{
+                $DDbutton.remove();
+            }
+            if(localStorage.getItem('CD') !== null){
+                stringJSON = JSON.parse(localStorage.getItem('CD'));
+            }
+            else{
+                $CDbutton.remove();
+            }
+            if(localStorage.getItem('SD') !== null){
+                stringJSON = JSON.parse(localStorage.getItem('SD'));
+            }
+            else{
+                $SDbutton.remove();
+            }
 
             $restart.click(function (e) {
                 $restart.removeClass('glyphicon glyphicon-play');
