@@ -365,44 +365,7 @@ function createProcess(animator, i) {
     div = document.createElement("div");            //Creates an HTML <div> element
     div.className = processDivClassName;                //assigns it a class
 
-    if(animator.processes.length === socketIds.length){
-        div.id = socketIds[i];
-    }
 
-    else if (animator.processes.length > socketIds.length){
-        if (counter < socketIds.length){
-            div.id = socketIds[i];
-            counter++;
-        }
-        else if(i-counter === socketIds.length){
-            counter += socketIds.length;
-            div.id = socketIds[i- counter];
-        }
-        else{
-            div.id = socketIds[i - counter]
-        }
-    }
-
-    else if(animator.processes.length < socketIds.length){
-        if (counter < animator.processes.length){
-            div.id = socketIds[i];
-            counter++;
-        }
-        else{}
-    }
-    console.log("Div id: " + div.id);
-
-
-    div.innerHTML =
-        animator.processes[i].name.toString() + ": " +  //Gives it a text output as specified in the JSON file, here the class and name of the object
-        animator.processes[i].class.toString();         //here it is the class and name of the SSD object
-    mainDiv.appendChild(div);                           //Places the new <div> element under the mainDiv, as specified in the variable declaration in l.4
-
-    /** stickyProcessContainerDiv is a container div for stickyDiv. It is inside a container so we can you z-index
-     *  to hide everything behind it.
-     * stickyDiv is just the process that is made again but got position sticky so it will
-     * stick to the top of the page. No lifelines are attached to this div.
-     */
     stickyProcessContainerDiv = document.createElement("div");            //Creates an HTML <div> element
     stickyProcessContainerDiv.className = "stickyProcessContainerDiv";                //assigns it a class
 
@@ -415,6 +378,54 @@ function createProcess(animator, i) {
         animator.processes[i].name.toString() + ": " +  //Gives it a text output as specified in the JSON file, here the class and name of the object
         animator.processes[i].class.toString();         //here it is the class and name of the SSD object
     stickyProcessContainerDiv.appendChild(stickyDiv);
+
+
+
+    if(animator.processes.length === socketIds.length){
+        div.id = socketIds[i];
+        stickyDiv.id = socketIds[i];
+    }
+
+    else if (animator.processes.length > socketIds.length){
+        if (counter < socketIds.length){
+            div.id = socketIds[i];
+            stickyDiv.id = socketIds[i];
+            counter++;
+        }
+        else if(i-counter === socketIds.length){
+            counter += socketIds.length;
+            div.id = socketIds[i- counter];
+            stickyDiv.id = socketIds[i- counter];
+        }
+        else{
+            div.id = socketIds[i - counter]
+            stickyDiv.id = socketIds[i - counter]
+        }
+    }
+
+    else if(animator.processes.length < socketIds.length){
+        if (counter < animator.processes.length){
+            div.id = socketIds[i];
+            stickyDiv.id = socketIds[i];
+            counter++;
+        }
+        else{}
+    }
+    console.log("Div id: " + div.id);
+    console.log("stickyDiv id: " + stickyDiv.id);
+
+
+    div.innerHTML =
+        animator.processes[i].name.toString() + ": " +  //Gives it a text output as specified in the JSON file, here the class and name of the object
+        animator.processes[i].class.toString();         //here it is the class and name of the SSD object
+    mainDiv.appendChild(div);                           //Places the new <div> element under the mainDiv, as specified in the variable declaration in l.4
+
+    /** stickyProcessContainerDiv is a container div for stickyDiv. It is inside a container so we can you z-index
+     *  to hide everything behind it.
+     * stickyDiv is just the process that is made again but got position sticky so it will
+     * stick to the top of the page. No lifelines are attached to this div.
+     */
+
 }
 
 /*

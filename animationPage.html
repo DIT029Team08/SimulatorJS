@@ -184,6 +184,14 @@
 
 
             socket.on('arrow reply', function (data) {
+                if (objectIndex === 0) {
+                    var stickyArr = document.getElementsByClassName("stickyDiv");
+                    for (var i = 0; i < stickyArr.length; i++) {
+                        if (socket.id === stickyArr[i].id) {
+                            stickyArr[i].className += " greenProcess";
+                        }
+                    }
+                }
                 console.log("ANIMATING ARROW");
                 // Arrow animation
                 if (objectArray[objectIndex].fromNode.x > objectArray[objectIndex].toNode.x) {
