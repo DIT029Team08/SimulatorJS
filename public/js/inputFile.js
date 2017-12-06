@@ -3,6 +3,8 @@ window.onload = function() {
     var button = document.getElementById('submitbutton');
     var message = document.getElementById('error');
     var regTypesAllowed =  /(.*?)\.(json|JSON)$/;
+    var textVersion = [];
+    var jsonVersion = [];
     message.style.opacity = 0;
 
     if (fileInput) {
@@ -17,7 +19,7 @@ window.onload = function() {
                     button.disabled = false;
                     message.style.opacity = 0;
 
-                    setupReader(fileInput.files, 0);
+                    setupReader(fileInput.files, 0, textVersion, jsonVersion);
                 }
                 // If not allowed
                 else{
@@ -35,7 +37,7 @@ window.onload = function() {
                     button.disabled = false;
                     message.style.opacity = 0;
 
-                    setupReader(fileInput.files, 0);
+                    setupReader(fileInput.files, 0, textVersion, jsonVersion);
                 }
                 // If not allowed
                 else{
@@ -51,7 +53,7 @@ window.onload = function() {
                     button.disabled = false;
                     message.style.opacity = 0;
 
-                    setupReader(fileInput.files, 0);
+                    setupReader(fileInput.files, 0, textVersion, jsonVersion);
                 }
                 else{
                     button.disabled = true;
@@ -62,10 +64,8 @@ window.onload = function() {
     }
 };
 
-function setupReader(files, i) {
+function setupReader(files, i, textVersion, jsonVersion) {
     var file = files[i];
-    var textVersion = [];
-    var jsonVersion = [];
     var reader = new FileReader();
     reader.onload = function(e){
         // Once done reading - call loaded
@@ -82,9 +82,9 @@ function readerLoaded(e, files, textVersion, jsonVersion, i) {
     // If there's a file left to load
     if (i < files.length - 1) {
         // Load the next file
-        setupReader(files, i+1);
+        setupReader(files, i+1, textVersion, jsonVersion);
     }
-    // If not, everything is done, make the comparisons and add to local storage
+    // If not, everything is done
     else{
         console.log("Done reading " + (i+1) + " files");
         compareAndAdd(textVersion, jsonVersion);
@@ -110,15 +110,19 @@ function compareAndAdd(textVersion, jsonVersion) {
         // If not, continue to check
         else{
             for(var n = 0; n < jsonVersion.length; n++) {
+                localStorage.clear();
                 switch (jsonVersion[n].type) {
                     case 'sequence_diagram':
-                        console.log("File " + n + " is a SEQ");
+                        console.log("Added SD");
+                        localStorage.setItem('SD', textVersion[n]);
                         break;
                     case 'class_diagram':
-                        console.log("File " + n + " is a CLASS");
+                        console.log("Added CD");
+                        localStorage.setItem('CD', textVersion[n]);
                         break;
                     case 'deployment_diagram':
-                        console.log("File " + n + " is a DEP");
+                        console.log("Added DD");
+                        localStorage.setItem('DD', textVersion[n]);
                         break;
                     default:
                         alert("EVERYTHING IS BAD")
