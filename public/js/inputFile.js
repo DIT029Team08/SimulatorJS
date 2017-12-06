@@ -93,47 +93,76 @@ function readerLoaded(e, files, textVersion, jsonVersion, i) {
 function compareAndAdd(textVersion, jsonVersion) {
     var button = document.getElementById('submitbutton');
     var message = document.getElementById('error');
-    console.log(jsonVersion[0].type);
 
     // If there are 3 files
     if(textVersion.length > 2){
-        // DO THINGS WITH 3 FILES
+        console.log("3 files");
+        console.log(jsonVersion[0].type);
+        console.log(jsonVersion[1].type);
+        console.log(jsonVersion[2].type);
+
+        // If any of the 3 diagrams are of the same type, deny user
+        if(jsonVersion[0].type === jsonVersion[1].type || jsonVersion[1].type === jsonVersion[2].type || jsonVersion[0].type === jsonVersion[2].type){
+            console.log("Same type. No no no...");
+            button.disabled = true;
+            message.style.opacity = 100;
+        }
+        // If not, add to storage
+        else{
+            button.disabled = false;
+            message.style.opacity = 0;
+            addToStorage(textVersion, jsonVersion);
+        }
     }
     // If there are 2 files
     else if(textVersion.length > 1){
+        console.log("2 files");
+        console.log(jsonVersion[0].type);
+        console.log(jsonVersion[1].type);
 
-        // If both diagram are of the same type
+        // If both diagram are of the same type, deny user
         if(jsonVersion[0].type === jsonVersion[1].type){
+            console.log("Same type. No no no...");
+            button.disabled = true;
+            message.style.opacity = 100;
+        }
+        // If not, add to storage
+        else{
             button.disabled = false;
             message.style.opacity = 0;
-        }
-        // If not, continue to check
-        else{
-            for(var n = 0; n < jsonVersion.length; n++) {
-                localStorage.clear();
-                switch (jsonVersion[n].type) {
-                    case 'sequence_diagram':
-                        console.log("Added SD");
-                        localStorage.setItem('SD', textVersion[n]);
-                        break;
-                    case 'class_diagram':
-                        console.log("Added CD");
-                        localStorage.setItem('CD', textVersion[n]);
-                        break;
-                    case 'deployment_diagram':
-                        console.log("Added DD");
-                        localStorage.setItem('DD', textVersion[n]);
-                        break;
-                    default:
-                        alert("EVERYTHING IS BAD")
-                }
-            }
+            addToStorage(textVersion, jsonVersion);
         }
     }
-    // If there is only one file. set it to the local storage as file 1, which is default.
+    // If there is only one file, just add it.
     else{
-        localStorage.clear();
-        localStorage.setItem('file1', textVersion[0]);
+        console.log("1 file");
+        console.log(jsonVersion[0].type);
+        button.disabled = false;
+        message.style.opacity = 0;
+        addToStorage(textVersion, jsonVersion);
+    }
+}
+function addToStorage(textVersion, jsonVersion) {
+    // Clear local storage first.
+    localStorage.clear();
+    // Then iterate through the array to add all files
+    for(var n = 0; n < jsonVersion.length; n++) {
+        switch (jsonVersion[n].type) {
+            case 'sequence_diagram':
+                console.log("Added SD");
+                localStorage.setItem('SD', textVersion[n]);
+                break;
+            case 'class_diagram':
+                console.log("Added CD");
+                localStorage.setItem('CD', textVersion[n]);
+                break;
+            case 'deployment_diagram':
+                console.log("Added DD");
+                localStorage.setItem('DD', textVersion[n]);
+                break;
+            default:
+                alert("EVERYTHING IS BAD")
+        }
     }
 }
 var selDiv = "";
