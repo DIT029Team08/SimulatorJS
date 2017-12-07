@@ -882,10 +882,10 @@ function createNodes(object, frameToAppend){
                 objectArray.push({fromNode: fromNode, toNode: toNode, messageToSend: messageToSend,
                     frameToAppend: frameToAppend, objectFrom: object.from, lifelineElement: lifelineElement});
 
-                setTimeout(function () {serverRequest()}, arrowCounter * 1000);
+                setTimeout(function () {serverRequest(); concatLog(object.from, object.to, messageToSend);}, arrowCounter * 1000);
                 arrowCounter++;
 
-                concatLog(object.from, object.to, messageToSend);
+
             }
         }
     }
