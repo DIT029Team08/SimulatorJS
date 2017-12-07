@@ -288,9 +288,6 @@ main {
     position: relative;
     transition: all 1s ease-in;
 }
-.frameseq{
-    border-bottom: 1.5px dashed black;
-}
 .frameTitle{
     border: 1px solid;
     border-bottom-right-radius: 15px;

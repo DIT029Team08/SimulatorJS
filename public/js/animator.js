@@ -843,7 +843,9 @@ function createNodes(object, frameToAppend){
                 var seqFrameDiv = document.createElement("div");    //create frame div seqFrame
                 seqFrameDiv.className = seqFrameDivClassName;
                 frameToAppend.appendChild(seqFrameDiv);
-                // NO FRAMETITLE FOR YOUUUU
+                if(frameToAppend.className === parFrameDivClassName){
+                    seqFrameDiv.style.borderBottom = "1.5px dashed black";
+                }
                 for (var j = 0; j < arrayOfObjects.length; j++) {
                     createNodes(arrayOfObjects[j], seqFrameDiv);    //calls the function to create objects contained in seq
                 }
