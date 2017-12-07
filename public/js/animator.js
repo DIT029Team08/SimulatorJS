@@ -15,7 +15,6 @@ const messageDivClassName = "messages";
 //const activatorClassName = "activator";
 
 var scrollBoolean = false;
-var lastScroll = 0;
 
 //var animator = JSON.parse(localStorage.getItem('stringJSON'));
 // localStorage.removeItem("stringJSON");
@@ -37,8 +36,9 @@ function outputAnimation(animator, tmpSocketIds) {
         //Resets values used in the animation and clears the divs of previous content
         mainDiv.innerHTML = "";
         log.innerHTML = "";
-        lastScroll = 0;
         counter = 0;
+        logCounter = 0;
+
 
         if (animator.type === 'sequence_diagram') {
                 scrollBoolean = true;
@@ -83,7 +83,6 @@ function outputAnimation(animator, tmpSocketIds) {
             createNodes(animator.diagram, mainDiv);
             scrollBoolean = false;
             //createLog(animator, 0, 0, 0);
-            pageScroll();
         }
 // Checks if it's a class diagram
         if (animator.type === 'class_diagram') {
@@ -282,7 +281,7 @@ function arrowL2R(from, to, messageSent, frameToAppend) {
     svg.appendChild(polygon);
     arrow.appendChild(svg);
     frameToAppend.appendChild(arrow);
-
+    mainDiv.scrollBy(0,document.getElementById('outputJSON').scrollHeight);
 }
 
 /*
@@ -322,6 +321,7 @@ function arrowR2L(from, to, messageSent, frameToAppend) {
     svg.appendChild(polygon);
     arrow.appendChild(svg);
     frameToAppend.appendChild(arrow);
+    mainDiv.scrollBy(0,document.getElementById('outputJSON').scrollHeight);
 }
 
 
@@ -443,23 +443,6 @@ function createLifeline(animator, i) {
 
 }
 
-function pageScroll() {
-
-    //checks if it should continue scrolling or not
-    if(scrollBoolean || lastScroll === 0){
-        // some logic to do one more iteration of this function. Overwise it will skip the last scroll of the SSD.
-        if(!scrollBoolean){
-            lastScroll++;
-        }
-        //Scrolls to the bottom of the outputJSON page
-        mainDiv.scrollBy(0,document.getElementById('outputJSON').scrollHeight); // horizontal and vertical scroll increments
-        //scrolls to the bottom of the log
-        document.getElementById('logList').scrollBy(0, document.getElementById('logList').scrollHeight);
-        setTimeout(function() {
-            pageScroll();
-        },1000); // scrolls every 1000 milliseconds
-    }
-}
 function createClass(animator, i, left, top) {
     var div = document.createElement("div");
     div.className = classesDivClassName;
@@ -901,10 +884,10 @@ function createNodes(object, frameToAppend){
                 objectArray.push({fromNode: fromNode, toNode: toNode, messageToSend: messageToSend,
                     frameToAppend: frameToAppend, objectFrom: object.from, lifelineElement: lifelineElement});
 
-                setTimeout(function () {serverRequest()}, arrowCounter * 1000);
+                setTimeout(function () {serverRequest(); concatLog(object.from, object.to, messageToSend);}, arrowCounter * 1000);
                 arrowCounter++;
 
-                concatLog(object.from, object.to, messageToSend);
+
             }
         }
     }
