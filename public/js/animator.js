@@ -828,7 +828,6 @@ function dragElement(element) {
 
 
 function createNodes(object, frameToAppend){
-    console.log("Wats upp boolean"+scrollBoolean);
     var arrayOfNodes = []; //this array will contain all the JSON Objects (nodes) inside object
     var arrayOfObjects = []; //this array will contain the "content" objects in the object
 

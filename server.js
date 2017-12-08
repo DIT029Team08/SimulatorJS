@@ -36,7 +36,8 @@ io.sockets.on('connection', function(socket) {
     console.log('One Connected: %s sockets connected', connections.length);
 
     //Disconnect
-    socket.on('disconnect', function(socket) {
+    socket.on('disconnect', function() {
+        console.log(connections.indexOf(socket).id);
         connections.splice(connections.indexOf(socket), 1);
         users.splice(users.indexOf(socket.username), 1);
         console.log('One Disconnected: %s sockets connected', connections.length);
@@ -76,11 +77,12 @@ io.sockets.on('connection', function(socket) {
         var returnString = "";
 
         for(var i = 0; i < Array.length; i++){
+            console.log("connections: " + connections[i].id);
             returnString += Array[i].id;
             if(i+1 < Array.length)
             returnString += ",";
         }
-        console.log(returnString);
+        console.log("STRING: " + returnString);
         return returnString;
     }
 

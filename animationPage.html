@@ -189,6 +189,7 @@
                     for (var i = 0; i < stickyArr.length; i++) {
                         if (socket.id === stickyArr[i].id) {
                             stickyArr[i].className += " blackProcess";
+                            console.log("COLORING");
                         }
                     }
                 }
@@ -225,6 +226,10 @@
                     socket.emit('arrow request', {socketId: socket.id});
                 }
             }
+
+            window.onbeforeunload = function(e) {
+                socket.disconnect();
+            };
         });
 
 //        window.addEventListener("resize", updatePosition, false);
