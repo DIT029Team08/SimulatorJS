@@ -16,7 +16,7 @@ const messageDivClassName = "messages";
 
 var scrollBoolean = false;
 
-//var animator = JSON.parse(localStorage.getItem('stringJSON'));
+var animator = JSON.parse(localStorage.getItem('stringJSON'));
 // localStorage.removeItem("stringJSON");
 var mainDiv = document.getElementById("outputJSON");
 var log = document.getElementById("logList");
@@ -47,6 +47,12 @@ function outputAnimation(animator, tmpSocketIds) {
                 processDiv = document.createElement("div");
                 processDiv.className = "processDiv";
                 mainDiv.appendChild(processDiv);
+
+            if(animator.processes.length > 6){
+                alert("CAUTION, due to the extensive number of processes (more than six), you may experience" +
+                    " an unstable animated output. Please return to the homepage and upload a new json file.");
+            }
+
                 for (var i = 0; i < animator.processes.length; i++) {
 
                     createProcess(animator, i);
@@ -362,6 +368,8 @@ function getPosition(el) {
 
 function createProcess(animator, i) {
 
+
+
     div = document.createElement("div");            //Creates an HTML <div> element
     div.className = processDivClassName;                //assigns it a class
 
@@ -479,7 +487,7 @@ function classLog(animator){
             relation = " inherits "
         }
         else{
-            relation = " poops on "
+            relation = ""
         }
         li.setAttribute('id',((i+1)+": " +
             animator.relationships[i].subclass.toString() +
@@ -892,6 +900,39 @@ function createNodes(object, frameToAppend){
         }
     }
 }
+
+function updatePosition() {
+
+    $(".arrowRtoL").empty();
+    $(".arrowLtoR").empty();
+
+    var tmpArray = objectArray;
+
+    var fromNode = getPosition(document.querySelector("#" + animator.diagram.from.toString()));
+    var toNode = getPosition(document.querySelector("#" + animator.diagram.to.toString()));
+
+    for(var j = 0; j < tmpArray.length; j++){
+        tmpArray[j].fromNode = fromNode;
+        tmpArray[j].toNode = toNode;
+    }
+
+    for(var i = 0; i < tmpArray.length; i++){
+
+        if (tmpArray[i].fromNode.x > tmpArray[i].toNode.x) {
+            arrowR2L(tmpArray[i].fromNode, tmpArray[i].toNode,
+                tmpArray[i].messageToSend, tmpArray[i].frameToAppend);
+            incrementLifeline();
+
+        }
+        else {
+            arrowL2R(tmpArray[i].fromNode, tmpArray[i].toNode,
+                tmpArray[i].messageToSend, tmpArray[i].frameToAppend);
+            incrementLifeline();
+        }
+    }
+}
+
+
 
 function arrayifyString(string){
     var array = string.split(",");
