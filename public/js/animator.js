@@ -38,10 +38,11 @@ function outputAnimation(animator, tmpSocketIds) {
         log.innerHTML = "";
         counter = 0;
         logCounter = 0;
-
+        objectIndex = 0;
 
         if (animator.type === 'sequence_diagram') {
                 scrollBoolean = true;
+
                 llHeight = 150;
                 //Selects the processes array in JSON File and iterates for every element
                 processDiv = document.createElement("div");
@@ -87,7 +88,10 @@ function outputAnimation(animator, tmpSocketIds) {
             addColor = false;
             arrowCounter = 0;
             createNodes(animator.diagram, mainDiv);
-            scrollBoolean = false;
+            setTimeout(function () {
+                scrollBoolean = false;
+                console.log(scrollBoolean);
+            }, arrowCounter * 1000);
             //createLog(animator, 0, 0, 0);
         }
 // Checks if it's a class diagram
@@ -824,6 +828,7 @@ function dragElement(element) {
 
 
 function createNodes(object, frameToAppend){
+    console.log("Wats upp boolean"+scrollBoolean);
     var arrayOfNodes = []; //this array will contain all the JSON Objects (nodes) inside object
     var arrayOfObjects = []; //this array will contain the "content" objects in the object
 
@@ -891,7 +896,6 @@ function createNodes(object, frameToAppend){
                 var lifelineElement = document.getElementById(object.from);
                 objectArray.push({fromNode: fromNode, toNode: toNode, messageToSend: messageToSend,
                     frameToAppend: frameToAppend, objectFrom: object.from, lifelineElement: lifelineElement});
-
                 setTimeout(function () {serverRequest(); concatLog(object.from, object.to, messageToSend);}, arrowCounter * 1000);
                 arrowCounter++;
 
