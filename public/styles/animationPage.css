@@ -78,6 +78,16 @@ main {
 }
 .processes {
     color: #f5f5f5;
+    width: 15%;
+    height: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+    border-radius: 5px;
+    border:  1px;
+    display: inline-block;
+}
+.processesBig {
+    color: #f5f5f5;
     width: 10%;
     height: 50px;
     margin-left: 20px;
@@ -89,13 +99,36 @@ main {
 .stickyProcessContainerDiv{
     background-color: #f5f5f5;
     z-index: 10;
+    width: calc(15% + 100px);
+    height: 50px;
+    border-radius: 5px;
+    display: inline-block;
+}
+.stickyProcessContainerDivBig{
+    background-color: #f5f5f5;
+    z-index: 10;
     width: calc(10% + 40px);
     height: 50px;
     border-radius: 5px;
     display: inline-block;
 }
+.stickyDiv {
+    background-color: #f5f5f5;
+    z-index: 10;
+    width: 200px;
+    height: 50px;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    text-align: center;
+    border-radius: 5px;
+    border:  1px solid black;
+    padding: 10px;
+    display: inline-block;
+    font-size: 100%;
+}
+
 @media (max-width:960px) {
-    .stickyDiv{
+    .stickyDivBig{
         background-color: #f5f5f5;
         z-index: 10;
         width: 100px;
@@ -111,7 +144,7 @@ main {
     }
 }
 @media (max-width:1200px) and (min-width:960px){
-    .stickyDiv{
+    .stickyDivBig{
         background-color: #f5f5f5;
         z-index: 10;
         width: 125px;
@@ -127,7 +160,7 @@ main {
     }
 }
 @media (max-width:1450px) and (min-width:1200px){
-    .stickyDiv{
+    .stickyDivBig{
         background-color: #f5f5f5;
         z-index: 10;
         width: 150px;
@@ -143,7 +176,7 @@ main {
     }
 }
 @media (max-width:1710px) and (min-width:1450px){
-    .stickyDiv{
+    .stickyDivBig{
         background-color: #f5f5f5;
         z-index: 10;
         width: 175px;
@@ -159,7 +192,7 @@ main {
     }
 }
 @media (min-width:1710px) {
-    .stickyDiv {
+    .stickyDivBig {
         background-color: #f5f5f5;
         z-index: 10;
         width: 200px;

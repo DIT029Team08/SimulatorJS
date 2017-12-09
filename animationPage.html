@@ -186,10 +186,21 @@
             socket.on('arrow reply', function (data) {
                 if (objectIndex === 0) {
                     var stickyArr = document.getElementsByClassName("stickyDiv");
-                    for (var i = 0; i < stickyArr.length; i++) {
-                        if (socket.id === stickyArr[i].id) {
-                            stickyArr[i].className += " blackProcess";
-                            console.log("COLORING");
+                    var stickyArrBig = document.getElementsByClassName("stickyDivBig");
+                    if(stickyArr.length > 0) {
+                        for (var i = 0; i < stickyArr.length; i++) {
+                            if (socket.id === stickyArr[i].id) {
+                                stickyArr[i].className += " blackProcess";
+                                console.log("COLORING");
+                            }
+                        }
+                    }
+                    else if(stickyArrBig.length > 0){
+                        for (var i = 0; i < stickyArrBig.length; i++) {
+                            if (socket.id === stickyArrBig[i].id) {
+                                stickyArrBig[i].className += " blackProcess";
+                                console.log("COLORING");
+                            }
                         }
                     }
                 }

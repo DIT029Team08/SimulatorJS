@@ -49,10 +49,7 @@ function outputAnimation(animator, tmpSocketIds) {
                 processDiv.className = "processDiv";
                 mainDiv.appendChild(processDiv);
 
-            if(animator.processes.length > 6){
-                alert("CAUTION, due to the extensive number of processes (more than six), you may experience" +
-                    " an unstable animated output. Please return to the homepage and upload a new json file.");
-            }
+
 
                 for (var i = 0; i < animator.processes.length; i++) {
 
@@ -375,17 +372,24 @@ function createProcess(animator, i) {
 
 
     div = document.createElement("div");            //Creates an HTML <div> element
-    div.className = processDivClassName;                //assigns it a class
-
-
     stickyProcessContainerDiv = document.createElement("div");            //Creates an HTML <div> element
-    stickyProcessContainerDiv.className = "stickyProcessContainerDiv";                //assigns it a class
-
-    processDiv.appendChild(stickyProcessContainerDiv);
-
     stickyDiv = document.createElement("div");            //Creates an HTML <div> element
 
-    stickyDiv.className = "stickyDiv";                //assigns it a class
+
+    if(animator.processes.length > 6){
+        stickyProcessContainerDiv.className = "stickyProcessContainerDivBig";
+        div.className = processDivClassName + "Big";  //assigns it a class
+        stickyDiv.className = "stickyDivBig";                //assigns it a class
+    }
+    else {
+        stickyProcessContainerDiv.className = "stickyProcessContainerDiv";
+        div.className = processDivClassName; //assigns it a class
+        stickyDiv.className = "stickyDiv";                //assigns it a class
+    }
+    processDiv.appendChild(stickyProcessContainerDiv);
+
+
+
     stickyDiv.innerHTML =
         animator.processes[i].name.toString() + ": " +  //Gives it a text output as specified in the JSON file, here the class and name of the object
         animator.processes[i].class.toString();         //here it is the class and name of the SSD object
