@@ -206,16 +206,22 @@
                 }
                 console.log("ANIMATING ARROW");
                 // Arrow animation
-                if (objectArray[objectIndex].fromNode.x > objectArray[objectIndex].toNode.x) {
+
+                if (objectArray[objectIndex].fromNode.x === objectArray[objectIndex].toNode.x) {
+                    selfCallArrow(objectArray[objectIndex].fromNode, objectArray[objectIndex].toNode,
+                        objectArray[objectIndex].messageToSend, objectArray[objectIndex].frameToAppend);
+                    incrementLifeline(92);
+                }
+
+                else if (objectArray[objectIndex].fromNode.x > objectArray[objectIndex].toNode.x) {
                     arrowR2L(objectArray[objectIndex].fromNode, objectArray[objectIndex].toNode,
                         objectArray[objectIndex].messageToSend, objectArray[objectIndex].frameToAppend);
-                    incrementLifeline();
-
+                    incrementLifeline(75);
                 }
                 else {
                     arrowL2R(objectArray[objectIndex].fromNode, objectArray[objectIndex].toNode,
                         objectArray[objectIndex].messageToSend, objectArray[objectIndex].frameToAppend);
-                    incrementLifeline();
+                    incrementLifeline(75);
                 }
 
                 if (objectArray.length - 1 > objectIndex) {
