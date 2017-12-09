@@ -141,13 +141,13 @@ function outputAnimation(animator, tmpSocketIds) {
 * The function is set to a timeout in order to generate the arrows one by one with a timeout of one second.
 */
 
-function incrementLifeline() {
+function incrementLifeline(extraHeight) {
 
 
     // Lifeline height
     var LifeLinesArray = document.querySelectorAll('.lifeLine');
 
-    llHeight = llHeight + 75;
+    llHeight = llHeight + extraHeight;
 
     for (var k=0; k < LifeLinesArray.length; k++) {
         LifeLinesArray[k].style.height = (llHeight + "px");
@@ -344,12 +344,24 @@ function selfCallArrow(from, to, messageSent, frameToAppend) {
     var message = document.createElement("div");
 
     arrow.className = arrowDivClassNameSelfCall;
+    arrow.style.maxWidth = '150px';
 
-    svg.setAttribute("preserveAspectRatio", "xMinYMid slice");
-    svg.setAttribute("viewBox", "0 0 1400 60");
+    svg.setAttribute("preserveAspectRatio", "xMinYMin slice");
+    svg.setAttribute("viewBox", "0 0 150 60");
     svg.setAttribute("width", "100%");
-    // svg.setAttribute("height", "14");
+    // svg.setAttribute("height", "60");
     polygon.setAttribute("points", "0,50 15,44 10,49 90,49 90,9 0,9 0,7 92,7 92,51 10,51 15,56 0,50");
+
+    arrow.style.left = from.x - 20 + 'px';
+
+    message.className = messageDivClassName;
+    message.innerHTML = messageSent;
+
+    arrow.appendChild(message);
+    svg.appendChild(polygon);
+    arrow.appendChild(svg);
+    frameToAppend.appendChild(arrow);
+    mainDiv.scrollBy(0,document.getElementById('outputJSON').scrollHeight);
 }
 
 

@@ -176,6 +176,13 @@ main {
     transform-origin: right center;
     animation: arrowAnim 1s ease-out;
 }
+.selfCallArrow {
+    position: relative;
+    /*margin-top: 35px;*/
+    /*margin-bottom: 15px;*/
+    transform-origin: left center;
+    animation: arrowAnim 1s ease-out;
+}
 .redText {
     color: red;
 }
