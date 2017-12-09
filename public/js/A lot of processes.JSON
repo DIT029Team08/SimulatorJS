@@ -78,6 +78,14 @@
                         "from": "c",
                         "to": "sa",
                         "message": [
+                            "Remove item"
+                        ]
+                    },
+                    {
+                        "node": "send",
+                        "from": "c",
+                        "to": "ef",
+                        "message": [
                             "Display Cart"
                         ]
                     },
