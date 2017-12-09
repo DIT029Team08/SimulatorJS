@@ -11,6 +11,7 @@ const frameTitleClassName = "frameTitle";
 const lifelines = "lifeLine";
 const arrowDivClassNameL2R = "arrowLtoR";
 const arrowDivClassNameR2L = "arrowRtoL";
+const arrowDivClassNameSelfCall = "selfCallArrow";
 const messageDivClassName = "messages";
 //const activatorClassName = "activator";
 
@@ -332,6 +333,23 @@ function arrowR2L(from, to, messageSent, frameToAppend) {
     arrow.appendChild(svg);
     frameToAppend.appendChild(arrow);
     mainDiv.scrollBy(0,document.getElementById('outputJSON').scrollHeight);
+}
+
+
+function selfCallArrow(from, to, messageSent, frameToAppend) {
+
+    var arrow = document.createElement("div");
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', "svg");
+    var polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    var message = document.createElement("div");
+
+    arrow.className = arrowDivClassNameSelfCall;
+
+    svg.setAttribute("preserveAspectRatio", "xMinYMid slice");
+    svg.setAttribute("viewBox", "0 0 1400 60");
+    svg.setAttribute("width", "100%");
+    // svg.setAttribute("height", "14");
+    polygon.setAttribute("points", "0,50 15,44 10,49 90,49 90,9 0,9 0,7 92,7 92,51 10,51 15,56 0,50");
 }
 
 
