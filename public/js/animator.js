@@ -99,10 +99,26 @@ function outputAnimation(animator, tmpSocketIds) {
         if (animator.type === 'class_diagram') {
             var left = 25;
             var top = 25;
+            var classBool = true;
             for (var i = 0; i < animator.classes.length; i++) {
                 createClass(animator, i, left, top);
-                left = left + 400;
-                top = top + 150;
+                if(mainDiv.clientWidth -400 < left && classBool){
+                    console.log("HEJ");
+                    classBool = false;
+                    top += 175;
+                }
+                else if(left < 150 && !classBool) {
+                    top += 175;
+                    classBool = true;
+                }
+                else if (classBool) {
+                    left+= 275;
+                }
+                else {
+                    left -= 275;
+                }
+                //left = left + 400;
+                //top = top + 150;
             }
             classLog(animator);
             makeRelations(animator);
