@@ -126,8 +126,80 @@ main {
     display: inline-block;
     font-size: 100%;
 }
+@media handheld, only screen and (max-width: 767px) {
 
-@media (max-width:960px) {
+    .stickyDiv {
+        background-color: #f5f5f5;
+        z-index: 10;
+        margin-left: 10%;
+        width: 80%;
+        height: 50px;
+
+        margin-right: 2.5%;
+        text-align: center;
+        border-radius: 5px;
+        border:  1px solid black;
+        padding-top: 10px;
+        padding-left: 1px;
+        display: inline-block;
+        font-size: 100%;
+    }
+
+.stickyDivBig{
+    background-color: #f5f5f5;
+    z-index: 10;
+    margin-left: 10%;
+    width: 80%;
+    height: 50px;
+
+    margin-right: 2.5%;
+    text-align: center;
+    border-radius: 5px;
+    border:  1px solid black;
+    padding-left: 1px;
+    padding-top: 10px;
+    display: inline-block;
+    font-size: 65%;
+}
+    .stickyProcessContainerDiv{
+        background-color: #f5f5f5;
+        z-index: 10;
+        width: calc(15% + 6px);
+        height: 50px;
+        border-radius: 5px;
+        display: inline-block;
+    }
+    .stickyProcessContainerDivBig{
+        background-color: #f5f5f5;
+        z-index: 10;
+        width: calc(8% + 8px);
+        height: 50px;
+        border-radius: 5px;
+        display: inline-block;
+    }
+    .processesBig {
+        color: #f5f5f5;
+        width: 8%;
+        height: 50px;
+        margin-left: 4px;
+        margin-right: 4px;
+        border-radius: 5px;
+        border:  1px;
+        display: inline-block;
+    }
+    .processes {
+        color: #f5f5f5;
+        width: 15%;
+        height: 50px;
+        margin-left: 3px;
+        margin-right: 3px;
+        border-radius: 5px;
+        border:  1px;
+        display: inline-block;
+    }
+}
+
+@media (min-width: 767px) and (max-width:960px) {
     .stickyDivBig{
         background-color: #f5f5f5;
         z-index: 10;
