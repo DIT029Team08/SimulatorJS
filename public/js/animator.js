@@ -1,10 +1,12 @@
 
-//Block of constants used to name classes of HTML elements created, if change needed change the constant's value
+/*
+* This class holds the logics of the animationPage and all the different diagrams. It also holds some of the
+* graphical components related to the diagrams.
+*/
 
 const processDivClassName = "processes";
 const classesDivClassName = "classes";
 const fieldsDivClassName = "fields";
-const frameDivClassName = "frame"; //remember to remove this after refactor
 const seqFrameDivClassName = "frameseq";
 const parFrameDivClassName = "framepar";
 const frameTitleClassName = "frameTitle";
@@ -13,27 +15,24 @@ const arrowDivClassNameL2R = "arrowLtoR";
 const arrowDivClassNameR2L = "arrowRtoL";
 const arrowDivClassNameSelfCall = "selfCallArrow";
 const messageDivClassName = "messages";
-//const activatorClassName = "activator";
 
 var scrollBoolean = false;
 
 var animator = JSON.parse(localStorage.getItem('stringJSON'));
-// localStorage.removeItem("stringJSON");
 var mainDiv = document.getElementById("outputJSON");
 var log = document.getElementById("logList");
-var frameDiv;
 var llHeight = 150;
 var counter = 0;
 addColor = false;
 logCounter = 0;
 
-// Checks if it's a sequence diagram
+// The main function for running the simulated animation in animationPage
 function outputAnimation(animator, tmpSocketIds) {
     socketIds = arrayifyString(tmpSocketIds);
-    console.log(socketIds);
+
     // an if statement to check if animation is going on at the moment or not. If it already is running it will do nothing.
-    if(scrollBoolean){}
-    else{
+    if (scrollBoolean) {}
+    else {
         //Resets values used in the animation and clears the divs of previous content
         mainDiv.innerHTML = "";
         log.innerHTML = "";
@@ -42,100 +41,75 @@ function outputAnimation(animator, tmpSocketIds) {
         objectIndex = 0;
 
         if (animator.type === 'sequence_diagram') {
-                scrollBoolean = true;
+            scrollBoolean = true;
 
-                llHeight = 150;
-                //Selects the processes array in JSON File and iterates for every element
-                processDiv = document.createElement("div");
-                processDiv.className = "processDiv";
-                mainDiv.appendChild(processDiv);
+            llHeight = 150;
+            //Selects the processes array in JSON File and iterates for every element
+            processDiv = document.createElement("div");
+            processDiv.className = "processDiv";
+            mainDiv.appendChild(processDiv);
 
-            if(animator.processes.length > 9){
-                                alert("CAUTION, due to the extensive number of processes (ten or more), you may experience" +
-                                    " an unstable animated output. Please return to the homepage and upload a new json file.");
-                            }
+            if (animator.processes.length > 9) {
+                alert("CAUTION, due to the extensive number of processes (ten or more), you may experience" +
+                    " an unstable animated output. Please return to the homepage and upload a new json file.");
+            }
 
-                for (var i = 0; i < animator.processes.length; i++) {
+            for (var i = 0; i < animator.processes.length; i++) {
 
-                    createProcess(animator, i);
+                createProcess(animator, i);
 
-                    //Similar behavior as in the previous block, but this time the lifelines are given a unique ID, are appended to the <div> created in the previous block
-                    //and the activators are appended to the lifeline divs.
+                //Similar behavior as in the previous block, but this time the lifelines are given a unique ID, are
+                //appended to the <div> created in the previous block and the activators are appended to the lifeline divs.
 
-                    createLifeline(animator, i);
-
-                    // var activatorDiv = document.createElement("div");
-                    // activatorDiv.className = activatorClassName;
-                    // lifeLineDiv.appendChild(activatorDiv);
-                }
-                /*var animatorDiagramArray = Object.keys(animator.diagram); //In order to check whether or not the JSON element is a node, we must select the diagram object's keys.
-                //if the JSON has no frame element, it will not go through the for loop as the length will be 0
-                for (var i = 0; i < animatorDiagramArray.length; i++) {   //loop through the array of Keys created above
-                    if (animatorDiagramArray[i] === 'node') {             //we check wether the JSON element is a node here
-                        frameDiv = document.createElement("div");
-                        frameDiv.className = frameDivClassName;
-                        frameDiv.id = animator.diagram.node.toString();
-                        mainDiv.appendChild(frameDiv);
-
-                        var frameTitle = document.createElement("div");
-                        frameTitle.className = frameTitleClassName;
-                        frameTitle.id = animator.diagram.node.toString() + "Title";
-                        frameTitle.innerHTML = animator.diagram.node.toString();
-                        frameDiv.appendChild(frameTitle);
-                    }
-            */
-            //createArrow(animator, 0, 0);
+                createLifeline(animator, i);
+            }
             objectArray = [];
             addColor = false;
             arrowCounter = 0;
             createNodes(animator.diagram, mainDiv);
             setTimeout(function () {
                 scrollBoolean = false;
-                console.log(scrollBoolean);
             }, arrowCounter * 1000);
-            //createLog(animator, 0, 0, 0);
         }
-// Checks if it's a class diagram
+
+        // Checks if it's a class diagram
         if (animator.type === 'class_diagram') {
             var left = 25;
             var top = 25;
             var classBool = true;
             for (var i = 0; i < animator.classes.length; i++) {
                 createClass(animator, i, left, top);
-                if(mainDiv.clientWidth -400 < left && classBool){
-                    console.log("HEJ");
+                if (mainDiv.clientWidth - 400 < left && classBool) {
                     classBool = false;
                     top += 175;
                 }
-                else if(left < 150 && !classBool) {
+                else if (left < 150 && !classBool) {
                     top += 175;
                     classBool = true;
                 }
                 else if (classBool) {
-                    left+= 275;
+                    left += 275;
                 }
                 else {
                     left -= 275;
                 }
-                //left = left + 400;
-                //top = top + 150;
             }
             classLog(animator);
             makeRelations(animator);
         }
 
-        if (animator.type === 'deployment_diagram'){
+        if (animator.type === 'deployment_diagram') {
             var left = 25;
             var top = 25;
             // creates the boxes for the deployment diagram
             var depBool = true;
             for (var i = 0; i < animator.mapping.length; i++) {
                 createDeploymentClass(animator, i, left, top);
-                if(mainDiv.clientWidth -400 < left && depBool){
+                if (mainDiv.clientWidth - 400 < left && depBool) {
                     depBool = false;
                     top += 150;
                 }
-                else if(left < 150 && !depBool) {
+                else if (left < 150 && !depBool) {
                     top += 150;
                     depBool = true;
                 }
@@ -144,13 +118,12 @@ function outputAnimation(animator, tmpSocketIds) {
                 }
                 else
                     left -= 260;
-
             }
             makeDeploymentRelations(animator);
-
         }
     }
 }
+
 /*
 * This function creates arrows based on the direction of the arrow by using the functions arrowL2R and arrowR2L.
 * It checks the start and end position of each arrow in the content of the diagram section provided in the JSON file.
@@ -159,64 +132,13 @@ function outputAnimation(animator, tmpSocketIds) {
 
 function incrementLifeline(extraHeight) {
 
-
-    // Lifeline height
     var LifeLinesArray = document.querySelectorAll('.lifeLine');
 
     llHeight = llHeight + extraHeight;
 
-    for (var k=0; k < LifeLinesArray.length; k++) {
+    for (var k = 0; k < LifeLinesArray.length; k++) {
         LifeLinesArray[k].style.height = (llHeight + "px");
     }
-    /*
-        // resets the i and increment j as for loop inside a for loop  to get all messages.
-        if (animator.diagram.content[j].content.length === i) {
-
-            i = 0;
-            j++;
-
-            var lineBreak = document.createElement('hr');
-
-            if (frameDiv != undefined) {
-                frameDiv.appendChild(lineBreak);
-
-                // Lifeline height
-                var LifeLinesArray = document.querySelectorAll('.lifeLine');
-                llHeight = llHeight + 65;
-
-                for (var k=0; k < LifeLinesArray.length; k++) {
-                    LifeLinesArray[k].style.height = (llHeight + "px");
-                }
-            }
-        }
-
-        var startPosition = getPosition(document.querySelector("#" + animator.diagram.content[j].content[i].from.toString()));
-        var endPosition = getPosition(document.querySelector("#" + animator.diagram.content[j].content[i].to.toString()));
-
-
-        // decides what direction the arrow will go, and makes the length of the arrows
-
-        if (startPosition.x > endPosition.x) {
-
-            arrowR2L(animator, startPosition, endPosition, j, i);
-        }
-        else {
-
-            arrowL2R(animator, startPosition, endPosition, j, i);
-        }
-
-        // base case of the recursive loop
-
-        if (animator.diagram.content[j].content[i + 1] === undefined && j + 1 === animator.diagram.content.length) {}
-
-        // the recursive call of the loop and the incrementing of var i
-
-    else {
-        setTimeout(function () {
-            i++;
-            createArrow(animator, j, i, mainDiv);
-        }, 1000);
-    }*/
 }
 
 
@@ -241,15 +163,11 @@ function createLog(animator, i, e, total) {
     log.appendChild(li);
 
     if (animator.diagram.content.length > e) {
-
         // base case of the recursive loop
-
         if (animator.diagram.content[e].content[i + 1] === undefined && e + 1 === animator.diagram.content.length) {
             scrollBoolean = false;
         }
-
         // the recursive call of the loop and the incrementing of var i
-
         else {
             setTimeout(function () {
                 i++;
@@ -263,9 +181,9 @@ function createLog(animator, i, e, total) {
 function concatLog(to, from, messageString) {
     logCounter++;
     var li = document.createElement("li");
-    li.setAttribute('id', logCounter + ":" +  messageString);
+    li.setAttribute('id', logCounter + ":" + messageString);
     li.appendChild(document.createTextNode(logCounter + ". Sending message From: \"" + from +
-                     "\" To: \"" + to + "\" || Message: " +  messageString));
+        "\" To: \"" + to + "\" || Message: " + messageString));
     log.appendChild(li);
     document.getElementById('logList').scrollBy(0, document.getElementById('logList').scrollHeight);
 }
@@ -286,13 +204,6 @@ function arrowL2R(from, to, messageSent, frameToAppend) {
     var arrowLengthL2R = to.x - from.x;
     arrow.style.maxWidth = arrowLengthL2R + 'px';
 
-    if (addColor === true) {
-        console.log("GOT TRUE");
-        console.log("------------");
-        arrow.className += " redText";
-    }
-
-
     svg.setAttribute("preserveAspectRatio", "xMaxYMid slice");
     svg.setAttribute("viewBox", "0 0 1400 14");
     svg.setAttribute("width", "100%");
@@ -308,7 +219,7 @@ function arrowL2R(from, to, messageSent, frameToAppend) {
     svg.appendChild(polygon);
     arrow.appendChild(svg);
     frameToAppend.appendChild(arrow);
-    mainDiv.scrollBy(0,document.getElementById('outputJSON').scrollHeight);
+    mainDiv.scrollBy(0, document.getElementById('outputJSON').scrollHeight);
 }
 
 /*
@@ -327,19 +238,13 @@ function arrowR2L(from, to, messageSent, frameToAppend) {
     var arrowLengthR2L = from.x - to.x;
     arrow.style.maxWidth = arrowLengthR2L + 'px';
 
-     if (addColor === true) {
-         console.log("GOT TRUE");
-         console.log("------------");
-         arrow.className += " redText";
-     }
-
     svg.setAttribute("preserveAspectRatio", "xMinYMid slice");
     svg.setAttribute("viewBox", "0 0 1400 14");
     svg.setAttribute("width", "100%");
     svg.setAttribute("height", "14");
     polygon.setAttribute("points", "0,7 15,1 10,6 1400,6 1400,8 10,8 15,13 0,7");
 
-    arrow.style.left =  to.x - 20 + 'px';
+    arrow.style.left = to.x - 20 + 'px';
 
     message.className = messageDivClassName;
     message.innerHTML = messageSent;
@@ -348,9 +253,13 @@ function arrowR2L(from, to, messageSent, frameToAppend) {
     svg.appendChild(polygon);
     arrow.appendChild(svg);
     frameToAppend.appendChild(arrow);
-    mainDiv.scrollBy(0,document.getElementById('outputJSON').scrollHeight);
+    mainDiv.scrollBy(0, document.getElementById('outputJSON').scrollHeight);
 }
 
+/*
+ * This function generates a self-call arrow . It also generates the div related to
+ * the message that the arrow carries. As stated in the function, arrows are children of frameDiv.
+ */
 
 function selfCallArrow(from, to, messageSent, frameToAppend) {
 
@@ -365,7 +274,6 @@ function selfCallArrow(from, to, messageSent, frameToAppend) {
     svg.setAttribute("preserveAspectRatio", "xMinYMin slice");
     svg.setAttribute("viewBox", "0 0 150 60");
     svg.setAttribute("width", "100%");
-    // svg.setAttribute("height", "60");
     polygon.setAttribute("points", "0,50 15,44 10,49 90,49 90,9 0,9 0,7 92,7 92,51 10,51 15,56 0,50");
 
     arrow.style.left = from.x - 20 + 'px';
@@ -377,13 +285,12 @@ function selfCallArrow(from, to, messageSent, frameToAppend) {
     svg.appendChild(polygon);
     arrow.appendChild(svg);
     frameToAppend.appendChild(arrow);
-    mainDiv.scrollBy(0,document.getElementById('outputJSON').scrollHeight);
+    mainDiv.scrollBy(0, document.getElementById('outputJSON').scrollHeight);
 }
 
-
 /*
- * Helper function that gets an arrow's exact position by using its dedicated id
- */
+* Helper function that gets an arrow's exact position by using its dedicated id
+*/
 
 function getPosition(el) {
     var xPos = 0;
@@ -414,83 +321,67 @@ function getPosition(el) {
  * This function creates an object (process) in the SSD diagram from the list of processes in the JSON file provided.
  */
 
-
-
 function createProcess(animator, i) {
 
+    div = document.createElement("div");                                    //Creates an HTML <div> element
+    stickyProcessContainerDiv = document.createElement("div");              //Creates an HTML <div> element
+    stickyDiv = document.createElement("div");                              //Creates an HTML <div> element
 
-
-    div = document.createElement("div");            //Creates an HTML <div> element
-    stickyProcessContainerDiv = document.createElement("div");            //Creates an HTML <div> element
-    stickyDiv = document.createElement("div");            //Creates an HTML <div> element
-
-
-    if(animator.processes.length > 6){
+    if (animator.processes.length > 6) {
         stickyProcessContainerDiv.className = "stickyProcessContainerDivBig";
-        div.className = processDivClassName + "Big";  //assigns it a class
-        stickyDiv.className = "stickyDivBig";                //assigns it a class
+        div.className = processDivClassName + "Big";                        //assigns it a class
+        stickyDiv.className = "stickyDivBig";                               //assigns it a class
     }
     else {
         stickyProcessContainerDiv.className = "stickyProcessContainerDiv";
-        div.className = processDivClassName; //assigns it a class
+        div.className = processDivClassName;              //assigns it a class
         stickyDiv.className = "stickyDiv";                //assigns it a class
     }
     processDiv.appendChild(stickyProcessContainerDiv);
 
-
-
     stickyDiv.innerHTML =
-        animator.processes[i].name.toString() + ": " +  //Gives it a text output as specified in the JSON file, here the class and name of the object
-        animator.processes[i].class.toString();         //here it is the class and name of the SSD object
+        animator.processes[i].name.toString() + ": " +    //Gives it a text output as specified in the JSON file, here
+                                                          //the class and name of the object
+        animator.processes[i].class.toString();           //Here it is the class and name of the SSD object
     stickyProcessContainerDiv.appendChild(stickyDiv);
 
-
-
-    if(animator.processes.length === socketIds.length){
+    if (animator.processes.length === socketIds.length) {
         div.id = socketIds[i];
         stickyDiv.id = socketIds[i];
     }
 
-    else if (animator.processes.length > socketIds.length){
-        if (counter < socketIds.length){
+    else if (animator.processes.length > socketIds.length) {
+        if (counter < socketIds.length) {
             div.id = socketIds[i];
             stickyDiv.id = socketIds[i];
             counter++;
         }
-        else if(i-counter === socketIds.length){
+        else if (i - counter === socketIds.length) {
             counter += socketIds.length;
-            div.id = socketIds[i- counter];
-            stickyDiv.id = socketIds[i- counter];
+            div.id = socketIds[i - counter];
+            stickyDiv.id = socketIds[i - counter];
         }
-        else{
-            div.id = socketIds[i - counter]
-            stickyDiv.id = socketIds[i - counter]
+        else {
+            div.id = socketIds[i - counter];
+            stickyDiv.id = socketIds[i - counter];
         }
     }
 
-    else if(animator.processes.length < socketIds.length){
-        if (counter < animator.processes.length){
+    else if (animator.processes.length < socketIds.length) {
+        if (counter < animator.processes.length) {
             div.id = socketIds[i];
             stickyDiv.id = socketIds[i];
             counter++;
         }
-        else{}
+        else {
+        }
     }
-    console.log("Div id: " + div.id);
     console.log("stickyDiv id: " + stickyDiv.id);
-
 
     div.innerHTML =
         animator.processes[i].name.toString() + ": " +  //Gives it a text output as specified in the JSON file, here the class and name of the object
         animator.processes[i].class.toString();         //here it is the class and name of the SSD object
     mainDiv.appendChild(div);                           //Places the new <div> element under the mainDiv, as specified in the variable declaration in l.4
-
-    /** stickyProcessContainerDiv is a container div for stickyDiv. It is inside a container so we can you z-index
-     *  to hide everything behind it.
-     * stickyDiv is just the process that is made again but got position sticky so it will
-     * stick to the top of the page. No lifelines are attached to this div.
-     */
-
 }
 
 /*
@@ -500,12 +391,10 @@ function createProcess(animator, i) {
  */
 
 function createLifeline(animator, i) {
-
     var lifeLineDiv = document.createElement("div");
     lifeLineDiv.className = lifelines;
     lifeLineDiv.id = animator.processes[i].name.toString();
     div.appendChild(lifeLineDiv);
-
 }
 
 function createClass(animator, i, left, top) {
@@ -528,7 +417,8 @@ function createClass(animator, i, left, top) {
     fillFields(animator, div3, i);
     dragElement(div);
 }
-function fillFields(animator, div, i){
+
+function fillFields(animator, div, i) {
     for (var x = 0; x < animator.classes[i].fields.length; x++) {
         var text = document.createElement("div");
         text.innerHTML = animator.classes[i].fields[x].name.toString() + ": " +
@@ -536,41 +426,41 @@ function fillFields(animator, div, i){
         div.appendChild(text);
     }
 }
-function classLog(animator){
+
+function classLog(animator) {
     var relation = "";
-    for(var i = 0; i < animator.relationships.length; i++){
+    for (var i = 0; i < animator.relationships.length; i++) {
         var li = document.createElement("li");
-        if(animator.relationships[i].type === 'inheritance'){
+        if (animator.relationships[i].type === 'inheritance') {
             relation = " inherits "
         }
-        else{
+        else {
             relation = ""
         }
-        li.setAttribute('id',((i+1)+": " +
+        li.setAttribute('id', ((i + 1) + ": " +
             animator.relationships[i].subclass.toString() +
             relation +
             animator.relationships[i].superclass.toString()));
-        li.appendChild(document.createTextNode((i+1)+": " +
+        li.appendChild(document.createTextNode((i + 1) + ": " +
             animator.relationships[i].subclass.toString() +
             relation +
             animator.relationships[i].superclass.toString()));
         log.appendChild(li);
     }
 }
-function makeRelations(animator){
-    for(var i = 0; i < animator.relationships.length; i++){
-        // If both are defined - Do nothing
+
+function makeRelations(animator) {
+    for (var i = 0; i < animator.relationships.length; i++) {
         if (document.getElementById("SUPER" + animator.relationships[i].superclass.toString() &&
                 document.getElementById("SUB" + animator.relationships[i].subclass.toString()))) {
-            // Nothing
         }
         // If super is defined - Make sub
-        else if(document.getElementById("SUPER" + animator.relationships[i].superclass.toString())){
+        else if (document.getElementById("SUPER" + animator.relationships[i].superclass.toString())) {
             makeSub(animator, i);
             makeLine(animator, i);
         }
         // If sub is defined - Make super
-        else if(document.getElementById("SUB" + animator.relationships[i].subclass.toString())){
+        else if (document.getElementById("SUB" + animator.relationships[i].subclass.toString())) {
             makeSuper(animator, i);
             makeLine(animator, i);
         }
@@ -582,6 +472,7 @@ function makeRelations(animator){
         }
     }
 }
+
 function makeSuper(animator, i) {
     var superClass = document.querySelector("#" + animator.relationships[i].superclass.toString());
     var superCont = document.createElement("div");
@@ -591,32 +482,29 @@ function makeSuper(animator, i) {
     var polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
     svg.setAttribute("height", "25px");
     svg.setAttribute("width", "25px");
-    polygon.setAttribute("points","1,12.5 24,1 24,24");
-    polygon.setAttribute("style","fill:white;stroke:black;stroke-width:3");
+    polygon.setAttribute("points", "1,12.5 24,1 24,24");
+    polygon.setAttribute("style", "fill:white;stroke:black;stroke-width:3");
     svg.appendChild(polygon);
     superCont.appendChild(svg);
     mainDiv.appendChild(superCont);
     superCont.style.left = superClass.offsetLeft + 250 + "px";
     superCont.style.top = superClass.offsetTop + 60 + "px";
 }
+
 function makeSub(animator, i) {
     var subClass = document.querySelector("#" + animator.relationships[i].subclass.toString());
     var subCont = document.createElement("div");
     subCont.className = "svgCont";
     subCont.id = "SUB" + animator.relationships[i].subclass.toString();
-    //var polygon2 = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
     var svg2 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg2.setAttribute("height", "25px");
     svg2.setAttribute("width", "25px");
-    //                              0 0,0% 100%, 100% 50%
-    //polygon2.setAttribute("points","1,1 1,25 25,12.5");
-    //polygon2.setAttribute("style","fill:white;stroke:black;stroke-width:3");
-    //svg2.appendChild(polygon2);
     subCont.appendChild(svg2);
     mainDiv.appendChild(subCont);
     subCont.style.left = subClass.offsetLeft + 125 + "px";
     subCont.style.top = subClass.offsetTop + 60 + "px";
 }
+
 function makeLine(animator, i) {
     var main = $("#outputJSON");
     var lineCont = document.createElement("div");
@@ -632,12 +520,13 @@ function makeLine(animator, i) {
 
     svg.setAttribute("height", main.innerHeight());
     svg.setAttribute("width", main.innerWidth());
-    line.setAttribute("x1" , (document.getElementById("SUPER" + animator.relationships[i].superclass.toString()).offsetLeft + 13 + "px"));
-    line.setAttribute("y1" , (document.getElementById("SUPER" + animator.relationships[i].superclass.toString()).offsetTop + 13 + "px"));
-    line.setAttribute("x2" , (document.getElementById("SUB" + animator.relationships[i].subclass.toString()).offsetLeft + 13 + "px"));
-    line.setAttribute("y2" , (document.getElementById("SUB" + animator.relationships[i].subclass.toString()).offsetTop + 13 + "px"));
-    line.setAttribute("style","stroke:black;stroke-width:2");
+    line.setAttribute("x1", (document.getElementById("SUPER" + animator.relationships[i].superclass.toString()).offsetLeft + 13 + "px"));
+    line.setAttribute("y1", (document.getElementById("SUPER" + animator.relationships[i].superclass.toString()).offsetTop + 13 + "px"));
+    line.setAttribute("x2", (document.getElementById("SUB" + animator.relationships[i].subclass.toString()).offsetLeft + 13 + "px"));
+    line.setAttribute("y2", (document.getElementById("SUB" + animator.relationships[i].subclass.toString()).offsetTop + 13 + "px"));
+    line.setAttribute("style", "stroke:black;stroke-width:2");
 }
+
 function makeFrom(animator, i) {
     var subClass = document.querySelector("#" + animator.mapping[i].process.toString());
     var subCont = document.createElement("div");
@@ -651,11 +540,12 @@ function makeFrom(animator, i) {
     subCont.style.left = subClass.offsetLeft + 125 + "px";
     subCont.style.top = subClass.offsetTop + 50 + "px";
 }
+
 function makeTo(animator, i) {
     var subClass = document.querySelector("#" + animator.mapping[i].process.toString());
     var subCont = document.createElement("div");
     subCont.className = "svgCont";
-    subCont.id = "TO" + animator.mapping[i].process.toString()+"TO" + animator.mapping[i].process.toString();
+    subCont.id = "TO" + animator.mapping[i].process.toString() + "TO" + animator.mapping[i].process.toString();
     var svg2 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg2.setAttribute("height", "25px");
     svg2.setAttribute("width", "25px");
@@ -664,17 +554,18 @@ function makeTo(animator, i) {
     subCont.style.left = subClass.offsetLeft + 125 + "px";
     subCont.style.top = subClass.offsetTop + 50 + "px";
 }
-function makeDeploymentRelations(animator){
-    for(var i = 0; i < animator.mapping.length; i++){
+
+function makeDeploymentRelations(animator) {
+    for (var i = 0; i < animator.mapping.length; i++) {
         if (i < 1) {
             makeFrom(animator, i);
             createDeploymentLines(animator, i);
         }
-        else if(i == animator.mapping.length-1){
+        else if (i == animator.mapping.length - 1) {
             makeTo(animator, i);
             createDeploymentLines(animator, i);
         }
-        else{
+        else {
             makeFrom(animator, i);
             makeTo(animator, i);
             createDeploymentLines(animator, i);
@@ -682,7 +573,7 @@ function makeDeploymentRelations(animator){
     }
 }
 
-function createDeploymentClass(animator,i,left,top){
+function createDeploymentClass(animator, i, left, top) {
     var div = document.createElement("div");
     div.className = classesDivClassName + " deploymentBox";
     div.innerHTML = "&lt;&lt;" + animator.mapping[i].device.toString() + "&gt;&gt;";
@@ -692,17 +583,19 @@ function createDeploymentClass(animator,i,left,top){
     div.style.top = top + "px";
     dragElement(div);
 }
+
 function createDeploymentLines(animator, i) {
 
-    if(i == animator.mapping.length-1){}
+    if (i == animator.mapping.length - 1) {
+    }
     else {
         var main = $("#outputJSON");
         var lineCont = document.createElement("div");
         var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
 
-        line.id = "FROM" + animator.mapping[i].process.toString() +"FROM" + animator.mapping[i].process.toString() +
-            "TO" + animator.mapping[i + 1].process.toString()+"TO" + animator.mapping[i + 1].process.toString();
+        line.id = "FROM" + animator.mapping[i].process.toString() + "FROM" + animator.mapping[i].process.toString() +
+            "TO" + animator.mapping[i + 1].process.toString() + "TO" + animator.mapping[i + 1].process.toString();
         lineCont.className = "lineCont";
 
         svg.appendChild(line);
@@ -722,16 +615,17 @@ function createDeploymentLines(animator, i) {
 function dragElement(element) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     element.onmousedown = dragMouseDown;
-    console.log(element);
+
     function dragMouseDown(e) {
         e = e || window.event;
-        // get the mouse cursor position at startup:
+        // get the mouse cursor position at startup
         pos3 = e.clientX;
         pos4 = e.clientY;
         document.onmouseup = closeDragElement;
-        // call a function whenever the cursor moves:
+        // call a function whenever the cursor moves
         document.onmousemove = elementDrag;
     }
+
     function elementDrag(e) {
         e = e || window.event;
         // Calculate the new cursor position
@@ -742,129 +636,122 @@ function dragElement(element) {
         // Set the element's new position
         element.style.top = (element.offsetTop - pos2) + "px";
         element.style.left = (element.offsetLeft - pos1) + "px";
-
         moveRelation(element, pos2, pos1);
     }
+
     function moveRelation(element, pos2, pos1) {
         // If both are defined - move both
-        if(document.getElementById("SUPER"+element.id.toString()) && document.getElementById("SUB"+element.id.toString())){
-            var SUPER = document.getElementById("SUPER"+element.id.toString());
-            var SUB = document.getElementById("SUB"+element.id.toString());
+        if (document.getElementById("SUPER" + element.id.toString()) && document.getElementById("SUB" + element.id.toString())) {
+            var SUPER = document.getElementById("SUPER" + element.id.toString());
+            var SUB = document.getElementById("SUB" + element.id.toString());
             SUPER.style.top = (SUPER.offsetTop - pos2) + "px";
             SUPER.style.left = (SUPER.offsetLeft - pos1) + "px";
             SUB.style.top = (SUB.offsetTop - pos2) + "px";
             SUB.style.left = (SUB.offsetLeft - pos1) + "px";
             // Get all lines that has a connection to this SUPER
-            var elements = $("line[id^='"+element.id.toString()+"']");
+            var elements = $("line[id^='" + element.id.toString() + "']");
             // Loop through them and change their points
-            for(var i = 0; i < elements.length; i++) {
+            for (var i = 0; i < elements.length; i++) {
                 var e = elements[i];
-                e.setAttribute("x1" , ((SUPER.offsetLeft -pos2) + 13) + "px");
-                e.setAttribute("y1" , ((SUPER.offsetTop -pos1) + 13) + "px");
+                e.setAttribute("x1", ((SUPER.offsetLeft - pos2) + 13) + "px");
+                e.setAttribute("y1", ((SUPER.offsetTop - pos1) + 13) + "px");
             }
             // Get all lines that has a connection to this SUB
-            var elements = $("line[id$='"+element.id.toString()+"']");
+            var elements = $("line[id$='" + element.id.toString() + "']");
             // Loop through them and change their points
-            for(var i = 0; i < elements.length; i++) {
+            for (var i = 0; i < elements.length; i++) {
                 var e = elements[i];
-                e.setAttribute("x2" , ((SUB.offsetLeft -pos2) + 13) + "px");
-                e.setAttribute("y2" , ((SUB.offsetTop -pos1) + 13) + "px");
+                e.setAttribute("x2", ((SUB.offsetLeft - pos2) + 13) + "px");
+                e.setAttribute("y2", ((SUB.offsetTop - pos1) + 13) + "px");
             }
         }
         // If only super is defined - move super
-        else if(document.getElementById("SUPER"+element.id.toString())){
+        else if (document.getElementById("SUPER" + element.id.toString())) {
             // Move the SUPERcont
-            var SUPER = document.getElementById("SUPER"+element.id.toString());
+            var SUPER = document.getElementById("SUPER" + element.id.toString());
             SUPER.style.top = (SUPER.offsetTop - pos2) + "px";
             SUPER.style.left = (SUPER.offsetLeft - pos1) + "px";
             // Get all lines that has a connection to this SUPER
-            var elements = $("line[id^='"+element.id.toString()+"']");
+            var elements = $("line[id^='" + element.id.toString() + "']");
             // Loop through them and change their points
-            for(var i = 0; i < elements.length; i++) {
+            for (var i = 0; i < elements.length; i++) {
                 var e = elements[i];
-                e.setAttribute("x1" , ((SUPER.offsetLeft -pos2 + 13)) + "px");
-                e.setAttribute("y1" , ((SUPER.offsetTop -pos1) + 13) + "px");
+                e.setAttribute("x1", ((SUPER.offsetLeft - pos2 + 13)) + "px");
+                e.setAttribute("y1", ((SUPER.offsetTop - pos1) + 13) + "px");
             }
         }
         // If only sub is defined - move sub
-        else if(document.getElementById("SUB"+element.id.toString())){
+        else if (document.getElementById("SUB" + element.id.toString())) {
             // Move the SUBcont
-            var SUB = document.getElementById("SUB"+element.id.toString());
+            var SUB = document.getElementById("SUB" + element.id.toString());
             SUB.style.top = (SUB.offsetTop - pos2) + "px";
             SUB.style.left = (SUB.offsetLeft - pos1) + "px";
             // Get all lines that has a connection to this SUB
-            var elements = $("line[id$='"+element.id.toString()+"']");
+            var elements = $("line[id$='" + element.id.toString() + "']");
             // Loop through them and change their points
-            for(var i = 0; i < elements.length; i++) {
+            for (var i = 0; i < elements.length; i++) {
                 var e = elements[i];
-                e.setAttribute("x2" , ((SUB.offsetLeft -pos2) + 13) + "px");
-                e.setAttribute("y2" , ((SUB.offsetTop -pos1) + 13) + "px");
+                e.setAttribute("x2", ((SUB.offsetLeft - pos2) + 13) + "px");
+                e.setAttribute("y2", ((SUB.offsetTop - pos1) + 13) + "px");
             }
         }
-        else if(document.getElementById("FROM"+element.id.toString()+"FROM"+element.id.toString()) &&
-            document.getElementById("TO"+element.id.toString()+"TO"+element.id.toString())){
-            var SUPER = document.getElementById("FROM"+element.id.toString()+"FROM"+element.id.toString());
-            var SUB = document.getElementById("TO"+element.id.toString()+"TO"+element.id.toString());
+        else if (document.getElementById("FROM" + element.id.toString() + "FROM" + element.id.toString()) &&
+            document.getElementById("TO" + element.id.toString() + "TO" + element.id.toString())) {
+            var SUPER = document.getElementById("FROM" + element.id.toString() + "FROM" + element.id.toString());
+            var SUB = document.getElementById("TO" + element.id.toString() + "TO" + element.id.toString());
             SUPER.style.top = (SUPER.offsetTop - pos2) + "px";
             SUPER.style.left = (SUPER.offsetLeft - pos1) + "px";
             SUB.style.top = (SUB.offsetTop - pos2) + "px";
             SUB.style.left = (SUB.offsetLeft - pos1) + "px";
             // Get all lines that has a connection to this FROM
-            var elements = $("line[id^='FROM"+element.id.toString()+"FROM"+element.id.toString()+"']");
+            var elements = $("line[id^='FROM" + element.id.toString() + "FROM" + element.id.toString() + "']");
             // Loop through them and change their points
-            for(var i = 0; i < elements.length; i++) {
+            for (var i = 0; i < elements.length; i++) {
                 var e = elements[i];
-                e.setAttribute("x1" , ((SUPER.offsetLeft -pos2) + 13) + "px");
-                e.setAttribute("y1" , ((SUPER.offsetTop -pos1) + 13) + "px");
+                e.setAttribute("x1", ((SUPER.offsetLeft - pos2) + 13) + "px");
+                e.setAttribute("y1", ((SUPER.offsetTop - pos1) + 13) + "px");
             }
             // Get all lines that has a connection to this TO
-            var elements = $("line[id$='TO"+element.id.toString()+"TO"+element.id.toString()+"']");
+            var elements = $("line[id$='TO" + element.id.toString() + "TO" + element.id.toString() + "']");
             // Loop through them and change their points
-            for(var i = 0; i < elements.length; i++) {
+            for (var i = 0; i < elements.length; i++) {
                 var e = elements[i];
-                e.setAttribute("x2" , ((SUPER.offsetLeft -pos2) + 13) + "px");
-                e.setAttribute("y2" , ((SUPER.offsetTop -pos1) + 13) + "px");
-
+                e.setAttribute("x2", ((SUPER.offsetLeft - pos2) + 13) + "px");
+                e.setAttribute("y2", ((SUPER.offsetTop - pos1) + 13) + "px");
             }
 
-
         }
-        else if(document.getElementById("FROM"+element.id.toString()+"FROM"+element.id.toString())){
-            var SUPER = document.getElementById("FROM"+element.id.toString()+"FROM"+element.id.toString());
-            console.log(SUPER);
+        else if (document.getElementById("FROM" + element.id.toString() + "FROM" + element.id.toString())) {
+            var SUPER = document.getElementById("FROM" + element.id.toString() + "FROM" + element.id.toString());
             SUPER.style.top = (SUPER.offsetTop - pos2) + "px";
             SUPER.style.left = (SUPER.offsetLeft - pos1) + "px";
-
             // Get all lines that has a connection to this FROM
-            var elements = $("line[id^='FROM"+element.id.toString()+"FROM"+element.id.toString()+"']");
+            var elements = $("line[id^='FROM" + element.id.toString() + "FROM" + element.id.toString() + "']");
             // Loop through them and change their points
-            for(var i = 0; i < elements.length; i++) {
+            for (var i = 0; i < elements.length; i++) {
                 var e = elements[i];
-                e.setAttribute("x1" , ((SUPER.offsetLeft -pos2) + 13) + "px");
-                e.setAttribute("y1" , ((SUPER.offsetTop -pos1) + 13) + "px");
+                e.setAttribute("x1", ((SUPER.offsetLeft - pos2) + 13) + "px");
+                e.setAttribute("y1", ((SUPER.offsetTop - pos1) + 13) + "px");
             }
         }
-        else if(document.getElementById("TO"+element.id.toString()+"TO"+element.id.toString())){
-            var SUB = document.getElementById("TO"+element.id.toString()+"TO"+element.id.toString());
-            console.log(SUB);
+        else if (document.getElementById("TO" + element.id.toString() + "TO" + element.id.toString())) {
+            var SUB = document.getElementById("TO" + element.id.toString() + "TO" + element.id.toString());
             SUB.style.top = (SUB.offsetTop - pos2) + "px";
             SUB.style.left = (SUB.offsetLeft - pos1) + "px";
             // Get all lines that has a connection to this TO
-            var elements = $("line[id$='TO"+element.id.toString()+"TO"+element.id.toString()+"']");
+            var elements = $("line[id$='TO" + element.id.toString() + "TO" + element.id.toString() + "']");
             // Loop through them and change their points
-            for(var i = 0; i < elements.length; i++) {
+            for (var i = 0; i < elements.length; i++) {
                 var e = elements[i];
-                e.setAttribute("x2" , ((SUB.offsetLeft -pos2) + 13) + "px");
-                e.setAttribute("y2" , ((SUB.offsetTop -pos1) + 13) + "px");
+                e.setAttribute("x2", ((SUB.offsetLeft - pos2) + 13) + "px");
+                e.setAttribute("y2", ((SUB.offsetTop - pos1) + 13) + "px");
             }
         }
-        // If nothing is defined - do nothing
-        else{
-            // Nothing
-        }
+        else {}
     }
+
     function closeDragElement() {
-        // Stop moving when mouse button is released:
+        // Stop moving when mouse button is released
         document.onmouseup = null;
         document.onmousemove = null;
     }
@@ -876,13 +763,12 @@ function dragElement(element) {
  *to append the nodes to.
  *
  *It is called recursively after each node creation and stops once the parsing is done.
- *The JSON must have at least one "send" node otherwise the function will hang
+ *The JSON must have at least one "send" node otherwise the function will hang.
  */
 
-
-function createNodes(object, frameToAppend){
-    var arrayOfNodes = []; //this array will contain all the JSON Objects (nodes) inside object
-    var arrayOfObjects = []; //this array will contain the "content" objects in the object
+function createNodes(object, frameToAppend) {
+    var arrayOfNodes = [];                    //This array will contain all the JSON Objects (nodes) inside object
+    var arrayOfObjects = [];                  //This array will contain the "content" objects in the object
 
     for (key in object) {
         if (object.hasOwnProperty(key)) {
@@ -895,15 +781,13 @@ function createNodes(object, frameToAppend){
         }
     }
 
-
-
     for (var i = 0; i < arrayOfNodes.length; i++) {
         for (key in arrayOfNodes) {
             if (arrayOfNodes[i] === "seq") {
                 var seqFrameDiv = document.createElement("div");    //create frame div seqFrame
                 seqFrameDiv.className = seqFrameDivClassName;
                 frameToAppend.appendChild(seqFrameDiv);
-                if(frameToAppend.className === parFrameDivClassName){
+                if (frameToAppend.className === parFrameDivClassName) {
                     seqFrameDiv.style.borderBottom = "1.5px dashed black";
                 }
                 for (var j = 0; j < arrayOfObjects.length; j++) {
@@ -923,10 +807,8 @@ function createNodes(object, frameToAppend){
                 }
             }
             else if (arrayOfNodes[i] === "send") {
-                //create arrow from "from" to "to"
                 var fromNode = getPosition(document.querySelector("#" + object.from.toString()));
                 var toNode = getPosition(document.querySelector("#" + object.to.toString()));
-                //console.log(fromNode.x + " " + toNode.x);
                 var messageToSend = "";
 
                 if (object.message.length == 1) {
@@ -946,12 +828,15 @@ function createNodes(object, frameToAppend){
                     }
                 }
                 var lifelineElement = document.getElementById(object.from);
-                objectArray.push({fromNode: fromNode, toNode: toNode, messageToSend: messageToSend,
-                    frameToAppend: frameToAppend, objectFrom: object.from, lifelineElement: lifelineElement});
-                setTimeout(function () {serverRequest(); concatLog(object.from, object.to, messageToSend);}, arrowCounter * 1000);
+                objectArray.push({
+                    fromNode: fromNode, toNode: toNode, messageToSend: messageToSend,
+                    frameToAppend: frameToAppend, objectFrom: object.from, lifelineElement: lifelineElement
+                });
+                setTimeout(function () {
+                    serverRequest();
+                    concatLog(object.from, object.to, messageToSend);
+                }, arrowCounter * 1000);
                 arrowCounter++;
-
-
             }
         }
     }
@@ -967,12 +852,12 @@ function updatePosition() {
     var fromNode = getPosition(document.querySelector("#" + animator.diagram.from.toString()));
     var toNode = getPosition(document.querySelector("#" + animator.diagram.to.toString()));
 
-    for(var j = 0; j < tmpArray.length; j++){
+    for (var j = 0; j < tmpArray.length; j++) {
         tmpArray[j].fromNode = fromNode;
         tmpArray[j].toNode = toNode;
     }
 
-    for(var i = 0; i < tmpArray.length; i++){
+    for (var i = 0; i < tmpArray.length; i++) {
 
         if (tmpArray[i].fromNode.x > tmpArray[i].toNode.x) {
             arrowR2L(tmpArray[i].fromNode, tmpArray[i].toNode,
@@ -988,9 +873,7 @@ function updatePosition() {
     }
 }
 
-
-
-function arrayifyString(string){
+function arrayifyString(string) {
     var array = string.split(",");
     return array;
 }

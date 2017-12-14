@@ -148,7 +148,7 @@ function addToStorage(textVersion, jsonVersion) {
                 localStorage.setItem('DD', textVersion[n]);
                 break;
             default:
-                alert("EVERYTHING IS BAD");
+                alert("No Diagram Found");
         }
     }
 }

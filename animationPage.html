@@ -102,7 +102,6 @@
                 $restart.addClass('glyphicon glyphicon-repeat');
 
                 e.preventDefault();
-                // var stringJSON = JSON.parse(localStorage.getItem('SD'));
                 isSubmitter = true;
                 socket.emit('begin animation', {animator: stringJSON});
             });
@@ -110,7 +109,6 @@
             $SDbutton.click(function (e) {
                 // Check if already loaded said diagram
                 if(stringJSON.type === 'sequence_diagram'){
-                    // Do nothing
                 }
                 else {
                     stringJSON = JSON.parse(localStorage.getItem('SD'));
@@ -121,7 +119,6 @@
             $CDbutton.click(function (e) {
                 // Check if already loaded said diagram
                 if(stringJSON.type === 'class_diagram'){
-                    // Do nothing
                 }
                 else {
                     stringJSON = JSON.parse(localStorage.getItem('CD'));
