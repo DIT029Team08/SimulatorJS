@@ -38,6 +38,18 @@
                 </div>
             </p>
         </div>
+		<hr>
+		<div style="margin-left: 40px">
+        <h2>createNodes(object, frameToAppend)</h2>
+        <p style="max-width: 800px;">
+			This function is responsible for parsing the JSON File nodes in its entirety.
+			It takes two parameters, a JSON Object (this could also be an array) as well as the frame
+			to append the nodes to.<br>
+ 
+			It is called recursively after each node creation and stops once the parsing is done.
+			The initial JSON must have at least one "send" node otherwise the function will hang
+            </p>
+        </div>
         <hr>
     </body>
     </html>
