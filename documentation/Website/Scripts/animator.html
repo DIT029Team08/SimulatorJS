@@ -38,6 +38,67 @@
                 </div>
             </p>
         </div>
+        <hr>
+        <div style="margin-left: 40px">
+            <h2>makeFrom(animator, i)</h2>
+            <p style="max-width: 800px;">
+                This function is responsible for making svg that connect the lines. These are the ones that the lines
+                will start from.<br>
+
+                It takes animator and i as arguments, animator is used for adding ids for the svgs and i is for the
+                indexing of animator.
+            </p>
+        </div>
+        <hr>
+        <div style="margin-left: 40px">
+            <h2>concatLog(to, From, messageString)</h2>
+            <p style="max-width: 800px;">
+                This function is responsible for adding new text from the log, the arguments are formated
+                and put into the log. Every time it is called it autoscrolls to the bottom of the log.
+            </p>
+        </div>
+        <hr>
+        <div style="margin-left: 40px">
+            <h2>makeTo(animator, i)</h2>
+            <p style="max-width: 800px;">
+                This function is responsible for making svg that connect the lines. These are the ones that the lines
+                will end at.<br>
+
+                It takes animator and i as arguments, animator is used for adding ids for the svgs and i is for the
+                indexing of animator.
+            </p>
+        </div>
+        <hr>
+        <div style="margin-left: 40px">
+            <h2>makeDeploymentRelations(animator)</h2>
+            <p style="max-width: 800px;">
+                This function is responsible for making the relations between the different devices in the deployment
+                diagram. The relations are responsible for making the lines that connect the different devices.
+                <br>
+                The argument for this function is the animator and it is used for makeFrom and makeTo that is called
+                in this function.
+            </p>
+        </div>
+        <hr>
+        <div style="margin-left: 40px">
+            <h2>createDeploymentClass(animator, i, left, top)</h2>
+            <p style="max-width: 800px;">
+               This function makes the the boxes for the deployment diagram. It uses animator for knowing
+                what to add to the class/box, i is an index for knowing what info to take from the animator and
+                top and left is used for deciding where the boxes will be on the screen.
+            </p>
+        </div>
+        <hr>
+        <div style="margin-left: 40px">
+            <h2>createDeploymentLines(animator, i)</h2>
+            <p style="max-width: 800px;">
+               This function is responsible for making lines between the different devices in the deployment
+                diagram. It takes the the id of two different svgs and draw a line between the two different svgs.
+                <br>
+                The argument is used for finding the correct devices too connect with lines.
+            </p>
+        </div>
+
 		<hr>
 		<div style="margin-left: 40px">
         <h2>createNodes(object, frameToAppend)</h2>
@@ -49,6 +110,13 @@
 			It is called recursively after each node creation and stops once the parsing is done.
 			The initial JSON must have at least one "send" node otherwise the function will hang
             </p>
+        </div>
+        <hr>
+        <h2>arrayifyString(string)</h2>
+        <p style="max-width: 800px;">
+            it takes a string and puts it into an array. It splits the string every times a comma is found and
+            out the rest of the string into a new index of the array as long as no more commas are found.
+        </p>
         </div>
         <hr>
     </body>
