@@ -111,6 +111,7 @@
                 if(stringJSON.type === 'sequence_diagram'){
                 }
                 else {
+                    isSubmitter = true;
                     stringJSON = JSON.parse(localStorage.getItem('SD'));
                     socket.emit('begin animation', {animator: stringJSON});
                 }
@@ -231,24 +232,17 @@
 
             serverRequest = function serverRequest() {
                 if (isSubmitter) {
-                    console.log("REQUESTING SERVER");
-                    addColor = false;
-
                     var $lifelineId = $('#' + objectArray[objectIndex].lifelineElement.id); // name of process is the id of lifeline
                     var lifeLineIdNoQuery = objectArray[objectIndex].lifelineElement.id;
                     var $processId = $lifelineId.parent().closest('div').attr('id'); // socketId is Id of process
                     socket.emit('arrow request', {socketId: socket.id});
                 }
-            }
+            };
 
             window.onbeforeunload = function(e) {
                 socket.disconnect();
             };
         });
-
-//        window.addEventListener("resize", updatePosition, false);
-
-
     </script>
 </body>
 </html>
