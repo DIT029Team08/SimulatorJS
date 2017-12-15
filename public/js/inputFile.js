@@ -5,7 +5,7 @@ window.onload = function() {
     var regTypesAllowed =  /(.*?)\.(json|JSON)$/;
     var textVersion = [];
     var jsonVersion = [];
-    message.style.opacity = 0;
+    // message.style.opacity = 0;
 
     if (fileInput) {
         fileInput.addEventListener('change', function(e) {
