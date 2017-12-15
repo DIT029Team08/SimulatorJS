@@ -13,8 +13,6 @@ It supports three types of diagrams:
   - Play animations simultaneously on several devices
   - Chat Room
 
-This text you see here is *actually* written in Markdown! To get a feel for Markdown's syntax, type some text into the left window and watch the results in the right.
-
 ### Technology, Libraries, Frameworks
 
 SimulatorJS uses a number of open source projects to work properly:
