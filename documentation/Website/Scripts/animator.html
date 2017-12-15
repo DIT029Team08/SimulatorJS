@@ -40,13 +40,13 @@
         </div>
         <hr>
         <div style="margin-left: 40px">
-            <h2>makeFrom(animator, i)</h2>
+            <h2>createLog(to, From, messageString)</h2>
             <p style="max-width: 800px;">
-                This function is responsible for making svg that connect the lines. These are the ones that the lines
-                will start from.<br>
-
-                It takes animator and i as arguments, animator is used for adding ids for the svgs and i is for the
-                indexing of animator.
+               This function isn't used at the moment but it's purpose is to take the animator object and print
+                out the log recursively with a second of delay between every new log element is made.
+                The parameters it takes is the animator object and the rest is different counters.
+                <br> It is still in the code because it could be used in the future of other developers and it could
+                help with maintainability.
             </p>
         </div>
         <hr>
@@ -55,6 +55,17 @@
             <p style="max-width: 800px;">
                 This function is responsible for adding new text from the log, the arguments are formated
                 and put into the log. Every time it is called it autoscrolls to the bottom of the log.
+            </p>
+        </div>
+        <hr>
+        <div style="margin-left: 40px">
+            <h2>makeFrom(animator, i)</h2>
+            <p style="max-width: 800px;">
+                This function is responsible for making svg that connect the lines. These are the ones that the lines
+                will start from.<br>
+
+                It takes animator and i as arguments, animator is used for adding ids for the svgs and i is for the
+                indexing of animator.
             </p>
         </div>
         <hr>
@@ -114,8 +125,7 @@
         <hr>
         <h2>arrayifyString(string)</h2>
         <p style="max-width: 800px;">
-            it takes a string and puts it into an array. It splits the string every times a comma is found and
-            out the rest of the string into a new index of the array as long as no more commas are found.
+            it takes a string and puts it into an array. It splits the string every times a comma is found.
         </p>
         </div>
         <hr>
