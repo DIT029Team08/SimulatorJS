@@ -9,36 +9,6 @@
     <h1><a href="documentation.html">Back</a></h1>
     <hr>
     <h1>animator.js</h1>
-    <div style="margin-left: 40px">
-        <h2>getJSON(String path, Object json)</h2>
-        <p style="max-width: 800px;">
-            Takes the path of a JSON file and parses it, creating an
-            object of the json text.<br> The JSON object is then read to
-            create HTML elements out of the objects needed to output
-            the Sequence Diagram.<br><br>
-            In the context of the DIT029 Format, we can take the example
-            of the Processes (Objects in the SSD).<br> The function iterates
-            through the array and creates a "div" element and appends it
-            as a child of the Animation Panel in animationPage.html.<br><br>
-            Furthermore, it creates another "div" and appends it to the
-            previous "div" in order to later style it into a UML lifeline.<br>
-            Finally, after very iteration, it will check whether or not the 
-            element being created is the last one or not.<br> If not, the function
-            will create another "div" and append it as a child of the main panel.
-            This is done to simplify the CSS layout.<br>
-            N.B: The three constant variables (see below) are used to change the name of the
-            classes of the elements in HTML. This has consequences at runtime and
-            within the CSS implementation, do not change this unless you know what
-            you are doing.<br>
-            <div style="border: solid black 1px; max-width:350px">
-                <code>
-                    const processDivClassName = "processes";<br>
-                    const betweenDivClassname = "betweenProcesses";<br>
-                    const lifelines = "lifeLine";<br></code>
-                </div>
-            </p>
-        </div>
-        <hr>
         <div style="margin-left: 40px">
             <h2>makeFrom(animator, i)</h2>
             <p style="max-width: 800px;">
