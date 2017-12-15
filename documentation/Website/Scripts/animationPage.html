@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>animationPage Socket Documentation</title>
+</head>
+<body>
+    <h1><a href="documentation.html">Back</a></h1>
+    <hr>
+    <h1>animationPage Socket Script</h1>
+    <div style="margin-left: 40px">
+        <h2>$restart.click(function (e))</h2>
+        <p style="max-width: 800px;">
+            Emits 'begin animation' to the server once clicked. The sever then responds by emitting 'begin animation'
+            to all clients, thus starting the animation process. The client that clicked the button is marked as a
+            submitter by changing the boolean isSubmitter to true.
+        </p>
+    </div>
+    <hr>
+    <div style="margin-left: 40px">
+        <h2>$SDbutton.click(function (e))</h2>
+        <p style="max-width: 800px;">
+            When clicked, and if the last diagram shown was not a Sequence Diagram, 'begin animation' is emitted
+            to the server to animate the Sequence Diagram.
+        </p>
+    </div>
+    <hr>
+    <div style="margin-left: 40px">
+        <h2>$CDbutton.click(function (e))</h2>
+        <p style="max-width: 800px;">
+            When clicked, and if the last diagram shown was not a Class Diagram, 'begin animation' is emitted
+            to the server to display the Class Diagram.
+        </p>
+    </div>
+    <hr>
+    <div style="margin-left: 40px">
+        <h2>$DDbutton.click(function (e))</h2>
+        <p style="max-width: 800px;">
+            When clicked, and if the last diagram shown was not a Deployment Diagram, 'begin animation' is emitted
+            to the server to display the Deployment Diagram.
+        </p>
+    </div>
+    <hr>
+    <div style="margin-left: 40px">
+        <h2>socket.on("begin animation", function (data, socketIds))</h2>
+        <p style="max-width: 800px;">
+            If a 'begin animation' emit is received from the server, outputAnimation() is called from animator.js to
+            start the animation process on this client. Data from the JSON uploaded is received as well as an array
+            of socket IDs.
+        </p>
+    </div>
+    <hr>
+    <div style="margin-left: 40px">
+        <h2>$nameTextArea.keydown(function(event))</h2>
+        <p style="max-width: 800px;">
+            Creates the same effect of clicking $nameButton by pressing the Enter key.
+        </p>
+    </div>
+    <hr>
+    <div style="margin-left: 40px">
+        <h2>$nameButton.click(function (e))</h2>
+        <p style="max-width: 800px;">
+            If $nameButton is clicked and the name is not empty, the user is shown the chat interface $chatArea.
+            'new user' is emitted to the server along with the name inputted by the user.
+        </p>
+    </div>
+    <hr>
+    <div style="margin-left: 40px">
+        <h2>$messageTextArea.keydown(function(event))</h2>
+        <p style="max-width: 800px;">
+            Creates the same effect of clicking $messageButton by pressing the Enter key.
+        </p>
+    </div>
+    <hr>
+    <div style="margin-left: 40px">
+        <h2>$messageButton.click(function (e))</h2>
+        <p style="max-width: 800px;">
+            Emits 'send message' with the value of the message to the server when clicked. $messageTextArea is emptied.
+        </p>
+    </div>
+    <hr>
+    <div style="margin-left: 40px">
+        <h2>socket.on('new message', function(data))</h2>
+        <p style="max-width: 800px;">
+            If a 'new message' emit is received, the data received with it is appended to the chat ($messageBox).
+            The data displays the message written by a client as well as that client's name.
+        </p>
+    </div>
+    <hr>
+    <div style="margin-left: 40px">
+        <h2>socket.on('arrow reply', function (data))</h2>
+        <p style="max-width: 800px;">
+            If an 'arrow reply' emit was received, then the server is informing this client to draw a new arrow
+            requested by the submitter.
+        </p>
+        <p style="max-width: 800px;">
+            The client first checks the objectIndex variable, if it is 0, then this client needs to make some decisions
+            about the processes of the Sequence Diagram before moving on to animating them. The client checks the
+            ID of each process and compares it to its own ID. If there is a match, the process is coloured black
+            to show that it is possessed by this client.
+        </p>
+        <p style="max-width: 800px;">
+            The client retrieves data about the arrow based on the JSON uploaded by the submitter and animates the arrow
+            based on the starting and ending pixel positions. This is done so that the client knows which arrow to draw:
+            an arrow going from left to right, an arrow going from right to left, or a self call arrow.
+        </p>
+        <p style="max-width: 800px;">
+            Lastly, the length of objectIndex is checked to see if this will be the last arrow to be requested from the
+            submitter. If so, isSubmitter boolean is changed to false for the submitter. A new submitter is chosen when
+            one of the clients chooses to start an animation.
+        </p>
+    </div>
+    <hr>
+    <div style="margin-left: 40px">
+        <h2>serverRequest()</h2>
+        <p style="max-width: 800px;">
+            This function is called in animator.js on every iteration of every arrow. Even though all clients call
+            this function, only the client that started the animation acts on it. Hence, the submitter emits
+            'arrow request' to the server which sends it to all clients to create the arrow.
+        </p>
+    </div>
+</body>
+</html>
