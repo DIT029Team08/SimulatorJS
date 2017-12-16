@@ -7,6 +7,7 @@ It supports three types of diagrams:
   - Class Diagrams
   - Deployment Diagrams
 
+A live version of the Simulator is available [here][server-url]
 # Main Features
 
   - Upload your diagrams using JSON Files
@@ -72,10 +73,4 @@ MIT
    [socket.io]: <https://github.com/socketio/socket.io>
    [node.js]: <https://github.com/nodejs>
    [express]: <https://github.com/expressjs/express>
-
-   [PlDb]: <https://github.com/joemccann/dillinger/tree/master/plugins/dropbox/README.md>
-   [PlGh]: <https://github.com/joemccann/dillinger/tree/master/plugins/github/README.md>
-   [PlGd]: <https://github.com/joemccann/dillinger/tree/master/plugins/googledrive/README.md>
-   [PlOd]: <https://github.com/joemccann/dillinger/tree/master/plugins/onedrive/README.md>
-   [PlMe]: <https://github.com/joemccann/dillinger/tree/master/plugins/medium/README.md>
-   [PlGa]: <https://github.com/RahulHP/dillinger/blob/master/plugins/googleanalytics/README.md>
+   [server-url]: <http://gunray.skip.chalmers.se:3000>
