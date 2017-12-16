@@ -49,11 +49,6 @@ function outputAnimation(animator, tmpSocketIds) {
             processDiv.className = "processDiv";
             mainDiv.appendChild(processDiv);
 
-            if (animator.processes.length > 9) {
-                alert("CAUTION, due to the extensive number of processes (ten or more), you may experience" +
-                    " an unstable animated output. Please return to the homepage and upload a new json file.");
-            }
-
             for (var i = 0; i < animator.processes.length; i++) {
 
                 createProcess(animator, i);
